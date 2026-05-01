@@ -9,6 +9,7 @@ A lightweight Chrome extension for tracking, managing, and analyzing job applica
 Job Application Tracker helps users record submitted job applications and manage their application history in one place. The extension stores data locally in the browser and provides tools for searching, filtering, sorting, importing, exporting, and deleting records.
 
 Version 2 expands the system with dashboard analytics and AI-assisted job information extraction while maintaining a fully local workflow without requiring a backend server.
+<img width="1046" height="751" alt="image" src="https://github.com/user-attachments/assets/4bf13823-45e9-4b46-b9ae-8070ee40a95a" />
 
 ---
 
