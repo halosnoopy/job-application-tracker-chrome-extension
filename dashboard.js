@@ -844,6 +844,19 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     });
 
+    [
+        statsTimeRange,
+        statsGroupBy,
+        statsJobFilter,
+        statsCompanyFilter,
+        statsPlatformFilter,
+        statsStatusFilter
+    ].forEach((filter) => {
+        filter.addEventListener("change", () => {
+            renderStats();
+        });
+    });
+
     exportBtn.addEventListener("click", exportCSV);
 
     batchDeleteBtn.addEventListener("click", async () => {
