@@ -10,109 +10,19 @@ This version is designed as a complete local workflow without requiring a backen
 
 ## Features
 
-### Application tracking
+### System reliability and data integrity
 
-Users can save job application records directly from the extension popup.
+The extension is designed with safeguards to ensure data consistency and prevent accidental data loss.
 
-Each record includes:
+Key mechanisms include:
 
-* Company
-* Job title
-* Platform
-* Status
-* Notes
-* Job URL
-* Submitted date
-* Unique application ID
+* Each job application is assigned a unique application ID to ensure stable identification across operations such as import, export, and updates
+* Confirmation dialogs are required before performing destructive actions such as batch deletion or resetting all records
+* Users are given the option to export data before performing a full reset
+* Duplicate detection is applied during CSV import using application ID or fallback matching logic
+* CSV parsing is implemented to handle quoted text, commas within fields, and missing values safely
 
-### Dashboard view
-
-The dashboard displays all saved applications in a table format.
-
-The dashboard includes:
-
-* Total application count
-* Record since date
-* Selected record count
-* Status summary
-* Search box
-* Status filter
-* Sort dropdown
-* Application table
-
-### Search and filtering
-
-Users can search records by company name or job title.
-
-Users can filter applications by status:
-
-* All statuses
-* Submitted
-* Interview
-* Rejected
-* Offer
-
-### Sorting
-
-Users can sort application records by:
-
-* Newest first
-* Oldest first
-* Company A-Z
-* Position A-Z
-* Platform A-Z
-
-### Batch delete
-
-The dashboard supports selecting one or multiple records using checkboxes.
-
-Users can:
-
-* Select individual rows
-* Select all visible rows
-* View selected count
-* Delete selected records with confirmation
-
-### Status summary
-
-The dashboard shows a basic status breakdown:
-
-* Submitted count
-* Interview count
-* Rejected count
-* Offer count
-
-### CSV export
-
-Users can export all saved records to a CSV file.
-
-The exported file includes:
-
-* Application ID
-* Date
-* Company
-* Job title
-* Platform
-* Status
-* Notes
-* URL
-
-The exported filename uses a timestamp format:
-
-```text
-job_application_record_at_<timestamp>.csv
-```
-
-### CSV import
-
-Users can import previously exported CSV files back into the extension.
-
-The import function supports:
-
-* Restoring saved records
-* Duplicate detection using application ID
-* Safe parsing for quoted values and commas
-* Fallback handling for missing fields
+These mechanisms ensure that user data remains consistent, recoverable, and protected during typical workflows.
 
 ## Tech stack
 
