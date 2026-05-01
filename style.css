@@ -1,0 +1,120 @@
+body {
+  width: 320px;
+  font-family: Arial, sans-serif;
+  padding: 12px;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 4px;
+  padding: 8px;
+}
+
+textarea {
+  height: 70px;
+}
+
+button {
+  width: 100%;
+  margin-top: 12px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#message {
+  color: green;
+  font-size: 14px;
+}
+
+.dashboard-page {
+  width: auto;
+  padding: 24px;
+}
+
+.dashboard-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+.dashboard-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.dashboard-actions button {
+  width: auto;
+  margin-top: 0;
+}
+
+.dashboard-stats {
+  text-align: right;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.status-stats {
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+}
+
+.dashboard-filters {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.dashboard-filters input,
+.dashboard-filters select {
+  width: auto;
+}
+
+.dashboard-page table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.dashboard-page th,
+.dashboard-page td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.dashboard-page th {
+  background-color: #f2f2f2;
+}
+
+.row-checkbox,
+#selectAllCheckbox {
+  width: auto;
+}
+
+#batchDeleteBtn {
+  background-color: #f3f3f3;
+}

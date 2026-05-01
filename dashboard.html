@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Job Application Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dashboard-page">
+  <h1>Job Application Dashboard</h1>
+
+  <div class="dashboard-top">
+    <div class="dashboard-actions">
+      <button id="exportBtn">Export CSV</button>
+      <button id="importBtn">Import CSV</button>
+      <input type="file" id="importFile" accept=".csv" style="display: none;">
+
+      <button id="batchDeleteBtn" disabled>Delete Selected</button>
+      <button id="resetBtn">Reset All Data</button>
+    </div>
+
+    <div class="dashboard-stats">
+      <div id="summary"></div>
+      <div id="recordSince"></div>
+      <div id="selectedCount">Selected: 0</div>
+    </div>
+  </div>
+
+  <div class="status-stats">
+    <div id="submittedCount">Submitted: 0</div>
+    <div id="interviewCount">Interview: 0</div>
+    <div id="rejectedCount">Rejected: 0</div>
+    <div id="offerCount">Offer: 0</div>
+  </div>
+
+  <div class="dashboard-filters">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search company or job title"
+    >
+
+    <select id="statusFilter">
+      <option value="All">All Statuses</option>
+      <option value="Submitted">Submitted</option>
+      <option value="Interview">Interview</option>
+      <option value="Rejected">Rejected</option>
+      <option value="Offer">Offer</option>
+    </select>
+
+    <select id="sortFilter">
+      <option value="newest">Newest first</option>
+      <option value="oldest">Oldest first</option>
+      <option value="company">Company A-Z</option>
+      <option value="position">Position A-Z</option>
+      <option value="platform">Platform A-Z</option>
+    </select>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>
+          <input type="checkbox" id="selectAllCheckbox">
+        </th>
+        <th>Date</th>
+        <th>Company</th>
+        <th>Job Title</th>
+        <th>Platform</th>
+        <th>Status</th>
+        <th>Notes</th>
+        <th>Link</th>
+      </tr>
+    </thead>
+
+    <tbody id="applicationTable"></tbody>
+  </table>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

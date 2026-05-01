@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Job Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Save Job Application</h2>
+
+  <label>Company</label>
+  <input type="text" id="company" placeholder="Company name">
+
+  <label>Job Title</label>
+  <input type="text" id="jobTitle" placeholder="Job title">
+
+  <label>Status</label>
+  <select id="status">
+    <option value="Submitted">Submitted</option>
+    <option value="Interview">Interview</option>
+    <option value="Rejected">Rejected</option>
+    <option value="Offer">Offer</option>
+  </select>
+
+  <label>Notes</label>
+  <textarea id="notes" placeholder="Optional notes"></textarea>
+
+  <button id="saveBtn">Save Application</button>
+  <button id="dashboardBtn">Open Dashboard</button>
+
+  <p id="message"></p>
+
+  <script src="popup.js"></script>
+</body>
+</html>
