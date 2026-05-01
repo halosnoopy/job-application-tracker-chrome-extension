@@ -1,6 +1,8 @@
 # Job Application Tracker Chrome Extension
 
 A lightweight Chrome extension for tracking, managing, and analyzing job applications locally through a dashboard interface.
+<img width="3756" height="917" alt="image" src="https://github.com/user-attachments/assets/ed21ed07-dc83-421f-94dc-0accfa486a2b" />
+
 
 ## Overview
 
