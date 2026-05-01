@@ -1,80 +1,202 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Job Application Dashboard</title>
-  <link rel="stylesheet" href="style.css">
+    <title>Job Application Dashboard</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="dashboard-page">
-  <h1>Job Application Dashboard</h1>
+    <div class="dashboard-header">
+        <h1>Job Application Dashboard</h1>
 
-  <div class="dashboard-top">
-    <div class="dashboard-actions">
-      <button id="exportBtn">Export CSV</button>
-      <button id="importBtn">Import CSV</button>
-      <input type="file" id="importFile" accept=".csv" style="display: none;">
+        <div class="dashboard-header-controls">
+            <div class="default-view-control">
+                <label for="defaultViewSelect">Default view</label>
+                <select id="defaultViewSelect">
+                    <option value="metadata">Metadata View</option>
+                    <option value="stats">Statistical Analysis</option>
+                </select>
+            </div>
 
-      <button id="batchDeleteBtn" disabled>Delete Selected</button>
-      <button id="resetBtn">Reset All Data</button>
+            <div class="view-toggle">
+                <button id="metadataViewBtn" class="toggle-option active-view">Metadata View</button>
+                <button id="statsViewBtn" class="toggle-option">Statistical Analysis</button>
+            </div>
+        </div>
     </div>
 
-    <div class="dashboard-stats">
-      <div id="summary"></div>
-      <div id="recordSince"></div>
-      <div id="selectedCount">Selected: 0</div>
-    </div>
-  </div>
+    <section id="metadataView">
+        <div class="dashboard-top">
+            <div class="dashboard-actions">
+                <button id="exportBtn">Export CSV</button>
+                <button id="importBtn">Import CSV</button>
+                <input type="file" id="importFile" accept=".csv" style="display: none;">
 
-  <div class="status-stats">
-    <div id="submittedCount">Submitted: 0</div>
-    <div id="interviewCount">Interview: 0</div>
-    <div id="rejectedCount">Rejected: 0</div>
-    <div id="offerCount">Offer: 0</div>
-  </div>
+                <button id="batchDeleteBtn" disabled>Delete Selected</button>
+                <button id="resetBtn">Reset All Data</button>
+            </div>
 
-  <div class="dashboard-filters">
-    <input
-      type="text"
-      id="searchInput"
-      placeholder="Search company or job title"
-    >
+            <div class="dashboard-stats">
+                <div id="summary"></div>
+                <div id="recordSince"></div>
+                <div id="selectedCount">Selected: 0</div>
+            </div>
+        </div>
 
-    <select id="statusFilter">
-      <option value="All">All Statuses</option>
-      <option value="Submitted">Submitted</option>
-      <option value="Interview">Interview</option>
-      <option value="Rejected">Rejected</option>
-      <option value="Offer">Offer</option>
-    </select>
+        <div class="status-stats">
+            <div id="submittedCount">Submitted: 0</div>
+            <div id="interviewCount">Interview: 0</div>
+            <div id="rejectedCount">Rejected: 0</div>
+            <div id="offerCount">Offer: 0</div>
+        </div>
 
-    <select id="sortFilter">
-      <option value="newest">Newest first</option>
-      <option value="oldest">Oldest first</option>
-      <option value="company">Company A-Z</option>
-      <option value="position">Position A-Z</option>
-      <option value="platform">Platform A-Z</option>
-    </select>
-  </div>
+        <div class="dashboard-filter-row">
+            <div class="dashboard-filters">
+                <input type="text" id="searchInput" placeholder="Search company or job title">
 
-  <table>
-    <thead>
-      <tr>
-        <th>
-          <input type="checkbox" id="selectAllCheckbox">
-        </th>
-        <th>Date</th>
-        <th>Company</th>
-        <th>Job Title</th>
-        <th>Platform</th>
-        <th>Status</th>
-        <th>Notes</th>
-        <th>Link</th>
-      </tr>
-    </thead>
+                <select id="statusFilter">
+                    <option value="All">All Statuses</option>
+                    <option value="Submitted">Submitted</option>
+                    <option value="Interview">Interview</option>
+                    <option value="Rejected">Rejected</option>
+                    <option value="Offer">Offer</option>
+                </select>
 
-    <tbody id="applicationTable"></tbody>
-  </table>
+                <select id="sortFilter">
+                    <option value="newest">Newest first</option>
+                    <option value="oldest">Oldest first</option>
+                    <option value="company">Company A-Z</option>
+                    <option value="position">Position A-Z</option>
+                    <option value="platform">Platform A-Z</option>
+                </select>
 
-  <script src="dashboard.js"></script>
+                <select id="pageSizeSelect">
+                    <option value="30">30 per page</option>
+                    <option value="50" selected>50 per page</option>
+                    <option value="100">100 per page</option>
+                    <option value="200">200 per page</option>
+                </select>
+            </div>
+
+            <div class="pagination-top-right">
+                <button id="bottomPrevPageBtn">&lt;</button>
+                <span id="topPageInfo">Page 1 of 1</span>
+                <button id="bottomNextPageBtn">&gt;</button>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        <label class="select-page-label">
+                            <input type="checkbox" id="selectAllCheckbox">
+                            Select All
+                        </label>
+                    </th>
+                    <th>Date</th>
+                    <th>Company</th>
+                    <th>Job Title</th>
+                    <th>Platform</th>
+                    <th>Status</th>
+                    <th>Notes</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+
+            <tbody id="applicationTable"></tbody>
+        </table>
+
+        <div class="pagination-bar">
+            <div class="pagination-left">
+                <button id="prevPageBtn">&lt;</button>
+                <span id="pageInfo">Page 1 of 1</span>
+                <button id="nextPageBtn">&gt;</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="statsView" style="display: none;">
+        <div class="stats-control-bar">
+            <div class="stats-filters">
+                <select id="statsTimeRange">
+                    <option value="all">All time</option>
+                    <option value="7">Last 7 days</option>
+                    <option value="30">Last 30 days</option>
+                    <option value="90">Last 3 months</option>
+                    <option value="365">This year</option>
+                </select>
+
+                <select id="statsGroupBy">
+                    <option value="day">Group by day</option>
+                    <option value="week" selected>Group by week</option>
+                    <option value="month">Group by month</option>
+                </select>
+
+                <select id="statsJobFilter">
+                    <option value="All">All jobs</option>
+                </select>
+
+                <select id="statsCompanyFilter">
+                    <option value="All">All companies</option>
+                </select>
+
+                <select id="statsPlatformFilter">
+                    <option value="All">All platforms</option>
+                </select>
+
+                <select id="statsStatusFilter">
+                    <option value="All">All statuses</option>
+                    <option value="Submitted">Submitted</option>
+                    <option value="Interview">Interview</option>
+                    <option value="Rejected">Rejected</option>
+                    <option value="Offer">Offer</option>
+                </select>
+            </div>
+
+            <div id="statsShowingLabel" class="stats-showing-label">
+                Showing: All time
+            </div>
+        </div>
+
+        <div class="stats-top-grid">
+            <div class="stats-card stats-card-wide">
+                <h2>Application Trend</h2>
+                <canvas id="applicationTrendChart"></canvas>
+            </div>
+
+            <div class="stats-card stats-card-narrow">
+                <h2>Status Trend</h2>
+                <canvas id="statusTrendChart"></canvas>
+            </div>
+        </div>
+
+        <div class="stats-bottom-grid">
+            <div class="stats-card position-status-card">
+                <h2>Position Status</h2>
+                <canvas id="positionStatusChart"></canvas>
+            </div>
+
+            <div class="stats-card">
+                <h2>Status Distribution</h2>
+                <canvas id="statusChart"></canvas>
+            </div>
+
+            <div class="stats-card">
+                <h2>Job Titles</h2>
+                <canvas id="jobTitleChart"></canvas>
+            </div>
+
+            <div class="stats-card">
+                <h2>Company Distribution</h2>
+                <canvas id="companyChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <script src="chart.umd.min.js"></script>
+    <script src="dashboard.js"></script>
 </body>
+
 </html>

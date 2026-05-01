@@ -1,17 +1,40 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Job Tracker</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <h2>Save Job Application</h2>
 
-  <label>Company</label>
-  <input type="text" id="company" placeholder="Company name">
+  <div class="popup-row three-col">
+    <div>
+      <label>Company</label>
+      <input type="text" id="company" placeholder="Company name">
+    </div>
 
-  <label>Job Title</label>
-  <input type="text" id="jobTitle" placeholder="Job title">
+    <div>
+      <label>Job Title</label>
+      <input type="text" id="jobTitle" placeholder="Job title">
+    </div>
+
+    <div>
+      <label>Platform</label>
+      <select id="platform">
+        <option value="LinkedIn">LinkedIn</option>
+        <option value="Workday">Workday</option>
+        <option value="Greenhouse">Greenhouse</option>
+        <option value="Lever">Lever</option>
+        <option value="Indeed">Indeed</option>
+        <option value="Company Website">Company Website</option>
+        <option value="Ashby">Ashby</option>
+        <option value="Gem">Gem</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+  </div>
 
   <label>Status</label>
   <select id="status">
@@ -24,11 +47,19 @@
   <label>Notes</label>
   <textarea id="notes" placeholder="Optional notes"></textarea>
 
-  <button id="saveBtn">Save Application</button>
-  <button id="dashboardBtn">Open Dashboard</button>
+  <input type="hidden" id="extractedUrl">
+
+  <div class="extract-actions">
+    <button id="extractBtn">Local Extract</button>
+    <button id="aiExtractBtn">AI Extract</button>
+  </div>
+
+  <button id="saveBtn" class="primary-btn">Save Application</button>
+  <button id="dashboardBtn" class="secondary-btn">Open Dashboard</button>
 
   <p id="message"></p>
 
   <script src="popup.js"></script>
 </body>
+
 </html>

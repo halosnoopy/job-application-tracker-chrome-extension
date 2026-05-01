@@ -20,15 +20,107 @@ document.addEventListener("DOMContentLoaded", async () => {
     const sortFilter = document.getElementById("sortFilter");
     const selectAllCheckbox = document.getElementById("selectAllCheckbox");
 
-    const result = await chrome.storage.local.get(["applications"]);
+    const pageSizeSelect = document.getElementById("pageSizeSelect");
+    const prevPageBtn = document.getElementById("prevPageBtn");
+    const nextPageBtn = document.getElementById("nextPageBtn");
+    const pageInfo = document.getElementById("pageInfo");
+    const bottomPrevPageBtn = document.getElementById("bottomPrevPageBtn");
+    const bottomNextPageBtn = document.getElementById("bottomNextPageBtn");
+
+    const metadataView = document.getElementById("metadataView");
+    const statsView = document.getElementById("statsView");
+    const metadataViewBtn = document.getElementById("metadataViewBtn");
+    const statsViewBtn = document.getElementById("statsViewBtn");
+
+    const statsTimeRange = document.getElementById("statsTimeRange");
+    const statsGroupBy = document.getElementById("statsGroupBy");
+    const statsJobFilter = document.getElementById("statsJobFilter");
+    const statsCompanyFilter = document.getElementById("statsCompanyFilter");
+    const statsPlatformFilter = document.getElementById("statsPlatformFilter");
+    const statsStatusFilter = document.getElementById("statsStatusFilter");
+    const statsShowingLabel = document.getElementById("statsShowingLabel");
+
+    const defaultViewSelect = document.getElementById("defaultViewSelect");
+
+    const topPageInfo = document.getElementById("topPageInfo");
+
+
+    let currentPage = 1;
+
+    let applicationTrendChart = null;
+    let statusTrendChart = null;
+    let positionStatusChart = null;
+    let jobTitleChart = null;
+    let statusChart = null;
+    let companyChart = null;
+
+    const statusColors = {
+        Submitted: "#4e79a7",
+        Interview: "#f28e2b",
+        Rejected: "#e15759",
+        Offer: "#59a14f"
+    };
+
+    const chartColors = [
+        "#4e79a7",
+        "#f28e2b",
+        "#e15759",
+        "#59a14f",
+        "#76b7b2",
+        "#bab0ab",
+        "#edc949"
+    ];
+
+    const result = await chrome.storage.local.get([
+        "applications",
+        "defaultDashboardView"
+    ]);
+
     let applications = result.applications || [];
+    let defaultDashboardView = result.defaultDashboardView || "metadata";
+
+    if (defaultDashboardView !== "metadata" && defaultDashboardView !== "stats") {
+        defaultDashboardView = "metadata";
+    }
+
+    defaultViewSelect.value = defaultDashboardView;
 
     renderDashboard();
+    populateStatsFilters();
+    switchView(defaultDashboardView);
+
+    function shortenLabel(label, maxLength = 18) {
+        if (!label) return "Other";
+        return label.length > maxLength ? label.slice(0, maxLength) + "..." : label;
+    }
+
+    function switchView(view) {
+        if (view === "metadata") {
+            metadataView.style.display = "block";
+            statsView.style.display = "none";
+
+            metadataViewBtn.classList.add("active-view");
+            statsViewBtn.classList.remove("active-view");
+        } else {
+            metadataView.style.display = "none";
+            statsView.style.display = "block";
+
+            metadataViewBtn.classList.remove("active-view");
+            statsViewBtn.classList.add("active-view");
+
+            renderStats();
+        }
+    }
 
     function updateSelectedCount() {
         const checkedBoxes = document.querySelectorAll(".row-checkbox:checked");
         selectedCount.textContent = `Selected: ${checkedBoxes.length}`;
         batchDeleteBtn.disabled = checkedBoxes.length === 0;
+
+        const visibleCheckboxes = document.querySelectorAll(".row-checkbox");
+        selectAllCheckbox.checked =
+            visibleCheckboxes.length > 0 &&
+            checkedBoxes.length === visibleCheckboxes.length;
     }
 
     function renderStatusStats() {
@@ -61,26 +153,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const visibleApplications = [...applications]
             .sort((a, b) => {
-                if (sortType === "newest") {
-                    return new Date(b.dateSubmitted) - new Date(a.dateSubmitted);
-                }
-
-                if (sortType === "oldest") {
-                    return new Date(a.dateSubmitted) - new Date(b.dateSubmitted);
-                }
-
-                if (sortType === "company") {
-                    return (a.company || "").localeCompare(b.company || "");
-                }
-
-                if (sortType === "position") {
-                    return (a.jobTitle || "").localeCompare(b.jobTitle || "");
-                }
-
-                if (sortType === "platform") {
-                    return (a.platform || "").localeCompare(b.platform || "");
-                }
-
+                if (sortType === "newest") return new Date(b.dateSubmitted) - new Date(a.dateSubmitted);
+                if (sortType === "oldest") return new Date(a.dateSubmitted) - new Date(b.dateSubmitted);
+                if (sortType === "company") return (a.company || "").localeCompare(b.company || "");
+                if (sortType === "position") return (a.jobTitle || "").localeCompare(b.jobTitle || "");
+                if (sortType === "platform") return (a.platform || "").localeCompare(b.platform || "");
                 return 0;
             })
             .filter((app) => {
@@ -94,31 +171,50 @@ document.addEventListener("DOMContentLoaded", async () => {
                 return matchesSearch && matchesStatus;
             });
 
+        const pageSize = Number(pageSizeSelect.value);
+        const totalPages = Math.max(1, Math.ceil(visibleApplications.length / pageSize));
+
+        if (currentPage > totalPages) {
+            currentPage = totalPages;
+        }
+
+        const startIndex = (currentPage - 1) * pageSize;
+        const endIndex = startIndex + pageSize;
+        const pagedApplications = visibleApplications.slice(startIndex, endIndex);
+
+        pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+        topPageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+        prevPageBtn.disabled = currentPage === 1;
+        nextPageBtn.disabled = currentPage === totalPages;
+
+        bottomPrevPageBtn.disabled = currentPage === 1;
+        bottomNextPageBtn.disabled = currentPage === totalPages;
+
         table.innerHTML = "";
 
-        visibleApplications.forEach((app) => {
+        pagedApplications.forEach((app) => {
             const row = document.createElement("tr");
             const date = new Date(app.dateSubmitted).toLocaleDateString();
 
             row.innerHTML = `
-        <td>
-          <input type="checkbox" class="row-checkbox" data-id="${app.id}">
-        </td>
-        <td>${date}</td>
-        <td>${app.company || ""}</td>
-        <td>${app.jobTitle || ""}</td>
-        <td>${app.platform || "Other"}</td>
-        <td>
-          <select class="status-select" data-id="${app.id}">
-            <option value="Submitted" ${app.status === "Submitted" ? "selected" : ""}>Submitted</option>
-            <option value="Interview" ${app.status === "Interview" ? "selected" : ""}>Interview</option>
-            <option value="Rejected" ${app.status === "Rejected" ? "selected" : ""}>Rejected</option>
-            <option value="Offer" ${app.status === "Offer" ? "selected" : ""}>Offer</option>
-          </select>
-        </td>
-        <td>${app.notes || ""}</td>
-        <td><a href="${app.url || "#"}" target="_blank">Open</a></td>
-      `;
+                <td>
+                    <input type="checkbox" class="row-checkbox" data-id="${app.id}">
+                </td>
+                <td>${date}</td>
+                <td>${app.company || ""}</td>
+                <td>${app.jobTitle || ""}</td>
+                <td>${app.platform || "Other"}</td>
+                <td>
+                    <select class="status-select" data-id="${app.id}">
+                        <option value="Submitted" ${app.status === "Submitted" ? "selected" : ""}>Submitted</option>
+                        <option value="Interview" ${app.status === "Interview" ? "selected" : ""}>Interview</option>
+                        <option value="Rejected" ${app.status === "Rejected" ? "selected" : ""}>Rejected</option>
+                        <option value="Offer" ${app.status === "Offer" ? "selected" : ""}>Offer</option>
+                    </select>
+                </td>
+                <td>${app.notes || ""}</td>
+                <td><a href="${app.url || "#"}" target="_blank">Open</a></td>
+            `;
 
             table.appendChild(row);
         });
@@ -134,6 +230,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 await chrome.storage.local.set({ applications });
                 renderDashboard();
+                populateStatsFilters();
+
+                if (statsView.style.display !== "none") {
+                    renderStats();
+                }
             });
         });
 
@@ -143,6 +244,420 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         selectAllCheckbox.checked = false;
         updateSelectedCount();
+    }
+
+    function populateStatsFilters() {
+        populateSelect(statsJobFilter, "All jobs", getUniqueValues("jobTitle"));
+        populateSelect(statsCompanyFilter, "All companies", getUniqueValues("company"));
+        populateSelect(statsPlatformFilter, "All platforms", getUniqueValues("platform"));
+    }
+
+    function populateSelect(selectElement, defaultText, values) {
+        if (!selectElement) return;
+
+        const currentValue = selectElement.value;
+        selectElement.innerHTML = `<option value="All">${defaultText}</option>`;
+
+        values.forEach((value) => {
+            const option = document.createElement("option");
+            option.value = value;
+            option.textContent = value;
+            selectElement.appendChild(option);
+        });
+
+        if ([...selectElement.options].some((option) => option.value === currentValue)) {
+            selectElement.value = currentValue;
+        }
+    }
+
+    function getUniqueValues(field) {
+        return [...new Set(applications.map((app) => app[field] || "Other"))]
+            .filter(Boolean)
+            .sort((a, b) => a.localeCompare(b));
+    }
+
+    function getFilteredStatsApplications() {
+        const now = new Date();
+        const range = statsTimeRange.value;
+
+        return applications.filter((app) => {
+            const appDate = new Date(app.dateSubmitted);
+            let matchesTime = true;
+
+            if (range !== "all") {
+                const days = Number(range);
+                const startDate = new Date();
+                startDate.setDate(now.getDate() - days);
+                matchesTime = appDate >= startDate;
+            }
+
+            const matchesJob =
+                statsJobFilter.value === "All" || app.jobTitle === statsJobFilter.value;
+
+            const matchesCompany =
+                statsCompanyFilter.value === "All" || app.company === statsCompanyFilter.value;
+
+            const matchesPlatform =
+                statsPlatformFilter.value === "All" || (app.platform || "Other") === statsPlatformFilter.value;
+
+            const matchesStatus =
+                statsStatusFilter.value === "All" || app.status === statsStatusFilter.value;
+
+            return matchesTime && matchesJob && matchesCompany && matchesPlatform && matchesStatus;
+        });
+    }
+
+    function getDateKey(date, groupBy) {
+        const d = new Date(date);
+
+        if (groupBy === "day") {
+            return d.toISOString().slice(0, 10);
+        }
+
+        if (groupBy === "week") {
+            const weekStart = new Date(d);
+            const day = weekStart.getDay();
+            weekStart.setDate(weekStart.getDate() - day);
+            return weekStart.toISOString().slice(0, 10);
+        }
+
+        if (groupBy === "month") {
+            return d.toISOString().slice(0, 7);
+        }
+
+        return d.toISOString().slice(0, 10);
+    }
+
+    function countBy(items, keyGetter) {
+        return items.reduce((counts, item) => {
+            const key = keyGetter(item) || "Other";
+            counts[key] = (counts[key] || 0) + 1;
+            return counts;
+        }, {});
+    }
+
+    function getTopNWithOther(counts, topN) {
+        const entries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+        const topEntries = entries.slice(0, topN);
+        const otherEntries = entries.slice(topN);
+
+        const result = Object.fromEntries(topEntries);
+        const otherTotal = otherEntries.reduce((sum, [, value]) => sum + value, 0);
+
+        if (otherTotal > 0) {
+            result.Other = otherTotal;
+        }
+
+        return result;
+    }
+
+    function destroyChart(chart) {
+        if (chart) {
+            chart.destroy();
+        }
+    }
+
+    function getLegendWithCounts() {
+        return {
+            labels: {
+                boxWidth: 14,
+                boxHeight: 10,
+                padding: 10,
+                font: {
+                    size: 11
+                },
+                generateLabels(chart) {
+                    const data = chart.data;
+                    const dataset = data.datasets[0];
+
+                    return data.labels.map((label, index) => {
+                        const value = dataset.data[index];
+                        const color = Array.isArray(dataset.backgroundColor)
+                            ? dataset.backgroundColor[index]
+                            : dataset.backgroundColor;
+
+                        return {
+                            text: `${shortenLabel(label, 14)} (${value})`,
+                            fillStyle: color,
+                            strokeStyle: color,
+                            lineWidth: 1,
+                            hidden: false,
+                            index
+                        };
+                    });
+                }
+            }
+        };
+    }
+
+    function renderStats() {
+        if (typeof Chart === "undefined") {
+            statsShowingLabel.textContent = "Statistics view loaded, but chart.umd.min.js is missing.";
+            return;
+        }
+
+        const filteredApps = getFilteredStatsApplications();
+        const groupBy = statsGroupBy.value;
+
+        statsShowingLabel.textContent =
+            `Showing: ${getTimeRangeLabel()} | Group by ${groupBy} (${filteredApps.length} applications)`;
+
+        renderApplicationTrendChart(filteredApps, groupBy);
+        renderStatusTrendChart(filteredApps, groupBy);
+        renderPositionStatusChart(filteredApps);
+        renderStatusChart(filteredApps);
+        renderJobTitleChart(filteredApps);
+        renderCompanyChart(filteredApps);
+    }
+
+    function getTimeRangeLabel() {
+        if (statsTimeRange.value === "all") return "All time";
+        if (statsTimeRange.value === "7") return "Last 7 days";
+        if (statsTimeRange.value === "30") return "Last 30 days";
+        if (statsTimeRange.value === "90") return "Last 3 months";
+        if (statsTimeRange.value === "365") return "This year";
+        return "Selected range";
+    }
+
+    function renderApplicationTrendChart(filteredApps, groupBy) {
+        const grouped = countBy(filteredApps, (app) => getDateKey(app.dateSubmitted, groupBy));
+        const labels = Object.keys(grouped).sort();
+        const data = labels.map((label) => grouped[label]);
+
+        destroyChart(applicationTrendChart);
+
+        applicationTrendChart = new Chart(document.getElementById("applicationTrendChart"), {
+            type: "bar",
+            data: {
+                labels,
+                datasets: [
+                    {
+                        label: "Applications",
+                        data,
+                        backgroundColor: "#4e79a7"
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function renderStatusTrendChart(filteredApps, groupBy) {
+        const statuses = ["Submitted", "Interview", "Rejected", "Offer"];
+        const labels = [...new Set(filteredApps.map((app) => getDateKey(app.dateSubmitted, groupBy)))].sort();
+
+        const datasets = statuses.map((status) => ({
+            label: status,
+            data: labels.map((label) =>
+                filteredApps.filter((app) =>
+                    getDateKey(app.dateSubmitted, groupBy) === label && app.status === status
+                ).length
+            ),
+            backgroundColor: statusColors[status]
+        }));
+
+        destroyChart(statusTrendChart);
+
+        statusTrendChart = new Chart(document.getElementById("statusTrendChart"), {
+            type: "bar",
+            data: {
+                labels,
+                datasets
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: "bottom"
+                    }
+                },
+                scales: {
+                    x: {
+                        stacked: true
+                    },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function renderPositionStatusChart(filteredApps) {
+        const statuses = ["Submitted", "Interview", "Rejected", "Offer"];
+        const titleCounts = countBy(filteredApps, (app) => app.jobTitle || "Other");
+        const topTitles = Object.keys(getTopNWithOther(titleCounts, 5));
+
+        const datasets = statuses.map((status) => ({
+            label: status,
+            data: topTitles.map((title) => {
+                if (title === "Other") {
+                    return filteredApps.filter((app) => {
+                        const appTitle = app.jobTitle || "Other";
+                        return !topTitles.includes(appTitle) && app.status === status;
+                    }).length;
+                }
+
+                return filteredApps.filter((app) =>
+                    (app.jobTitle || "Other") === title && app.status === status
+                ).length;
+            }),
+            backgroundColor: statusColors[status]
+        }));
+
+        destroyChart(positionStatusChart);
+
+        positionStatusChart = new Chart(document.getElementById("positionStatusChart"), {
+            type: "bar",
+            data: {
+                labels: topTitles.map((title) => shortenLabel(title, 14)),
+                datasets
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: "bottom"
+                    }
+                },
+                scales: {
+                    x: {
+                        stacked: true,
+                        ticks: {
+                            maxRotation: 35,
+                            minRotation: 20
+                        }
+                    },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function renderStatusChart(filteredApps) {
+        const counts = countBy(filteredApps, (app) => app.status || "Submitted");
+
+        destroyChart(statusChart);
+
+        statusChart = new Chart(document.getElementById("statusChart"), {
+            type: "doughnut",
+            data: {
+                labels: Object.keys(counts),
+                datasets: [
+                    {
+                        data: Object.values(counts),
+                        backgroundColor: Object.keys(counts).map((status) => statusColors[status] || "#bab0ab")
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                aspectRatio: 1,
+                cutout: "52%",
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: "bottom",
+                        ...getLegendWithCounts()
+                    }
+                }
+            }
+        });
+    }
+
+    function renderJobTitleChart(filteredApps) {
+        const counts = countBy(filteredApps, (app) => app.jobTitle || "Other");
+        const topCounts = getTopNWithOther(counts, 5);
+
+        destroyChart(jobTitleChart);
+
+        jobTitleChart = new Chart(document.getElementById("jobTitleChart"), {
+            type: "doughnut",
+            data: {
+                labels: Object.keys(topCounts),
+                datasets: [
+                    {
+                        data: Object.values(topCounts),
+                        backgroundColor: chartColors
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                aspectRatio: 1,
+                cutout: "52%",
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: "bottom",
+                        ...getLegendWithCounts()
+                    }
+                }
+            }
+        });
+    }
+
+    function renderCompanyChart(filteredApps) {
+        const counts = countBy(filteredApps, (app) => app.company || "Other");
+        const topCounts = getTopNWithOther(counts, 5);
+
+        destroyChart(companyChart);
+
+        companyChart = new Chart(document.getElementById("companyChart"), {
+            type: "doughnut",
+            data: {
+                labels: Object.keys(topCounts),
+                datasets: [
+                    {
+                        data: Object.values(topCounts),
+                        backgroundColor: chartColors
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                aspectRatio: 1,
+                cutout: "52%",
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: "bottom",
+                        ...getLegendWithCounts()
+                    }
+                }
+            }
+        });
     }
 
     function exportCSV() {
@@ -184,6 +699,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const a = document.createElement("a");
         a.href = url;
+
         const timestamp = new Date()
             .toISOString()
             .replace(/[:.]/g, "-");
@@ -260,9 +776,49 @@ document.addEventListener("DOMContentLoaded", async () => {
             .filter((app) => app.company && app.jobTitle);
     }
 
-    searchInput.addEventListener("input", renderDashboard);
-    statusFilter.addEventListener("change", renderDashboard);
-    sortFilter.addEventListener("change", renderDashboard);
+    searchInput.addEventListener("input", () => {
+        currentPage = 1;
+        renderDashboard();
+    });
+
+    statusFilter.addEventListener("change", () => {
+        currentPage = 1;
+        renderDashboard();
+    });
+
+    sortFilter.addEventListener("change", () => {
+        currentPage = 1;
+        renderDashboard();
+    });
+
+    pageSizeSelect.addEventListener("change", () => {
+        currentPage = 1;
+        renderDashboard();
+    });
+
+    prevPageBtn.addEventListener("click", () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderDashboard();
+        }
+    });
+
+    nextPageBtn.addEventListener("click", () => {
+        currentPage++;
+        renderDashboard();
+    });
+
+    bottomPrevPageBtn.addEventListener("click", () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderDashboard();
+        }
+    });
+
+    bottomNextPageBtn.addEventListener("click", () => {
+        currentPage++;
+        renderDashboard();
+    });
 
     selectAllCheckbox.addEventListener("change", () => {
         document.querySelectorAll(".row-checkbox").forEach((checkbox) => {
@@ -270,6 +826,22 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
         updateSelectedCount();
+    });
+
+    metadataViewBtn.addEventListener("click", () => {
+        switchView("metadata");
+    });
+
+    statsViewBtn.addEventListener("click", () => {
+        switchView("stats");
+    });
+
+    defaultViewSelect.addEventListener("change", async () => {
+        const selectedDefaultView = defaultViewSelect.value;
+
+        await chrome.storage.local.set({
+            defaultDashboardView: selectedDefaultView
+        });
     });
 
     exportBtn.addEventListener("click", exportCSV);
@@ -296,6 +868,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         await chrome.storage.local.set({ applications });
         renderDashboard();
+        populateStatsFilters();
+
+        if (statsView.style.display !== "none") {
+            renderStats();
+        }
 
         alert("Selected application(s) deleted.");
     });
@@ -350,7 +927,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         applications = [...applications, ...uniqueImportedApplications];
 
         await chrome.storage.local.set({ applications });
+        currentPage = 1;
         renderDashboard();
+        populateStatsFilters();
+
+        if (statsView.style.display !== "none") {
+            renderStats();
+        }
 
         alert(
             `Import complete. Added ${uniqueImportedApplications.length} new records. Skipped ${duplicateCount} duplicates.`
@@ -383,7 +966,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         applications = [];
         await chrome.storage.local.set({ applications });
+        currentPage = 1;
         renderDashboard();
+        populateStatsFilters();
+
+        if (statsView.style.display !== "none") {
+            renderStats();
+        }
 
         alert("All records have been reset.");
     });
