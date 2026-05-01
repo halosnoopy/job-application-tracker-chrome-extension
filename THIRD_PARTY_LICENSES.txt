@@ -1,0 +1,5 @@
+## License
+
+MIT License
+
+This project uses Chart.js, which is also licensed under the MIT License. The Chart.js license notice is included in `THIRD_PARTY_LICENSES.txt`.
