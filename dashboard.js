@@ -12,6 +12,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const exportBtn = document.getElementById("exportBtn");
     const importBtn = document.getElementById("importBtn");
     const importFile = document.getElementById("importFile");
+    const driveBackupBtn = document.getElementById("driveBackupBtn");
+    const driveRestoreBtn = document.getElementById("driveRestoreBtn");
+    const driveDeleteBtn = document.getElementById("driveDeleteBtn");
     const batchDeleteBtn = document.getElementById("batchDeleteBtn");
     const resetBtn = document.getElementById("resetBtn");
 
@@ -55,21 +58,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     let companyChart = null;
 
     const statusColors = {
-        Submitted: "#4e79a7",
-        Interview: "#f28e2b",
-        Rejected: "#e15759",
-        Offer: "#59a14f"
+        Submitted: "#0a84ff",
+        Interview: "#ff9f0a",
+        Rejected: "#ff453a",
+        Offer: "#30d158"
     };
 
     const chartColors = [
-        "#4e79a7",
-        "#f28e2b",
-        "#e15759",
-        "#59a14f",
-        "#76b7b2",
-        "#bab0ab",
-        "#edc949"
+        "#0a84ff",
+        "#30d158",
+        "#ff9f0a",
+        "#bf5af2",
+        "#64d2ff",
+        "#ff375f",
+        "#8e8e93"
     ];
+
+    const DRIVE_BACKUP_FILE_NAME = "job-application-tracker-backup.json";
 
     const result = await chrome.storage.local.get([
         "applications",
@@ -128,6 +133,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         const interview = applications.filter((app) => app.status === "Interview").length;
         const rejected = applications.filter((app) => app.status === "Rejected").length;
         const offer = applications.filter((app) => app.status === "Offer").length;
+
+        submittedCount.className = "status-summary status-submitted";
+        interviewCount.className = "status-summary status-interview";
+        rejectedCount.className = "status-summary status-rejected";
+        offerCount.className = "status-summary status-offer";
 
         submittedCount.textContent = `Submitted: ${submitted}`;
         interviewCount.textContent = `Interview: ${interview}`;
@@ -205,7 +215,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <td>${app.jobTitle || ""}</td>
                 <td>${app.platform || "Other"}</td>
                 <td>
-                    <select class="status-select" data-id="${app.id}">
+                    <select class="status-select status-${String(app.status || "Submitted").toLowerCase()}" data-id="${app.id}">
                         <option value="Submitted" ${app.status === "Submitted" ? "selected" : ""}>Submitted</option>
                         <option value="Interview" ${app.status === "Interview" ? "selected" : ""}>Interview</option>
                         <option value="Rejected" ${app.status === "Rejected" ? "selected" : ""}>Rejected</option>
@@ -776,6 +786,141 @@ document.addEventListener("DOMContentLoaded", async () => {
             .filter((app) => app.company && app.jobTitle);
     }
 
+    function getGoogleAuthToken(interactive = true) {
+        return new Promise((resolve, reject) => {
+            chrome.identity.getAuthToken({ interactive }, (token) => {
+                if (chrome.runtime.lastError || !token) {
+                    reject(new Error(chrome.runtime.lastError?.message || "Google sign-in failed."));
+                    return;
+                }
+
+                resolve(token);
+            });
+        });
+    }
+
+    async function driveFetch(token, url, options = {}) {
+        const response = await fetch(url, {
+            ...options,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                ...(options.headers || {})
+            }
+        });
+
+        if (!response.ok) {
+            const message = await response.text();
+            throw new Error(message || `Google Drive request failed (${response.status}).`);
+        }
+
+        return response;
+    }
+
+    async function findDriveBackupFile(token) {
+        const query = encodeURIComponent(
+            `name='${DRIVE_BACKUP_FILE_NAME}' and trashed=false`
+        );
+        const url =
+            `https://www.googleapis.com/drive/v3/files?q=${query}` +
+            "&spaces=drive&fields=files(id,name,webViewLink,modifiedTime)&pageSize=10";
+
+        const response = await driveFetch(token, url);
+        const data = await response.json();
+
+        return data.files?.[0] || null;
+    }
+
+    function createBackupPayload() {
+        return {
+            app: "Job Application Tracker",
+            schemaVersion: 1,
+            exportedAt: new Date().toISOString(),
+            applications
+        };
+    }
+
+    function createMultipartBody(metadata, payload) {
+        const boundary = "job_tracker_backup_boundary";
+        const delimiter = `\r\n--${boundary}\r\n`;
+        const closeDelimiter = `\r\n--${boundary}--`;
+
+        const body =
+            delimiter +
+            "Content-Type: application/json; charset=UTF-8\r\n\r\n" +
+            JSON.stringify(metadata) +
+            delimiter +
+            "Content-Type: application/json; charset=UTF-8\r\n\r\n" +
+            JSON.stringify(payload, null, 2) +
+            closeDelimiter;
+
+        return { boundary, body };
+    }
+
+    async function uploadDriveBackup(token, existingFileId) {
+        const metadata = {
+            name: DRIVE_BACKUP_FILE_NAME,
+            mimeType: "application/json"
+        };
+        const payload = createBackupPayload();
+        const { boundary, body } = createMultipartBody(metadata, payload);
+
+        const url = existingFileId
+            ? `https://www.googleapis.com/upload/drive/v3/files/${existingFileId}?uploadType=multipart&fields=id,name,webViewLink,modifiedTime`
+            : "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name,webViewLink,modifiedTime";
+
+        const response = await driveFetch(token, url, {
+            method: existingFileId ? "PATCH" : "POST",
+            headers: {
+                "Content-Type": `multipart/related; boundary=${boundary}`
+            },
+            body
+        });
+
+        return response.json();
+    }
+
+    async function downloadDriveBackup(token, fileId) {
+        const response = await driveFetch(
+            token,
+            `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`
+        );
+
+        return response.json();
+    }
+
+    async function deleteDriveBackup(token, fileId) {
+        await driveFetch(token, `https://www.googleapis.com/drive/v3/files/${fileId}`, {
+            method: "DELETE"
+        });
+    }
+
+    function normalizeBackupApplications(payload) {
+        if (Array.isArray(payload)) {
+            return payload;
+        }
+
+        if (Array.isArray(payload?.applications)) {
+            return payload.applications;
+        }
+
+        return [];
+    }
+
+    function mergeApplications(importedApplications) {
+        const existingKeys = new Set(applications.map(getDuplicateKey));
+        const uniqueApplications = importedApplications.filter((app) => {
+            const key = getDuplicateKey(app);
+            return !existingKeys.has(key);
+        });
+
+        applications = [...applications, ...uniqueApplications];
+
+        return {
+            added: uniqueApplications.length,
+            skipped: importedApplications.length - uniqueApplications.length
+        };
+    }
+
     searchInput.addEventListener("input", () => {
         currentPage = 1;
         renderDashboard();
@@ -858,6 +1003,128 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     exportBtn.addEventListener("click", exportCSV);
+
+    driveBackupBtn.addEventListener("click", async () => {
+        if (applications.length === 0) {
+            alert("No data to back up.");
+            return;
+        }
+
+        driveBackupBtn.disabled = true;
+        driveBackupBtn.textContent = "Backing up...";
+
+        try {
+            const token = await getGoogleAuthToken(true);
+            const existingFile = await findDriveBackupFile(token);
+            const file = await uploadDriveBackup(token, existingFile?.id);
+
+            alert(
+                `Google Drive backup complete.\n\nFile: ${file.name}\nRecords: ${applications.length}`
+            );
+        } catch (error) {
+            console.error("Google Drive backup failed:", error);
+            alert(error.message || "Google Drive backup failed.");
+        } finally {
+            driveBackupBtn.disabled = false;
+            driveBackupBtn.textContent = "Backup to Drive";
+        }
+    });
+
+    driveRestoreBtn.addEventListener("click", async () => {
+        const confirmRestore = confirm(
+            "Restore from Google Drive? Existing local records will be kept and duplicate records will be skipped."
+        );
+
+        if (!confirmRestore) {
+            return;
+        }
+
+        driveRestoreBtn.disabled = true;
+        driveRestoreBtn.textContent = "Restoring...";
+
+        try {
+            const token = await getGoogleAuthToken(true);
+            const file = await findDriveBackupFile(token);
+
+            if (!file) {
+                alert("No Google Drive backup file was found.");
+                return;
+            }
+
+            const payload = await downloadDriveBackup(token, file.id);
+            const importedApplications = normalizeBackupApplications(payload)
+                .filter((app) => app.company && app.jobTitle)
+                .map((app) => ({
+                    id: app.id || Date.now() + Math.random(),
+                    applicationId: app.applicationId || crypto.randomUUID(),
+                    dateSubmitted: app.dateSubmitted || new Date().toISOString(),
+                    company: app.company || "",
+                    jobTitle: app.jobTitle || "",
+                    platform: app.platform || "Other",
+                    status: app.status || "Submitted",
+                    notes: app.notes || "",
+                    url: app.url || ""
+                }));
+
+            if (importedApplications.length === 0) {
+                alert("The Google Drive backup file does not contain valid records.");
+                return;
+            }
+
+            const result = mergeApplications(importedApplications);
+
+            await chrome.storage.local.set({ applications });
+            currentPage = 1;
+            renderDashboard();
+            populateStatsFilters();
+
+            if (statsView.style.display !== "none") {
+                renderStats();
+            }
+
+            alert(
+                `Restore complete. Added ${result.added} records. Skipped ${result.skipped} duplicates.`
+            );
+        } catch (error) {
+            console.error("Google Drive restore failed:", error);
+            alert(error.message || "Google Drive restore failed.");
+        } finally {
+            driveRestoreBtn.disabled = false;
+            driveRestoreBtn.textContent = "Restore from Drive";
+        }
+    });
+
+    driveDeleteBtn.addEventListener("click", async () => {
+        const confirmDelete = confirm(
+            "Remove the Google Drive backup file? Local browser records will stay unchanged."
+        );
+
+        if (!confirmDelete) {
+            return;
+        }
+
+        driveDeleteBtn.disabled = true;
+        driveDeleteBtn.textContent = "Removing...";
+
+        try {
+            const token = await getGoogleAuthToken(true);
+            const file = await findDriveBackupFile(token);
+
+            if (!file) {
+                alert("No Google Drive backup file was found.");
+                return;
+            }
+
+            await deleteDriveBackup(token, file.id);
+            alert("Google Drive backup file removed. Local records were not changed.");
+        } catch (error) {
+            console.error("Google Drive backup removal failed:", error);
+            alert(error.message || "Google Drive backup removal failed.");
+        } finally {
+            driveDeleteBtn.disabled = false;
+            driveDeleteBtn.textContent = "Remove Cloud Backup";
+        }
+    });
 
     batchDeleteBtn.addEventListener("click", async () => {
         const selectedIds = Array.from(

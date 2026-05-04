@@ -29,12 +29,25 @@
     <section id="metadataView">
         <div class="dashboard-top">
             <div class="dashboard-actions">
-                <button id="exportBtn">Export CSV</button>
-                <button id="importBtn">Import CSV</button>
-                <input type="file" id="importFile" accept=".csv" style="display: none;">
+                <div class="action-group">
+                    <div class="action-group-title">Local</div>
+                    <div class="action-group-buttons">
+                        <button id="exportBtn">Export CSV</button>
+                        <button id="importBtn">Import CSV</button>
+                        <input type="file" id="importFile" accept=".csv" style="display: none;">
+                        <button id="batchDeleteBtn" disabled>Delete Selected</button>
+                        <button id="resetBtn">Reset All Data</button>
+                    </div>
+                </div>
 
-                <button id="batchDeleteBtn" disabled>Delete Selected</button>
-                <button id="resetBtn">Reset All Data</button>
+                <div class="action-group">
+                    <div class="action-group-title">Cloud</div>
+                    <div class="action-group-buttons">
+                        <button id="driveBackupBtn">Backup to Drive</button>
+                        <button id="driveRestoreBtn">Restore from Drive</button>
+                        <button id="driveDeleteBtn">Remove Cloud Backup</button>
+                    </div>
+                </div>
             </div>
 
             <div class="dashboard-stats">
