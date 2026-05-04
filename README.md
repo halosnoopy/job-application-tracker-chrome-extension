@@ -1,4 +1,5 @@
 # Job Application Tracker Chrome Extension
+<img width="3784" height="1548" alt="image" src="https://github.com/user-attachments/assets/70dd9fba-23f0-4121-9376-5d1bf71852d9" />
 
 A local-first Chrome extension for saving job applications, improving job-posting extraction, reviewing application history, and backing up records to Google Drive.
 
@@ -24,6 +25,7 @@ No custom backend server is required.
 ## Main Features
 
 ### Save Applications
+<img width="1030" height="723" alt="image" src="https://github.com/user-attachments/assets/cad82a26-b82e-42b1-a7e5-b7d8896106a0" />
 
 The popup saves:
 
@@ -80,6 +82,7 @@ AI extraction is intended to help with difficult pages, but users should still r
 ---
 
 ### Dashboard
+<img width="3767" height="1364" alt="image" src="https://github.com/user-attachments/assets/6552f3dd-6bd5-47ed-bc44-8b330aa5fe0b" />
 
 The dashboard includes:
 
