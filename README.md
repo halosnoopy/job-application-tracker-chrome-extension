@@ -1,5 +1,6 @@
 # Job Application Tracker Chrome Extension
-<img width="3784" height="1548" alt="image" src="https://github.com/user-attachments/assets/70dd9fba-23f0-4121-9376-5d1bf71852d9" />
+<img width="3788" height="1706" alt="image" src="https://github.com/user-attachments/assets/f2851abf-c9ea-48cb-87f6-c56426d20a6a" />
+
 
 A local-first Chrome extension for saving job applications, improving job-posting extraction, reviewing application history, and backing up records to Google Drive.
 
