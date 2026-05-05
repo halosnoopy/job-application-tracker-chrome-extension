@@ -6,7 +6,7 @@
   "permissions": ["storage", "tabs", "activeTab", "scripting", "identity", "contextMenus"],
   "host_permissions": ["https://www.googleapis.com/*"],
   "oauth2": {
-    "client_id": "980565833575-c2bbhdf253p10sq1jndsmlm6pgnpqq5g.apps.googleusercontent.com",
+    "client_id": "input your own client id here",
     "scopes": [
       "https://www.googleapis.com/auth/drive.file"
     ]
