@@ -998,6 +998,21 @@ document.addEventListener("DOMContentLoaded", async () => {
         return Math.max(0, Math.round((endDate - startDate) / 86400000));
     }
 
+    function signedDaysBetween(start, end) {
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+        if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) return null;
+        return Math.round((endDate - startDate) / 86400000);
+    }
+
+    function formatRelativeDays(days) {
+        if (days === 0) return "today";
+        if (days === 1) return "tomorrow";
+        if (days === -1) return "yesterday";
+        if (days > 1) return `in ${days} days`;
+        return `${Math.abs(days)} days ago`;
+    }
+
     function averageDaysToStage(filteredApps, stage) {
         const values = filteredApps
             .map((app) => {
@@ -1044,34 +1059,97 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     function renderNeedsAttention(filteredApps) {
         const now = new Date();
+        const activeStatuses = ["Submitted", "HR Reachout", "Phone Screen", "Interview", "Final Interview"];
+        const forwardStatuses = ["HR Reachout", "Phone Screen", "Interview", "Final Interview", "Offer"];
         const items = filteredApps
-            .filter((app) => !["Offer", "Rejected", "Withdrawn"].includes(app.status))
             .map((app) => {
                 const daysSinceUpdate = daysBetween(app.lastUpdated || app.dateSubmitted, now);
-                let reason = "";
+                const nextEventDays = app.nextEventDate ? signedDaysBetween(now, app.nextEventDate) : null;
+                const isActive = activeStatuses.includes(app.status);
+                const latestEvent = sortStatusHistory(app.statusHistory || []).at(-1);
+                const recentlyAdvanced =
+                    latestEvent &&
+                    forwardStatuses.includes(latestEvent.status) &&
+                    daysSinceUpdate !== null &&
+                    daysSinceUpdate <= 7;
 
-                if (app.status === "Submitted" && daysSinceUpdate >= 14) {
-                    reason = `${daysSinceUpdate} days since submission`;
-                } else if (getStageForStatus(app.status) === "Contact" && daysSinceUpdate >= 7) {
-                    reason = `${daysSinceUpdate} days since contact`;
-                } else if (getStageForStatus(app.status) === "Interview" && daysSinceUpdate >= 14) {
-                    reason = `${daysSinceUpdate} days since interview update`;
-                } else if (!app.notes) {
-                    reason = "No notes";
+                if (Number.isFinite(nextEventDays) && nextEventDays <= 7 && isActive) {
+                    const label = app.nextEventLabel || app.status || "Next event";
+                    const reason = nextEventDays < 0
+                        ? `${label} overdue (${formatRelativeDays(nextEventDays)})`
+                        : `${label} ${formatRelativeDays(nextEventDays)}`;
+                    return {
+                        app,
+                        reason,
+                        type: nextEventDays < 0 ? "overdue" : "upcoming",
+                        priority: nextEventDays < 0 ? 100 : 95 - nextEventDays,
+                        sortDate: app.nextEventDate
+                    };
                 }
 
-                return reason ? { app, reason } : null;
+                if (app.status === "Offer") {
+                    return {
+                        app,
+                        reason: "Offer needs decision",
+                        type: "decision",
+                        priority: 88,
+                        sortDate: app.lastUpdated || app.dateSubmitted
+                    };
+                }
+
+                if (app.status === "Submitted" && daysSinceUpdate >= 14) {
+                    return {
+                        app,
+                        reason: `Follow up: ${daysSinceUpdate} days since submission`,
+                        type: "stale",
+                        priority: 70 + Math.min(daysSinceUpdate, 30) / 10,
+                        sortDate: app.lastUpdated || app.dateSubmitted
+                    };
+                }
+
+                if (getStageForStatus(app.status) === "Contact" && daysSinceUpdate >= 7) {
+                    return {
+                        app,
+                        reason: `Follow up: ${daysSinceUpdate} days since contact`,
+                        type: "stale",
+                        priority: 78 + Math.min(daysSinceUpdate, 30) / 10,
+                        sortDate: app.lastUpdated || app.dateSubmitted
+                    };
+                }
+
+                if (getStageForStatus(app.status) === "Interview" && daysSinceUpdate >= 10) {
+                    return {
+                        app,
+                        reason: `Follow up: ${daysSinceUpdate} days since interview update`,
+                        type: "stale",
+                        priority: 82 + Math.min(daysSinceUpdate, 30) / 10,
+                        sortDate: app.lastUpdated || app.dateSubmitted
+                    };
+                }
+
+                if (recentlyAdvanced) {
+                    return {
+                        app,
+                        reason: `Moved to ${latestEvent.status} ${formatRelativeDays(-daysSinceUpdate)}`,
+                        type: "moved",
+                        priority: 55 - daysSinceUpdate,
+                        sortDate: latestEvent.date
+                    };
+                }
+
+                return null;
             })
             .filter(Boolean)
+            .sort((a, b) => b.priority - a.priority || new Date(b.sortDate) - new Date(a.sortDate))
             .slice(0, 8);
 
         if (items.length === 0) {
-            needsAttentionList.innerHTML = `<div class="empty-attention">No stale active records right now.</div>`;
+            needsAttentionList.innerHTML = `<div class="empty-attention">No upcoming events, stale follow-ups, or recent advances right now.</div>`;
             return;
         }
 
-        needsAttentionList.innerHTML = items.map(({ app, reason }) => `
-            <div class="attention-item">
+        needsAttentionList.innerHTML = items.map(({ app, reason, type }) => `
+            <div class="attention-item attention-${escapeHtml(type)}">
                 <div>
                     <strong>${escapeHtml(app.company || "Unknown company")}</strong>
                     <span>${escapeHtml(app.jobTitle || "Unknown role")}</span>

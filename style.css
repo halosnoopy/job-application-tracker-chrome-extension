@@ -824,6 +824,23 @@ body:not(.dashboard-page) > .secondary-btn {
     font-weight: 750;
 }
 
+.attention-upcoming .attention-reason {
+    color: var(--offer-fg) !important;
+}
+
+.attention-overdue .attention-reason,
+.attention-stale .attention-reason {
+    color: var(--rejected-fg) !important;
+}
+
+.attention-decision .attention-reason {
+    color: var(--offer-fg) !important;
+}
+
+.attention-moved .attention-reason {
+    color: var(--submitted-fg) !important;
+}
+
 .empty-attention {
     color: var(--muted);
     font-size: 13px;

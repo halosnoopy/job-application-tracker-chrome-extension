@@ -130,6 +130,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         return isNaN(date.getTime()) ? fallback : date.toISOString();
     }
 
+    function optionalIsoDate(value) {
+        const date = new Date(value);
+        return isNaN(date.getTime()) ? "" : date.toISOString();
+    }
+
     function sortStatusHistory(history) {
         return [...(history || [])].sort((a, b) => new Date(a.date) - new Date(b.date));
     }
@@ -563,6 +568,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const statusDate = normalizeDate(`${emailStatusDate.value || new Date().toISOString().slice(0, 10)}T12:00:00`);
         const note = emailStatusNote.value.trim() || pendingEmailUpdate.note || "Status update detected from email.";
+        const nextEventDate = optionalIsoDate(pendingEmailUpdate.interviewDateTime);
+        const shouldClearNextEvent = ["Offer", "Rejected", "Withdrawn"].includes(emailStatusSelect.value);
         const applications = pendingEmailUpdate.applications.map((app) => {
             const appKey = String(app.applicationId || app.id);
 
@@ -570,8 +577,21 @@ document.addEventListener("DOMContentLoaded", async () => {
                 return app;
             }
 
+            const nextEventPatch = shouldClearNextEvent
+                ? {
+                    nextEventDate: "",
+                    nextEventLabel: ""
+                }
+                : nextEventDate
+                    ? {
+                        nextEventDate,
+                        nextEventLabel: emailStatusSelect.value
+                    }
+                    : {};
+
             return normalizeApplication({
                 ...app,
+                ...nextEventPatch,
                 statusHistory: [
                     ...(app.statusHistory || []),
                     {

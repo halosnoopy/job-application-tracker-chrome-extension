@@ -196,6 +196,9 @@ const applications = Array.from({ length: 200 }, (_, index) => {
     const url = platform === "LinkedIn"
         ? `https://www.linkedin.com/jobs/view/${4360000000 + index}`
         : `https://${host}/${slug(company)}/jobs/${applicationId}`;
+    const hasUpcomingEvent =
+        ["HR Reachout", "Phone Screen", "Interview", "Final Interview"].includes(status) &&
+        chance(0.22);
 
     return {
         id: 1760000000000 + index,
@@ -213,6 +216,10 @@ const applications = Array.from({ length: 200 }, (_, index) => {
             contact ? `Contact: ${contact}.` : ""
         ].filter(Boolean).join(" "),
         url,
+        nextEventDate: hasUpcomingEvent
+            ? addDays(new Date(Date.UTC(2026, 4, 5, 12, 0, 0)).toISOString(), Math.floor(rand() * 7))
+            : "",
+        nextEventLabel: hasUpcomingEvent ? status : "",
         lastUpdated,
         statusHistory,
         schemaVersion: 4

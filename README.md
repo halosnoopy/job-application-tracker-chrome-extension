@@ -26,7 +26,8 @@ Version 4 focuses on pipeline history and more useful analytics:
 - Status timeline history with update and correction flows
 - AI email status update detection from open Gmail/Outlook messages
 - Pipeline progress view for each application
-- KPI cards, funnel analytics, and needs-attention insights
+- KPI cards, funnel analytics, and action-needed insights
+- Action-needed analysis for upcoming events, stale follow-ups, offers, and recently advanced applications
 - JSON history export/import for safer local backup
 - Optional Google Drive history backup and restore
 - Dashboard Settings panel for default view and API configuration
@@ -149,7 +150,7 @@ The dashboard uses Chart.js for:
 - Status distribution
 - Job title distribution
 - Company distribution
-- Needs-attention list
+- Action-needed list
 
 The metadata table includes:
 
@@ -163,6 +164,15 @@ The metadata table includes:
 - Notes
 - Job link
 - Update and Timeline actions
+
+The **Action Needed** card highlights:
+
+- Upcoming phone screens, interviews, or final rounds when a next-event date is stored
+- Overdue upcoming events
+- Offers that need a decision
+- Submitted applications that may need follow-up
+- Contact or interview-stage applications that have gone stale
+- Applications that recently moved forward in the pipeline
 
 ---
 
@@ -285,7 +295,7 @@ This repository includes a synthetic v4 history fixture for dashboard testing:
 test-data/sample-history-200.json
 ```
 
-It contains 200 realistic fake records with companies, job titles, platforms, notes, URLs, application dates, current statuses, and status timelines.
+It contains 200 realistic fake records with companies, job titles, platforms, notes, URLs, application dates, current statuses, status timelines, and sample upcoming next-event dates.
 
 To load it:
 
@@ -501,7 +511,8 @@ README.md           Project documentation
 - Added **JAT Status Update** right-click action to run AI email extraction directly.
 - Added automatic popup close after right-click save and email timeline update.
 - Replaced direct table status dropdown with status badge, pipeline bar, Update, and Timeline actions.
-- Added KPI cards, pipeline funnel, status timeline trend, and needs-attention insights.
+- Added KPI cards, pipeline funnel, status timeline trend, and action-needed insights.
+- Reworked Needs Attention into an Action Needed queue for upcoming events, stale follow-ups, offers, and recently advanced applications.
 - Renamed local backup actions to Export History and Import History.
 - Switched primary local backup format to JSON history while keeping CSV import compatibility.
 - Updated Google Drive backup payload to schema version 4.
