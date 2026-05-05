@@ -61,10 +61,10 @@ The popup saves:
 You can open the popup in two ways:
 
 - Click the extension icon.
-- Right-click a job page and choose **Job Extract for JAT**. This opens a focused popup window and runs local extraction automatically.
-- Right-click a Gmail or Outlook message and choose **JAT Status Update**. This opens the popup and runs AI extraction automatically for email status detection.
+- Right-click a job page and choose **Job Extract for JAT**. This opens the normal extension popup and runs local extraction automatically.
+- Right-click a Gmail or Outlook message and choose **JAT Status Update**. This opens the normal extension popup and runs AI extraction automatically for email status detection.
 
-The right-click popup closes automatically after a successful save. When an email status update is applied from the popup, that window also closes automatically after the update is saved.
+The right-click flow uses Chrome's normal extension popup instead of creating a separate browser window or tab, which avoids macOS fullscreen window behavior. It closes automatically after a successful save or email timeline update.
 
 Supported status values:
 
@@ -334,7 +334,7 @@ chrome://extensions/
 
 1. Open a job posting page.
 2. Click the extension icon, or right-click the page and choose **Job Extract for JAT**.
-3. Use **Local Extract**, **AI Extract**, or enter fields manually. The right-click flow opens the tracker and runs Local Extract automatically.
+3. Use **Local Extract**, **AI Extract**, or enter fields manually. The right-click flow opens the normal extension popup and runs Local Extract automatically.
 4. Review and correct the fields if needed.
 5. Click **Save Application**.
 6. To update a saved application from an email, open the email, right-click, choose **JAT Status Update**, review the AI result, match it to the correct application, and click **Update Timeline**.
@@ -509,6 +509,7 @@ README.md           Project documentation
 - Added timeline modal for editing or deleting status events.
 - Added AI email status update detection with a review-and-match popup flow.
 - Added **JAT Status Update** right-click action to run AI email extraction directly.
+- Replaced right-click popup windows with Chrome's normal extension popup to avoid macOS fullscreen window behavior.
 - Added automatic popup close after right-click save and email timeline update.
 - Replaced direct table status dropdown with status badge, pipeline bar, Update, and Timeline actions.
 - Added KPI cards, pipeline funnel, status timeline trend, and action-needed insights.

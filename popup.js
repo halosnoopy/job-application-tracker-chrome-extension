@@ -21,10 +21,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     const applyEmailUpdateBtn = document.getElementById("applyEmailUpdateBtn");
     const cancelEmailUpdateBtn = document.getElementById("cancelEmailUpdateBtn");
     const popupParams = new URLSearchParams(window.location.search);
-    const sourceTabId = Number(popupParams.get("tabId"));
-    const shouldAutoExtract = popupParams.get("autoExtract") === "1";
-    const shouldAutoAiExtract = popupParams.get("autoAiExtract") === "1";
+    let sourceTabId = Number(popupParams.get("tabId"));
+    let shouldAutoExtract = popupParams.get("autoExtract") === "1";
+    let shouldAutoAiExtract = popupParams.get("autoAiExtract") === "1";
     let pendingEmailUpdate = null;
+
+    const pendingPopupAction = await consumePendingPopupAction();
+    if (pendingPopupAction) {
+        sourceTabId = Number(pendingPopupAction.tabId);
+        shouldAutoExtract = pendingPopupAction.mode === "local";
+        shouldAutoAiExtract = pendingPopupAction.mode === "ai";
+    }
 
     applicationDateInput.value = new Date().toISOString().slice(0, 10);
     emailStatusDate.value = new Date().toISOString().slice(0, 10);
@@ -221,6 +228,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         setTimeout(() => {
             window.close();
         }, delay);
+    }
+
+    async function consumePendingPopupAction() {
+        const result = await chrome.storage.session.get(["jatPendingPopupAction"]);
+        const action = result.jatPendingPopupAction;
+
+        if (!action) {
+            return null;
+        }
+
+        await chrome.storage.session.remove(["jatPendingPopupAction"]);
+
+        if (!action.createdAt || Date.now() - action.createdAt > 30000) {
+            return null;
+        }
+
+        return action;
     }
 
     async function showEmailUpdatePanel(update) {
