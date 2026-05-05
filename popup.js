@@ -1,5 +1,3 @@
-const GEMINI_API_KEY = "your gemini api key here"; // Replace with your actual Gemini API key
-
 const GEMINI_MODELS = [
     "gemini-3.1-flash-lite-preview",
     "gemini-2.5-flash-lite",
@@ -13,6 +11,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const debugExtractBtn = document.getElementById("debugExtractBtn");
     const dashboardBtn = document.getElementById("dashboardBtn");
     const message = document.getElementById("message");
+    const popupParams = new URLSearchParams(window.location.search);
+    const sourceTabId = Number(popupParams.get("tabId"));
+    const shouldAutoExtract = popupParams.get("autoExtract") === "1";
 
     function getTextLength(value) {
         return JSON.stringify(value || "").length;
@@ -69,12 +70,25 @@ document.addEventListener("DOMContentLoaded", async () => {
         return result;
     }
 
-    extractBtn.addEventListener("click", async () => {
+    async function getTargetTab() {
+        if (Number.isInteger(sourceTabId) && sourceTabId > 0) {
+            try {
+                return await chrome.tabs.get(sourceTabId);
+            } catch (error) {
+                console.warn("Could not read source tab, falling back to active tab:", error);
+            }
+        }
+
+        const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+        return tab;
+    }
+
+    async function runLocalExtraction() {
         message.textContent = "Extracting job details locally...";
         message.style.color = "#333";
 
         try {
-            const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+            const tab = await getTargetTab();
 
             const results = await chrome.scripting.executeScript({
                 target: { tabId: tab.id, allFrames: true },
@@ -94,6 +108,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             message.textContent = "Could not extract details locally.";
             message.style.color = "red";
         }
+    }
+
+    extractBtn.addEventListener("click", async () => {
+        await runLocalExtraction();
     });
 
     aiExtractBtn.addEventListener("click", async () => {
@@ -106,17 +124,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         saveBtn.disabled = true;
 
         try {
-            if (
-                !GEMINI_API_KEY ||
-                GEMINI_API_KEY === "YOUR_GEMINI_API_KEY" ||
-                GEMINI_API_KEY === "put your gemini api key here"
-            ) {
-                message.textContent = "Please add your Gemini API key in popup.js first.";
+            const settings = await chrome.storage.local.get(["geminiApiKey"]);
+            const geminiApiKey = (settings.geminiApiKey || "").trim();
+
+            if (!geminiApiKey) {
+                message.textContent = "Add your Gemini API key in dashboard Settings first.";
                 message.style.color = "red";
                 return;
             }
 
-            const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+            const tab = await getTargetTab();
 
             const results = await chrome.scripting.executeScript({
                 target: { tabId: tab.id, allFrames: true },
@@ -137,7 +154,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 tab.url
             );
             console.log("AI extraction page info:", pageInfo);
-            const aiResult = await extractJobInfoWithGemini(pageInfo);
+            const aiResult = await extractJobInfoWithGemini(pageInfo, geminiApiKey);
             console.log("AI extraction final result:", aiResult);
 
             fillPopupForm(aiResult, tab.url);
@@ -167,7 +184,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         message.style.color = "#333";
 
         try {
-            const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+            const tab = await getTargetTab();
 
             const pageInfoResults = await chrome.scripting.executeScript({
                 target: { tabId: tab.id, allFrames: true },
@@ -235,12 +252,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
+        const tab = await getTargetTab();
         const extractedUrlInput = document.getElementById("extractedUrl");
 
         let currentUrl =
             extractedUrlInput?.value ||
-            tabs[0]?.url ||
+            tab?.url ||
             "";
 
         currentUrl = normalizeSavedUrl(currentUrl);
@@ -311,6 +328,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             url: chrome.runtime.getURL("dashboard.html")
         });
     });
+
+    if (shouldAutoExtract) {
+        await runLocalExtraction();
+    }
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -364,7 +385,7 @@ function fillPopupForm(extracted, fallbackUrl) {
     }
 }
 
-async function extractJobInfoWithGemini(pageInfo) {
+async function extractJobInfoWithGemini(pageInfo, geminiApiKey) {
     const localCandidates = pageInfo.candidates || {};
 
     function buildAiPageInfo() {
@@ -413,19 +434,13 @@ Page data:
 ${JSON.stringify(aiPageInfo)}
 `;
 
-    const MODELS = [
-        "gemini-3.1-flash-lite-preview",
-        "gemini-2.5-flash-lite",
-        "gemini-1.5-flash-8b"
-    ];
-
     let data = null;
     let lastError = "";
 
-    for (const model of MODELS) {
+    for (const model of GEMINI_MODELS) {
         try {
             const response = await fetch(
-                `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`,
+                `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(geminiApiKey)}`,
                 {
                     method: "POST",
                     headers: {
@@ -1662,4 +1677,3 @@ function extractJobInfoFromPage() {
         confidence: titleResult.confidence
     };
 }
-

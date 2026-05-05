@@ -3,16 +3,31 @@
   "name": "Job Application Tracker",
   "version": "3.0",
   "description": "Track and visualize submitted job applications.",
-  "permissions": ["storage", "tabs", "activeTab", "scripting", "identity"],
+  "permissions": ["storage", "tabs", "activeTab", "scripting", "identity", "contextMenus"],
   "host_permissions": ["https://www.googleapis.com/*"],
   "oauth2": {
-    "client_id": "your oauth client id here", // Replace with your actual OAuth client ID
+    "client_id": "replace wih your client id from google cloud console",
     "scopes": [
       "https://www.googleapis.com/auth/drive.file"
     ]
   },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Job Tracker"
+    "default_title": "Job Tracker",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
   }
 }

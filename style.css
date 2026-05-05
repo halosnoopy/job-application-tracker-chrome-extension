@@ -250,6 +250,78 @@ body:not(.dashboard-page) > .secondary-btn {
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
 }
 
+.settings-btn {
+    width: auto;
+    min-height: 38px;
+    margin: 0;
+    padding: 8px 15px;
+    border: 1px solid var(--border-soft);
+    background-color: #ffffff;
+    color: var(--text);
+}
+
+.settings-btn.active-view {
+    background-color: #1d1d1f;
+    color: #ffffff;
+}
+
+.settings-panel {
+    margin-top: 18px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.86);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+}
+
+.settings-grid {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.8fr) minmax(360px, 1.2fr);
+    gap: 16px;
+}
+
+.settings-card {
+    min-width: 0;
+}
+
+.settings-card h2 {
+    margin: 0 0 14px;
+    font-size: 15px;
+    font-weight: 720;
+}
+
+.settings-card input,
+.settings-card select {
+    width: 100%;
+}
+
+.settings-card label:not(:first-of-type) {
+    margin-top: 14px;
+}
+
+.settings-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.settings-actions button {
+    width: auto;
+    margin: 0;
+}
+
+.settings-note {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+#googleClientIdInput {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12px;
+}
+
 .dashboard-top {
     display: flex;
     justify-content: space-between;
@@ -637,5 +709,9 @@ body:not(.dashboard-page) > .secondary-btn {
     .dashboard-filters select,
     .stats-filters select {
         width: 100%;
+    }
+
+    .settings-grid {
+        grid-template-columns: 1fr;
     }
 }

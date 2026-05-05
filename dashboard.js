@@ -34,6 +34,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const statsView = document.getElementById("statsView");
     const metadataViewBtn = document.getElementById("metadataViewBtn");
     const statsViewBtn = document.getElementById("statsViewBtn");
+    const settingsBtn = document.getElementById("settingsBtn");
+    const settingsPanel = document.getElementById("settingsPanel");
 
     const statsTimeRange = document.getElementById("statsTimeRange");
     const statsGroupBy = document.getElementById("statsGroupBy");
@@ -44,6 +46,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     const statsShowingLabel = document.getElementById("statsShowingLabel");
 
     const defaultViewSelect = document.getElementById("defaultViewSelect");
+    const geminiApiKeyInput = document.getElementById("geminiApiKeyInput");
+    const saveGeminiKeyBtn = document.getElementById("saveGeminiKeyBtn");
+    const clearGeminiKeyBtn = document.getElementById("clearGeminiKeyBtn");
+    const googleClientIdInput = document.getElementById("googleClientIdInput");
 
     const topPageInfo = document.getElementById("topPageInfo");
 
@@ -78,7 +84,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const result = await chrome.storage.local.get([
         "applications",
-        "defaultDashboardView"
+        "defaultDashboardView",
+        "geminiApiKey"
     ]);
 
     let applications = result.applications || [];
@@ -89,6 +96,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     defaultViewSelect.value = defaultDashboardView;
+    geminiApiKeyInput.value = result.geminiApiKey || "";
+    googleClientIdInput.value = chrome.runtime.getManifest().oauth2?.client_id || "";
 
     renderDashboard();
     populateStatsFilters();
@@ -981,12 +990,36 @@ document.addEventListener("DOMContentLoaded", async () => {
         switchView("stats");
     });
 
+    settingsBtn.addEventListener("click", () => {
+        const isOpening = settingsPanel.style.display === "none";
+        settingsPanel.style.display = isOpening ? "block" : "none";
+        settingsBtn.classList.toggle("active-view", isOpening);
+    });
+
     defaultViewSelect.addEventListener("change", async () => {
         const selectedDefaultView = defaultViewSelect.value;
 
         await chrome.storage.local.set({
             defaultDashboardView: selectedDefaultView
         });
+    });
+
+    saveGeminiKeyBtn.addEventListener("click", async () => {
+        const geminiApiKey = geminiApiKeyInput.value.trim();
+
+        if (!geminiApiKey) {
+            alert("Paste a Gemini API key before saving.");
+            return;
+        }
+
+        await chrome.storage.local.set({ geminiApiKey });
+        alert("Gemini API key saved locally.");
+    });
+
+    clearGeminiKeyBtn.addEventListener("click", async () => {
+        await chrome.storage.local.remove("geminiApiKey");
+        geminiApiKeyInput.value = "";
+        alert("Gemini API key cleared.");
     });
 
     [

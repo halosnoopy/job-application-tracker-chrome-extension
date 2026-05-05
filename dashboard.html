@@ -11,20 +11,42 @@
         <h1>Job Application Dashboard</h1>
 
         <div class="dashboard-header-controls">
-            <div class="default-view-control">
+            <div class="view-toggle">
+                <button id="metadataViewBtn" class="toggle-option active-view">Metadata View</button>
+                <button id="statsViewBtn" class="toggle-option">Statistical Analysis</button>
+            </div>
+
+            <button id="settingsBtn" class="settings-btn" type="button">Settings</button>
+        </div>
+    </div>
+
+    <section id="settingsPanel" class="settings-panel" style="display: none;">
+        <div class="settings-grid">
+            <div class="settings-card">
+                <h2>Dashboard</h2>
                 <label for="defaultViewSelect">Default view</label>
                 <select id="defaultViewSelect">
                     <option value="metadata">Metadata View</option>
                     <option value="stats">Statistical Analysis</option>
                 </select>
+                <p class="settings-note">Choose which dashboard view opens by default.</p>
             </div>
 
-            <div class="view-toggle">
-                <button id="metadataViewBtn" class="toggle-option active-view">Metadata View</button>
-                <button id="statsViewBtn" class="toggle-option">Statistical Analysis</button>
+            <div class="settings-card">
+                <h2>APIs</h2>
+                <label for="geminiApiKeyInput">Gemini API key</label>
+                <input id="geminiApiKeyInput" type="password" placeholder="Paste your Gemini API key">
+                <div class="settings-actions">
+                    <button id="saveGeminiKeyBtn" type="button">Save Gemini Key</button>
+                    <button id="clearGeminiKeyBtn" type="button">Clear</button>
+                </div>
+
+                <label for="googleClientIdInput">Google OAuth client ID</label>
+                <input id="googleClientIdInput" type="text" readonly>
+                <p class="settings-note">Google Drive sync uses the OAuth client ID in manifest.json. Update the manifest and reload the extension to change it.</p>
             </div>
         </div>
-    </div>
+    </section>
 
     <section id="metadataView">
         <div class="dashboard-top">
