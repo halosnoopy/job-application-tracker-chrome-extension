@@ -5,18 +5,32 @@ A local-first Chrome extension for saving job applications, improving job-postin
 
 ---
 
+## Version
+
+Current version: **4.0**
+
+Version 4 is the pipeline-history release. It keeps the simple save-and-review workflow from earlier versions, but adds timeline-based status tracking, email-assisted status updates, stronger dashboard analytics, and safer JSON history backup.
+
+---
+
 ## Overview
 
 Job Application Tracker helps users save submitted job applications from common job boards and manage the records in one dashboard.
 
-Version 3 focuses on reliability and personal data safety:
+Version 4 focuses on pipeline history and more useful analytics:
 
 - Better local extraction for LinkedIn, Lever, and Greenhouse
 - Optional Gemini AI extraction for harder pages
-- Apple-style popup and dashboard UI refresh
-- Colored application statuses
-- Optional Google Drive backup and restore
+- Application date selection for backfilled records
+- Status timeline history with update and correction flows
+- AI email status update detection from open Gmail/Outlook messages
+- Pipeline progress view for each application
+- KPI cards, funnel analytics, and needs-attention insights
+- JSON history export/import for safer local backup
+- Optional Google Drive history backup and restore
 - Dashboard Settings panel for default view and API configuration
+- Right-click page action for faster extraction
+- Synthetic JSON test history for dashboard testing
 - Local browser storage remains the main working copy
 
 No custom backend server is required.
@@ -34,17 +48,31 @@ The popup saves:
 - Job title
 - Platform
 - Status
+- Application date
 - Notes
 - Job URL
 - Submission date
 - Unique application ID
+- Status timeline history
+
+You can open the popup in two ways:
+
+- Click the extension icon.
+- Right-click a job page and choose **Job Extract for JAT**. This opens a focused popup window and runs local extraction automatically.
+- Right-click a Gmail or Outlook message and choose **JAT Status Update**. This opens the popup and runs AI extraction automatically for email status detection.
+
+The right-click popup closes automatically after a successful save. When an email status update is applied from the popup, that window also closes automatically after the update is saved.
 
 Supported status values:
 
 - Submitted
+- HR Reachout
+- Phone Screen
 - Interview
-- Rejected
+- Final Interview
 - Offer
+- Rejected
+- Withdrawn
 
 ---
 
@@ -52,7 +80,7 @@ Supported status values:
 
 The **Local Extract** button reads the active job page and tries to fill company, job title, platform, and clean URL without using AI.
 
-Version 3 improves extraction for:
+Current local extraction is tuned for:
 
 - LinkedIn Top Picks
 - LinkedIn search results
@@ -78,7 +106,20 @@ The **AI Extract** button uses Gemini as an optional fallback when local extract
 
 Gemini receives a compact structured payload instead of the full page whenever possible. This reduces noise from recommendations, navigation, profile text, and unrelated job cards.
 
-AI extraction is intended to help with difficult pages, but users should still review the result before saving.
+AI extraction is also context-aware. On open Gmail or Outlook messages, it can classify company or recruiter emails as application status updates, such as HR reachout, phone screen, interview, offer, rejection, or withdrawal.
+
+AI extraction is intended to help with difficult pages and emails, but users should still review the result before saving or updating a timeline.
+
+For email pages, the popup does not update a record immediately. It shows a review panel with:
+
+- Detected company
+- Detected job title
+- Detected status
+- Status date
+- Timeline note
+- Suggested matching saved applications
+
+The user chooses the correct saved application before the timeline is updated. This avoids updating the wrong job when the company or title is ambiguous.
 
 ---
 
@@ -93,7 +134,7 @@ The dashboard includes:
 - Filter by status
 - Sort by date, company, position, or platform
 - Pagination
-- CSV export/import
+- JSON history export/import
 - Batch delete
 - Full reset with export reminder
 - Settings panel
@@ -102,10 +143,59 @@ The dashboard uses Chart.js for:
 
 - Application trend
 - Status trend
-- Position status
+- Pipeline funnel
 - Status distribution
 - Job title distribution
 - Company distribution
+- Needs-attention list
+
+The metadata table includes:
+
+- Application date
+- Company
+- Job title
+- Platform
+- Pipeline bar
+- Current status badge
+- Last updated date
+- Notes
+- Job link
+- Update and Timeline actions
+
+---
+
+### Pipeline and Timeline
+
+Version 4 stores status changes as a timeline instead of only keeping the latest status.
+
+Each application keeps:
+
+- Current status
+- Last updated date
+- Full status history
+- Optional note per status event
+
+Pipeline stages are grouped as:
+
+```text
+Applied -> Contact -> Interview -> Decision
+```
+
+Users update status from the dashboard with an update modal that includes:
+
+- New status
+- Status date
+- Optional note
+
+Mistakes can be corrected from the timeline view by editing or deleting status events. The current status and charts are recalculated from the latest valid timeline event.
+
+Skipped stages are handled intentionally. For example:
+
+- Submitted -> Rejected shows Applied and Decision, while Contact and Interview stay gray.
+- Submitted -> HR Reachout -> Rejected shows Applied, Contact, and Decision, while Interview stays gray.
+- Submitted -> Interview shows Applied and Interview, while Contact stays gray.
+
+Email updates can also be added from the popup. When **AI Extract** detects an open Gmail or Outlook message about an application, it shows a review panel with the detected status, date, note, and suggested matching saved application. The user must confirm the match before the timeline is updated.
 
 ---
 
@@ -125,23 +215,25 @@ The Gemini API key is saved in `chrome.storage.local`. The Google OAuth client I
 
 ### Status Colors
 
-Version 3 adds status colors in the dashboard and chart palette:
+Version 4 adds status colors in the dashboard and chart palette:
 
 - Submitted: blue
-- Interview: amber
-- Rejected: red
+- HR Reachout / Phone Screen: amber
+- Interview / Final Interview: purple
 - Offer: green
+- Rejected: red
+- Withdrawn: gray
 
 ---
 
 ### Google Drive Backup
 
-Version 3 adds optional Google Drive backup and restore.
+Version 4 adds optional Google Drive history backup and restore.
 
 Dashboard cloud actions:
 
-- Backup to Drive
-- Restore from Drive
+- Backup History
+- Restore History
 - Remove Cloud Backup
 
 The extension stores one latest backup file:
@@ -163,6 +255,8 @@ Remove Cloud Backup behavior:
 - Deletes the Drive backup file
 - Does not delete local browser records
 
+If Google Drive sign-in fails with an OAuth error, first confirm that the extension ID in `chrome://extensions/` matches the Chrome Extension OAuth client in Google Cloud, then reload the extension after editing `manifest.json`.
+
 ---
 
 ## Data Storage
@@ -175,9 +269,36 @@ chrome.storage.local
 
 Important note:
 
-If the extension is removed from Chrome, local extension storage can be deleted. Use CSV export or Google Drive backup before removing the extension.
+If the extension is removed from Chrome, local extension storage can be deleted. Use **Export History** or Google Drive backup before removing the extension.
 
 Optional cloud backup is stored in the user's own Google Drive through the Google Drive API.
+
+---
+
+## Test Data
+
+This repository includes a synthetic v4 history fixture for dashboard testing:
+
+```text
+test-data/sample-history-200.json
+```
+
+It contains 200 realistic fake records with companies, job titles, platforms, notes, URLs, application dates, current statuses, and status timelines.
+
+To load it:
+
+1. Open the dashboard.
+2. Click **Import History**.
+3. Select `test-data/sample-history-200.json`.
+4. Confirm the import.
+
+To regenerate the fixture:
+
+```text
+node scripts/generate-test-history.js
+```
+
+The fixture is synthetic and should not contain real personal data.
 
 ---
 
@@ -204,13 +325,14 @@ chrome://extensions/
 3. Use **Local Extract**, **AI Extract**, or enter fields manually. The right-click flow opens the tracker and runs Local Extract automatically.
 4. Review and correct the fields if needed.
 5. Click **Save Application**.
-6. Open the dashboard to search, filter, update statuses, export/import, analyze, or back up records.
+6. To update a saved application from an email, open the email, right-click, choose **JAT Status Update**, review the AI result, match it to the correct application, and click **Update Timeline**.
+7. Open the dashboard to search, filter, update status timelines, export/import history, analyze, or back up records.
 
 ---
 
 ## Gemini API Setup
 
-Gemini is optional. Local extraction, dashboard, CSV import/export, and Google Drive backup work without Gemini.
+Gemini is optional. Local extraction, dashboard, history import/export, and Google Drive backup work without Gemini.
 
 To enable AI extraction:
 
@@ -227,6 +349,7 @@ Notes:
 - Review AI-filled fields before saving.
 - The Gemini key is stored locally in Chrome extension storage, not in the source code.
 - If no key is saved, **AI Extract** will ask you to add one in dashboard Settings.
+- On Gmail or Outlook, select the important email body text before clicking **AI Extract** if the email layout is unusual.
 
 ---
 
@@ -276,7 +399,7 @@ Google Drive sync uses the OAuth client ID from `manifest.json`. The dashboard *
 `manifest.json` should include:
 
 ```json
-"permissions": ["storage", "tabs", "activeTab", "scripting", "identity"],
+"permissions": ["storage", "tabs", "activeTab", "scripting", "identity", "contextMenus"],
 "host_permissions": ["https://www.googleapis.com/*"],
 "oauth2": {
   "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
@@ -301,9 +424,9 @@ If you change the client ID:
 After reloading the extension:
 
 1. Open the dashboard.
-2. Click **Backup to Drive**.
+2. Click **Backup History**.
 3. Sign in and approve access if prompted.
-4. Click **Restore from Drive** on this or another device to merge records.
+4. Click **Restore History** on this or another device to merge records.
 
 ---
 
@@ -354,15 +477,33 @@ background.js       Context menu setup and right-click entry points
 popup.html          Save-application popup UI
 popup.js            Extraction and save logic
 dashboard.html      Dashboard UI
-dashboard.js        Dashboard, charts, import/export, Drive sync
+dashboard.js        Dashboard, charts, history import/export, Drive sync
 style.css           Popup and dashboard styling
 chart.umd.min.js    Chart.js bundle
+scripts/            Test-data generator scripts
+test-data/          Synthetic JSON import fixtures
 README.md           Project documentation
 ```
 
 ---
 
 ## Changelog
+
+### 4.0
+
+- Added application date field in the popup for backfilled records.
+- Added status history timeline data model.
+- Added dashboard status update modal with status date and note.
+- Added timeline modal for editing or deleting status events.
+- Added AI email status update detection with a review-and-match popup flow.
+- Added **JAT Status Update** right-click action to run AI email extraction directly.
+- Added automatic popup close after right-click save and email timeline update.
+- Replaced direct table status dropdown with status badge, pipeline bar, Update, and Timeline actions.
+- Added KPI cards, pipeline funnel, status timeline trend, and needs-attention insights.
+- Renamed local backup actions to Export History and Import History.
+- Switched primary local backup format to JSON history while keeping CSV import compatibility.
+- Updated Google Drive backup payload to schema version 4.
+- Added synthetic 200-record JSON fixture and generator for dashboard testing.
 
 ### 3.0
 
@@ -392,4 +533,7 @@ README.md           Project documentation
 - Application data is stored locally unless the user exports it or backs it up to Google Drive.
 - Google Drive backup stores one JSON backup file in the user's own Drive.
 - Gemini extraction sends selected page data to the Gemini API only when the user clicks **AI Extract**.
+- If AI Extract is used on an open email message, selected email content may be sent to Gemini to classify application status updates.
 - Users should review extracted data before saving.
+- The extension does not sell user data.
+- The extension does not use application history for advertising, lending, or credit decisions.

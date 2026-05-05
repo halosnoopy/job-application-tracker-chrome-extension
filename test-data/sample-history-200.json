@@ -1,0 +1,5204 @@
+{
+  "app": "Job Application Tracker",
+  "schemaVersion": 4,
+  "exportedAt": "2026-05-05T17:30:00.000Z",
+  "fixture": true,
+  "description": "Synthetic 200-record v4 history fixture for dashboard import and statistics testing.",
+  "applications": [
+    {
+      "id": 1760000000000,
+      "applicationId": "test-001-samsara",
+      "dateSubmitted": "2025-12-26T09:10:00.000Z",
+      "company": "Samsara",
+      "jobTitle": "AI Platform Engineer",
+      "platform": "Indeed",
+      "status": "Submitted",
+      "notes": "External application form completed. Source: LinkedIn Easy Apply. Location: Palo Alto, CA. $169k - $227k.",
+      "url": "https://samsara.example.com/samsara/jobs/test-001-samsara",
+      "lastUpdated": "2025-12-26T09:10:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-26T09:10:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000001,
+      "applicationId": "test-002-diligent-techn",
+      "dateSubmitted": "2026-03-03T09:16:00.000Z",
+      "company": "Diligent Technologies",
+      "jobTitle": "LLM Evaluation Engineer",
+      "platform": "Workday",
+      "status": "HR Reachout",
+      "notes": "Salary/location details need manual review. Source: Saved job follow-up. Location: San Mateo, CA. $142k - $143k.",
+      "url": "https://diligent-technologies.example.com/diligent-technologies/jobs/test-002-diligent-techn",
+      "lastUpdated": "2026-03-16T15:48:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-03T09:16:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-03-16T15:48:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000002,
+      "applicationId": "test-003-runway",
+      "dateSubmitted": "2025-12-20T09:32:00.000Z",
+      "company": "Runway",
+      "jobTitle": "Recommendation Systems Engineer",
+      "platform": "Greenhouse",
+      "status": "Submitted",
+      "notes": "Found via LinkedIn recommendations. Source: Company careers page. Location: Remote, United States. $168k - $324k.",
+      "url": "https://job-boards.greenhouse.io/runway/jobs/test-003-runway",
+      "lastUpdated": "2025-12-20T09:32:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-20T09:32:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000003,
+      "applicationId": "test-004-dynamism",
+      "dateSubmitted": "2026-03-23T09:50:00.000Z",
+      "company": "Dynamism",
+      "jobTitle": "Generative AI Engineer",
+      "platform": "Greenhouse",
+      "status": "Phone Screen",
+      "notes": "Applied with general AI/ML resume. Source: Job board search. Location: Los Angeles, CA. $191k - $211k. Contact: Jordan Smith.",
+      "url": "https://job-boards.greenhouse.io/dynamism/jobs/test-004-dynamism",
+      "lastUpdated": "2026-03-28T13:04:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-23T09:50:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-03-27T11:41:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-03-28T13:04:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000004,
+      "applicationId": "test-005-adobe",
+      "dateSubmitted": "2026-02-25T09:58:00.000Z",
+      "company": "Adobe",
+      "jobTitle": "AI Safety & Evaluation Engineer",
+      "platform": "Indeed",
+      "status": "Submitted",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: LinkedIn Easy Apply. Location: Hybrid - Bay Area.",
+      "url": "https://adobe.example.com/adobe/jobs/test-005-adobe",
+      "lastUpdated": "2026-02-25T09:58:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-25T09:58:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000005,
+      "applicationId": "test-006-weights-biases",
+      "dateSubmitted": "2026-02-05T09:50:00.000Z",
+      "company": "Weights & Biases",
+      "jobTitle": "Generative AI Engineer",
+      "platform": "Greenhouse",
+      "status": "Submitted",
+      "notes": "Found via LinkedIn recommendations. Source: Saved job follow-up. Location: Cupertino, CA.",
+      "url": "https://job-boards.greenhouse.io/weights-biases/jobs/test-006-weights-biases",
+      "lastUpdated": "2026-02-05T09:50:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-05T09:50:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000006,
+      "applicationId": "test-007-dataannotation",
+      "dateSubmitted": "2026-01-06T09:07:00.000Z",
+      "company": "DataAnnotation",
+      "jobTitle": "Applied Scientist",
+      "platform": "Workday",
+      "status": "Phone Screen",
+      "notes": "Role looks aligned with Python, model evaluation, and production ML. Source: LinkedIn external apply. Location: Austin, TX. $164k - $318k.",
+      "url": "https://dataannotation.example.com/dataannotation/jobs/test-007-dataannotation",
+      "lastUpdated": "2026-01-10T14:13:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-06T09:07:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-01-10T14:13:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000007,
+      "applicationId": "test-008-rippling",
+      "dateSubmitted": "2025-12-29T09:57:00.000Z",
+      "company": "Rippling",
+      "jobTitle": "Generative AI Engineer",
+      "platform": "Company Website",
+      "status": "HR Reachout",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Google Jobs. Location: Mountain View, CA.",
+      "url": "https://rippling.example.com/rippling/jobs/test-008-rippling",
+      "lastUpdated": "2026-01-01T12:21:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-29T09:57:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-01-01T12:21:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000008,
+      "applicationId": "test-009-sierra",
+      "dateSubmitted": "2025-12-09T09:06:00.000Z",
+      "company": "Sierra",
+      "jobTitle": "Data Scientist",
+      "platform": "Company Website",
+      "status": "Rejected",
+      "notes": "External application form completed. Source: Saved job follow-up. Location: Los Angeles, CA. $94k - $234k.",
+      "url": "https://sierra.example.com/sierra/jobs/test-009-sierra",
+      "lastUpdated": "2026-01-08T14:31:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-09T09:06:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2025-12-21T14:25:00.000Z",
+          "note": "Recruiter or HR contact received."
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-01-08T14:31:00.000Z",
+          "note": "Rejected after initial contact."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000009,
+      "applicationId": "test-010-pinterest",
+      "dateSubmitted": "2025-12-29T09:37:00.000Z",
+      "company": "Pinterest",
+      "jobTitle": "AI Platform Engineer",
+      "platform": "Indeed",
+      "status": "HR Reachout",
+      "notes": "External application form completed. Source: Google Jobs. Location: Cupertino, CA. $200k - $324k.",
+      "url": "https://pinterest.example.com/pinterest/jobs/test-010-pinterest",
+      "lastUpdated": "2026-01-12T14:09:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-29T09:37:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-01-12T14:09:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000010,
+      "applicationId": "test-011-databricks",
+      "dateSubmitted": "2025-12-20T09:28:00.000Z",
+      "company": "Databricks",
+      "jobTitle": "AI Platform Engineer",
+      "platform": "Company Website",
+      "status": "Submitted",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Company careers page. Location: San Mateo, CA.",
+      "url": "https://databricks.example.com/databricks/jobs/test-011-databricks",
+      "lastUpdated": "2025-12-20T09:28:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-20T09:28:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000011,
+      "applicationId": "test-012-waymo",
+      "dateSubmitted": "2026-01-07T09:36:00.000Z",
+      "company": "Waymo",
+      "jobTitle": "Recommendation Systems Engineer",
+      "platform": "Greenhouse",
+      "status": "Submitted",
+      "notes": "Need to follow up if no response after two weeks. Source: Google Jobs. Location: Mountain View, CA. Contact: Chris Nguyen.",
+      "url": "https://job-boards.greenhouse.io/waymo/jobs/test-012-waymo",
+      "lastUpdated": "2026-01-07T09:36:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-07T09:36:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000012,
+      "applicationId": "test-013-glean",
+      "dateSubmitted": "2026-02-28T09:59:00.000Z",
+      "company": "Glean",
+      "jobTitle": "Research Scientist, Machine Learning",
+      "platform": "Indeed",
+      "status": "Final Interview",
+      "notes": "External application form completed. Source: Saved job follow-up. Location: Foster City, CA. $215k - $329k.",
+      "url": "https://glean.example.com/glean/jobs/test-013-glean",
+      "lastUpdated": "2026-03-22T15:40:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-28T09:59:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-03-10T09:51:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-03-13T13:40:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-03-17T14:34:00.000Z",
+          "note": "Technical interview completed."
+        },
+        {
+          "status": "Final Interview",
+          "date": "2026-03-22T15:40:00.000Z",
+          "note": "Final interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000013,
+      "applicationId": "test-014-replit",
+      "dateSubmitted": "2026-02-14T09:18:00.000Z",
+      "company": "Replit",
+      "jobTitle": "Machine Learning Engineer",
+      "platform": "LinkedIn",
+      "status": "Rejected",
+      "notes": "Found via LinkedIn recommendations. Source: Job board search. Location: Palo Alto, CA. $99k - $279k.",
+      "url": "https://www.linkedin.com/jobs/view/4360000013",
+      "lastUpdated": "2026-02-27T09:07:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-14T09:18:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-02-27T09:07:00.000Z",
+          "note": "Rejection email received."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000014,
+      "applicationId": "test-015-openai",
+      "dateSubmitted": "2026-02-08T09:29:00.000Z",
+      "company": "OpenAI",
+      "jobTitle": "AI Safety & Evaluation Engineer",
+      "platform": "Greenhouse",
+      "status": "Phone Screen",
+      "notes": "Found via LinkedIn recommendations. Source: Referral. Location: San Mateo, CA. $117k - $288k. Contact: Ryan Kim.",
+      "url": "https://job-boards.greenhouse.io/openai/jobs/test-015-openai",
+      "lastUpdated": "2026-02-13T09:47:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-08T09:29:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-02-13T09:47:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000015,
+      "applicationId": "test-016-uber",
+      "dateSubmitted": "2025-11-22T09:40:00.000Z",
+      "company": "Uber",
+      "jobTitle": "Robotics Machine Learning Engineer",
+      "platform": "Workday",
+      "status": "Submitted",
+      "notes": "Need to follow up if no response after two weeks. Source: Referral. Location: Boston, MA. $117k - $274k.",
+      "url": "https://uber.example.com/uber/jobs/test-016-uber",
+      "lastUpdated": "2025-11-22T09:40:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-11-22T09:40:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000016,
+      "applicationId": "test-017-block",
+      "dateSubmitted": "2026-03-29T09:14:00.000Z",
+      "company": "Block",
+      "jobTitle": "Software Engineer, Applied ML",
+      "platform": "LinkedIn",
+      "status": "Phone Screen",
+      "notes": "External application form completed. Source: Recruiter message. Location: San Francisco, CA. $106k - $225k.",
+      "url": "https://www.linkedin.com/jobs/view/4360000016",
+      "lastUpdated": "2026-04-05T10:38:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-29T09:14:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-03-31T15:58:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-04-05T10:38:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000017,
+      "applicationId": "test-018-groq",
+      "dateSubmitted": "2026-02-01T09:34:00.000Z",
+      "company": "Groq",
+      "jobTitle": "Computer Vision Engineer",
+      "platform": "Ashby",
+      "status": "Final Interview",
+      "notes": "Found via LinkedIn recommendations. Source: LinkedIn Easy Apply. Location: San Jose, CA.",
+      "url": "https://groq.example.com/groq/jobs/test-018-groq",
+      "lastUpdated": "2026-02-19T16:11:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-01T09:34:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-02-07T10:59:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-02-16T09:03:00.000Z",
+          "note": "Technical interview completed."
+        },
+        {
+          "status": "Final Interview",
+          "date": "2026-02-19T16:11:00.000Z",
+          "note": "Final interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000018,
+      "applicationId": "test-019-skydio",
+      "dateSubmitted": "2025-12-01T09:14:00.000Z",
+      "company": "Skydio",
+      "jobTitle": "Machine Learning Infrastructure Engineer",
+      "platform": "Company Website",
+      "status": "Submitted",
+      "notes": "Need to follow up if no response after two weeks. Source: Referral. Location: San Francisco, CA. $108k - $182k.",
+      "url": "https://skydio.example.com/skydio/jobs/test-019-skydio",
+      "lastUpdated": "2025-12-01T09:14:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-01T09:14:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000019,
+      "applicationId": "test-020-asana",
+      "dateSubmitted": "2025-12-21T09:24:00.000Z",
+      "company": "Asana",
+      "jobTitle": "Generative AI Engineer",
+      "platform": "Lever",
+      "status": "Interview",
+      "notes": "External application form completed. Source: Google Jobs. Location: Remote, United States. $165k - $185k. Contact: Priya Shah.",
+      "url": "https://jobs.lever.co/asana/jobs/test-020-asana",
+      "lastUpdated": "2026-01-01T13:29:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-21T09:24:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-12-27T14:49:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-01-01T13:29:00.000Z",
+          "note": "Interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000020,
+      "applicationId": "test-021-microsoft",
+      "dateSubmitted": "2026-04-24T09:42:00.000Z",
+      "company": "Microsoft",
+      "jobTitle": "Applied Scientist",
+      "platform": "Ashby",
+      "status": "Submitted",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: LinkedIn external apply. Location: San Jose, CA. $180k - $199k. Contact: Priya Shah.",
+      "url": "https://microsoft.example.com/microsoft/jobs/test-021-microsoft",
+      "lastUpdated": "2026-04-24T09:42:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-24T09:42:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000021,
+      "applicationId": "test-022-openai",
+      "dateSubmitted": "2025-12-02T09:11:00.000Z",
+      "company": "OpenAI",
+      "jobTitle": "Data Scientist",
+      "platform": "Company Website",
+      "status": "Final Interview",
+      "notes": "Salary/location details need manual review. Source: LinkedIn Easy Apply. Location: Palo Alto, CA. $215k - $281k. Contact: Sofia Patel.",
+      "url": "https://openai.example.com/openai/jobs/test-022-openai",
+      "lastUpdated": "2025-12-21T10:58:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-02T09:11:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-12-08T12:54:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2025-12-11T15:23:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2025-12-15T10:46:00.000Z",
+          "note": "Technical interview completed."
+        },
+        {
+          "status": "Final Interview",
+          "date": "2025-12-21T10:58:00.000Z",
+          "note": "Final interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000022,
+      "applicationId": "test-023-google-deepmin",
+      "dateSubmitted": "2025-11-22T09:15:00.000Z",
+      "company": "Google DeepMind",
+      "jobTitle": "Software Engineer, Applied ML",
+      "platform": "Lever",
+      "status": "Submitted",
+      "notes": "Applied with general AI/ML resume. Source: Google Jobs. Location: Mountain View, CA. $84k - $143k.",
+      "url": "https://jobs.lever.co/google-deepmind/jobs/test-023-google-deepmin",
+      "lastUpdated": "2025-11-22T09:15:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-11-22T09:15:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000023,
+      "applicationId": "test-024-airbnb",
+      "dateSubmitted": "2026-01-27T09:59:00.000Z",
+      "company": "Airbnb",
+      "jobTitle": "Research Engineer, AI",
+      "platform": "Company Website",
+      "status": "Submitted",
+      "notes": "Role looks aligned with Python, model evaluation, and production ML. Source: LinkedIn external apply. Location: San Jose, CA. $175k - $183k.",
+      "url": "https://airbnb.example.com/airbnb/jobs/test-024-airbnb",
+      "lastUpdated": "2026-01-27T09:59:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-27T09:59:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000024,
+      "applicationId": "test-025-krafton-ai",
+      "dateSubmitted": "2025-11-30T09:05:00.000Z",
+      "company": "KRAFTON AI",
+      "jobTitle": "Research Scientist, Machine Learning",
+      "platform": "Ashby",
+      "status": "Phone Screen",
+      "notes": "Need to follow up if no response after two weeks. Source: LinkedIn Easy Apply. Location: San Mateo, CA. $219k - $259k.",
+      "url": "https://krafton-ai.example.com/krafton-ai/jobs/test-025-krafton-ai",
+      "lastUpdated": "2025-12-11T09:34:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-11-30T09:05:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-12-10T15:01:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2025-12-11T09:34:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000025,
+      "applicationId": "test-026-runway",
+      "dateSubmitted": "2026-03-22T09:05:00.000Z",
+      "company": "Runway",
+      "jobTitle": "Data Engineer, ML Platform",
+      "platform": "Greenhouse",
+      "status": "Submitted",
+      "notes": "Applied with general AI/ML resume. Source: Recruiter message. Location: Mountain View, CA. $200k - $168k.",
+      "url": "https://job-boards.greenhouse.io/runway/jobs/test-026-runway",
+      "lastUpdated": "2026-03-22T09:05:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-22T09:05:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000026,
+      "applicationId": "test-027-cruise",
+      "dateSubmitted": "2025-11-10T09:29:00.000Z",
+      "company": "Cruise",
+      "jobTitle": "Computer Vision Engineer",
+      "platform": "Workday",
+      "status": "Phone Screen",
+      "notes": "Salary/location details need manual review. Source: Google Jobs. Location: Austin, TX.",
+      "url": "https://cruise.example.com/cruise/jobs/test-027-cruise",
+      "lastUpdated": "2025-11-18T09:34:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-11-10T09:29:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-11-17T09:41:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2025-11-18T09:34:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000027,
+      "applicationId": "test-028-lyft",
+      "dateSubmitted": "2025-12-25T09:17:00.000Z",
+      "company": "Lyft",
+      "jobTitle": "AI Product Engineer",
+      "platform": "Company Website",
+      "status": "Submitted",
+      "notes": "External application form completed. Source: LinkedIn external apply. Location: Redwood City, CA. $215k - $153k.",
+      "url": "https://lyft.example.com/lyft/jobs/test-028-lyft",
+      "lastUpdated": "2025-12-25T09:17:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-25T09:17:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000028,
+      "applicationId": "test-029-notion",
+      "dateSubmitted": "2026-03-25T09:55:00.000Z",
+      "company": "Notion",
+      "jobTitle": "Recommendation Systems Engineer",
+      "platform": "Workday",
+      "status": "Rejected",
+      "notes": "Strong match on job description; company research needed. Source: Job board search. Location: Palo Alto, CA. $116k - $196k. Contact: Sofia Patel.",
+      "url": "https://notion.example.com/notion/jobs/test-029-notion",
+      "lastUpdated": "2026-04-20T14:55:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-25T09:55:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-04-08T12:38:00.000Z",
+          "note": "Recruiter or HR contact received."
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-04-20T14:55:00.000Z",
+          "note": "Rejected after initial contact."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000029,
+      "applicationId": "test-030-plaud",
+      "dateSubmitted": "2026-01-13T09:31:00.000Z",
+      "company": "Plaud",
+      "jobTitle": "Applied Scientist",
+      "platform": "Lever",
+      "status": "Withdrawn",
+      "notes": "Found via LinkedIn recommendations. Source: Google Jobs. Location: San Jose, CA. $121k - $166k.",
+      "url": "https://jobs.lever.co/plaud/jobs/test-030-plaud",
+      "lastUpdated": "2026-01-16T12:41:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-13T09:31:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Withdrawn",
+          "date": "2026-01-16T12:41:00.000Z",
+          "note": "Withdrew from process."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000030,
+      "applicationId": "test-031-acceler8-talen",
+      "dateSubmitted": "2025-11-27T09:54:00.000Z",
+      "company": "Acceler8 Talent",
+      "jobTitle": "Machine Learning Infrastructure Engineer",
+      "platform": "Workday",
+      "status": "Submitted",
+      "notes": "Role looks aligned with Python, model evaluation, and production ML. Source: Recruiter message. Location: San Jose, CA.",
+      "url": "https://acceler8-talent.example.com/acceler8-talent/jobs/test-031-acceler8-talen",
+      "lastUpdated": "2025-11-27T09:54:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-11-27T09:54:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000031,
+      "applicationId": "test-032-mistral-ai",
+      "dateSubmitted": "2026-02-22T09:33:00.000Z",
+      "company": "Mistral AI",
+      "jobTitle": "Recommendation Systems Engineer",
+      "platform": "Ashby",
+      "status": "Rejected",
+      "notes": "Need to follow up if no response after two weeks. Source: LinkedIn Easy Apply. Location: Foster City, CA. $197k - $204k.",
+      "url": "https://mistral-ai.example.com/mistral-ai/jobs/test-032-mistral-ai",
+      "lastUpdated": "2026-03-23T16:15:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-22T09:33:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-03-05T16:43:00.000Z",
+          "note": "Recruiter or HR contact received."
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-03-23T16:15:00.000Z",
+          "note": "Rejected after initial contact."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000032,
+      "applicationId": "test-033-block",
+      "dateSubmitted": "2025-12-21T09:49:00.000Z",
+      "company": "Block",
+      "jobTitle": "AI Product Engineer",
+      "platform": "Indeed",
+      "status": "Rejected",
+      "notes": "External application form completed. Source: LinkedIn external apply. Location: Remote, United States. $218k - $186k.",
+      "url": "https://block.example.com/block/jobs/test-033-block",
+      "lastUpdated": "2026-01-02T09:59:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-21T09:49:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-12-31T13:20:00.000Z",
+          "note": "Recruiter or HR contact received."
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-01-02T09:59:00.000Z",
+          "note": "Rejected after initial contact."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000033,
+      "applicationId": "test-034-palantir",
+      "dateSubmitted": "2025-11-09T09:06:00.000Z",
+      "company": "Palantir",
+      "jobTitle": "AI Engineer",
+      "platform": "Company Website",
+      "status": "Phone Screen",
+      "notes": "Applied with general AI/ML resume. Source: Saved job follow-up. Location: Los Angeles, CA. $101k - $273k.",
+      "url": "https://palantir.example.com/palantir/jobs/test-034-palantir",
+      "lastUpdated": "2025-11-21T16:40:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-11-09T09:06:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-11-15T15:12:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2025-11-21T16:40:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000034,
+      "applicationId": "test-035-machinify",
+      "dateSubmitted": "2026-03-22T09:28:00.000Z",
+      "company": "Machinify",
+      "jobTitle": "Research Engineer, AI",
+      "platform": "Lever",
+      "status": "Submitted",
+      "notes": "Need to follow up if no response after two weeks. Source: Recruiter message. Location: Palo Alto, CA.",
+      "url": "https://jobs.lever.co/machinify/jobs/test-035-machinify",
+      "lastUpdated": "2026-03-22T09:28:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-22T09:28:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000035,
+      "applicationId": "test-036-databricks",
+      "dateSubmitted": "2025-12-18T09:53:00.000Z",
+      "company": "Databricks",
+      "jobTitle": "AI Safety & Evaluation Engineer",
+      "platform": "Ashby",
+      "status": "HR Reachout",
+      "notes": "Need to follow up if no response after two weeks. Source: LinkedIn external apply. Location: San Mateo, CA. Contact: Sofia Patel.",
+      "url": "https://databricks.example.com/databricks/jobs/test-036-databricks",
+      "lastUpdated": "2025-12-22T16:30:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-18T09:53:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-12-22T16:30:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000036,
+      "applicationId": "test-037-diligent-techn",
+      "dateSubmitted": "2026-04-30T09:44:00.000Z",
+      "company": "Diligent Technologies",
+      "jobTitle": "Applied Scientist",
+      "platform": "Workday",
+      "status": "Submitted",
+      "notes": "Need to follow up if no response after two weeks. Source: LinkedIn Easy Apply. Location: San Mateo, CA. $93k - $267k. Contact: Emily Zhao.",
+      "url": "https://diligent-technologies.example.com/diligent-technologies/jobs/test-037-diligent-techn",
+      "lastUpdated": "2026-04-30T09:44:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-30T09:44:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000037,
+      "applicationId": "test-038-cerebras",
+      "dateSubmitted": "2026-03-03T09:42:00.000Z",
+      "company": "Cerebras",
+      "jobTitle": "Research Scientist, Machine Learning",
+      "platform": "Workday",
+      "status": "HR Reachout",
+      "notes": "Role looks aligned with Python, model evaluation, and production ML. Source: Google Jobs. Location: Los Angeles, CA.",
+      "url": "https://cerebras.example.com/cerebras/jobs/test-038-cerebras",
+      "lastUpdated": "2026-03-15T10:26:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-03T09:42:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-03-15T10:26:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000038,
+      "applicationId": "test-039-google-deepmin",
+      "dateSubmitted": "2026-04-24T09:17:00.000Z",
+      "company": "Google DeepMind",
+      "jobTitle": "Data Engineer, ML Platform",
+      "platform": "Ashby",
+      "status": "Final Interview",
+      "notes": "External application form completed. Source: LinkedIn external apply. Location: San Jose, CA. $139k - $256k.",
+      "url": "https://google-deepmind.example.com/google-deepmind/jobs/test-039-google-deepmin",
+      "lastUpdated": "2026-05-24T14:25:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-24T09:17:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-05-04T12:35:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-05-05T09:50:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-05-15T15:41:00.000Z",
+          "note": "Technical interview completed."
+        },
+        {
+          "status": "Final Interview",
+          "date": "2026-05-24T14:25:00.000Z",
+          "note": "Final interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000039,
+      "applicationId": "test-040-replit",
+      "dateSubmitted": "2026-03-14T09:46:00.000Z",
+      "company": "Replit",
+      "jobTitle": "Search Ranking Engineer",
+      "platform": "LinkedIn",
+      "status": "Submitted",
+      "notes": "Role looks aligned with Python, model evaluation, and production ML. Source: Recruiter message. Location: Cupertino, CA. $207k - $289k. Contact: Ethan Wright.",
+      "url": "https://www.linkedin.com/jobs/view/4360000039",
+      "lastUpdated": "2026-03-14T09:46:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-14T09:46:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000040,
+      "applicationId": "test-041-rippling",
+      "dateSubmitted": "2026-04-19T09:37:00.000Z",
+      "company": "Rippling",
+      "jobTitle": "Search Ranking Engineer",
+      "platform": "Workday",
+      "status": "Phone Screen",
+      "notes": "Applied with general AI/ML resume. Source: LinkedIn Easy Apply. Location: Cupertino, CA. $211k - $329k. Contact: Chris Nguyen.",
+      "url": "https://rippling.example.com/rippling/jobs/test-041-rippling",
+      "lastUpdated": "2026-04-22T16:51:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-19T09:37:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-04-22T16:51:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000041,
+      "applicationId": "test-042-rippling",
+      "dateSubmitted": "2026-02-25T09:58:00.000Z",
+      "company": "Rippling",
+      "jobTitle": "Data Scientist",
+      "platform": "Workday",
+      "status": "Submitted",
+      "notes": "External application form completed. Source: Company careers page. Location: Palo Alto, CA. $96k - $222k.",
+      "url": "https://rippling.example.com/rippling/jobs/test-042-rippling",
+      "lastUpdated": "2026-02-25T09:58:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-25T09:58:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000042,
+      "applicationId": "test-043-character-ai",
+      "dateSubmitted": "2025-11-26T09:00:00.000Z",
+      "company": "Character.AI",
+      "jobTitle": "AI Platform Engineer",
+      "platform": "Ashby",
+      "status": "Submitted",
+      "notes": "Strong match on job description; company research needed. Source: Google Jobs. Location: Los Angeles, CA. $98k - $287k.",
+      "url": "https://character-ai.example.com/character-ai/jobs/test-043-character-ai",
+      "lastUpdated": "2025-11-26T09:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-11-26T09:00:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000043,
+      "applicationId": "test-044-nvidia",
+      "dateSubmitted": "2026-03-17T09:11:00.000Z",
+      "company": "NVIDIA",
+      "jobTitle": "Robotics Machine Learning Engineer",
+      "platform": "Indeed",
+      "status": "Offer",
+      "notes": "Found via LinkedIn recommendations. Source: Saved job follow-up. Location: Austin, TX. $211k - $193k.",
+      "url": "https://nvidia.example.com/nvidia/jobs/test-044-nvidia",
+      "lastUpdated": "2026-04-05T13:14:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-17T09:11:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-03-21T11:34:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-03-24T09:17:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-04-02T12:45:00.000Z",
+          "note": "Interview scheduled/completed."
+        },
+        {
+          "status": "Offer",
+          "date": "2026-04-05T13:14:00.000Z",
+          "note": "Offer received."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000044,
+      "applicationId": "test-045-microsoft",
+      "dateSubmitted": "2026-02-16T09:08:00.000Z",
+      "company": "Microsoft",
+      "jobTitle": "Generative AI Engineer",
+      "platform": "LinkedIn",
+      "status": "Submitted",
+      "notes": "External application form completed. Source: Saved job follow-up. Location: Austin, TX.",
+      "url": "https://www.linkedin.com/jobs/view/4360000044",
+      "lastUpdated": "2026-02-16T09:08:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-16T09:08:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000045,
+      "applicationId": "test-046-anduril",
+      "dateSubmitted": "2026-01-08T09:23:00.000Z",
+      "company": "Anduril",
+      "jobTitle": "Simulation Scenario Generation Engineer",
+      "platform": "LinkedIn",
+      "status": "Rejected",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Company careers page. Location: Remote, United States. $200k - $225k.",
+      "url": "https://www.linkedin.com/jobs/view/4360000045",
+      "lastUpdated": "2026-01-18T10:54:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-08T09:23:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-01-18T10:54:00.000Z",
+          "note": "Rejection email received."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000046,
+      "applicationId": "test-047-onemagnify",
+      "dateSubmitted": "2026-03-04T09:05:00.000Z",
+      "company": "OneMagnify",
+      "jobTitle": "Simulation Scenario Generation Engineer",
+      "platform": "Lever",
+      "status": "Submitted",
+      "notes": "Salary/location details need manual review. Source: LinkedIn Easy Apply. Location: Redwood City, CA. $170k - $231k.",
+      "url": "https://jobs.lever.co/onemagnify/jobs/test-047-onemagnify",
+      "lastUpdated": "2026-03-04T09:05:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-04T09:05:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000047,
+      "applicationId": "test-048-cohere",
+      "dateSubmitted": "2025-12-16T09:57:00.000Z",
+      "company": "Cohere",
+      "jobTitle": "Data Scientist | Modeling",
+      "platform": "Indeed",
+      "status": "HR Reachout",
+      "notes": "Found via LinkedIn recommendations. Source: Saved job follow-up. Location: Austin, TX. $217k - $153k.",
+      "url": "https://cohere.example.com/cohere/jobs/test-048-cohere",
+      "lastUpdated": "2025-12-28T16:17:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-16T09:57:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-12-28T16:17:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000048,
+      "applicationId": "test-049-snowflake",
+      "dateSubmitted": "2026-01-03T09:46:00.000Z",
+      "company": "Snowflake",
+      "jobTitle": "Research Scientist, Machine Learning",
+      "platform": "Indeed",
+      "status": "Submitted",
+      "notes": "Role looks aligned with Python, model evaluation, and production ML. Source: Saved job follow-up. Location: Boston, MA. Contact: Jessica Lee.",
+      "url": "https://snowflake.example.com/snowflake/jobs/test-049-snowflake",
+      "lastUpdated": "2026-01-03T09:46:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-03T09:46:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000049,
+      "applicationId": "test-050-samsara",
+      "dateSubmitted": "2026-04-22T09:21:00.000Z",
+      "company": "Samsara",
+      "jobTitle": "Software Engineer, Applied ML",
+      "platform": "LinkedIn",
+      "status": "Submitted",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Recruiter message. Location: New York, NY. $168k - $325k.",
+      "url": "https://www.linkedin.com/jobs/view/4360000049",
+      "lastUpdated": "2026-04-22T09:21:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-22T09:21:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000050,
+      "applicationId": "test-051-scale-ai",
+      "dateSubmitted": "2025-11-26T09:40:00.000Z",
+      "company": "Scale AI",
+      "jobTitle": "Recommendation Systems Engineer",
+      "platform": "Workday",
+      "status": "Rejected",
+      "notes": "Need to follow up if no response after two weeks. Source: Saved job follow-up. Location: Seattle, WA. $154k - $300k.",
+      "url": "https://scale-ai.example.com/scale-ai/jobs/test-051-scale-ai",
+      "lastUpdated": "2025-12-25T11:42:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-11-26T09:40:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-11-28T16:08:00.000Z",
+          "note": "Recruiter reached out to schedule screen."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2025-12-01T13:54:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2025-12-04T10:57:00.000Z",
+          "note": "Technical interview scheduled."
+        },
+        {
+          "status": "Final Interview",
+          "date": "2025-12-11T14:52:00.000Z",
+          "note": "Final round completed."
+        },
+        {
+          "status": "Rejected",
+          "date": "2025-12-25T11:42:00.000Z",
+          "note": "Rejected after interview process."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000051,
+      "applicationId": "test-052-applied-intuit",
+      "dateSubmitted": "2026-03-22T09:25:00.000Z",
+      "company": "Applied Intuition",
+      "jobTitle": "Data Engineer, ML Platform",
+      "platform": "LinkedIn",
+      "status": "Submitted",
+      "notes": "Role looks aligned with Python, model evaluation, and production ML. Source: Saved job follow-up. Location: Remote, United States. $147k - $243k.",
+      "url": "https://www.linkedin.com/jobs/view/4360000051",
+      "lastUpdated": "2026-03-22T09:25:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-22T09:25:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000052,
+      "applicationId": "test-053-twelve-labs",
+      "dateSubmitted": "2026-03-13T09:36:00.000Z",
+      "company": "Twelve Labs",
+      "jobTitle": "Staff Machine Learning Engineer",
+      "platform": "Lever",
+      "status": "Rejected",
+      "notes": "Salary/location details need manual review. Source: Company careers page. Location: Los Angeles, CA.",
+      "url": "https://jobs.lever.co/twelve-labs/jobs/test-053-twelve-labs",
+      "lastUpdated": "2026-03-25T15:25:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-13T09:36:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-03-25T15:25:00.000Z",
+          "note": "Rejection email received."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000053,
+      "applicationId": "test-054-pinterest",
+      "dateSubmitted": "2026-02-01T09:41:00.000Z",
+      "company": "Pinterest",
+      "jobTitle": "LLM Evaluation Engineer",
+      "platform": "Ashby",
+      "status": "HR Reachout",
+      "notes": "Salary/location details need manual review. Source: Company careers page. Location: Boston, MA.",
+      "url": "https://pinterest.example.com/pinterest/jobs/test-054-pinterest",
+      "lastUpdated": "2026-02-12T14:12:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-01T09:41:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-02-12T14:12:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000054,
+      "applicationId": "test-055-dynamism",
+      "dateSubmitted": "2025-12-19T09:04:00.000Z",
+      "company": "Dynamism",
+      "jobTitle": "AI Engineer",
+      "platform": "Workday",
+      "status": "Interview",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: LinkedIn Easy Apply. Location: Remote, United States. $156k - $189k.",
+      "url": "https://dynamism.example.com/dynamism/jobs/test-055-dynamism",
+      "lastUpdated": "2026-01-03T12:25:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-19T09:04:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-12-28T15:33:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-01-03T12:25:00.000Z",
+          "note": "Interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000055,
+      "applicationId": "test-056-rippling",
+      "dateSubmitted": "2026-02-14T09:09:00.000Z",
+      "company": "Rippling",
+      "jobTitle": "Simulation Scenario Generation Engineer",
+      "platform": "Indeed",
+      "status": "Offer",
+      "notes": "Strong match on job description; company research needed. Source: Company careers page. Location: San Mateo, CA.",
+      "url": "https://rippling.example.com/rippling/jobs/test-056-rippling",
+      "lastUpdated": "2026-03-08T16:22:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-14T09:09:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-02-16T13:36:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-02-17T16:31:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-02-26T16:04:00.000Z",
+          "note": "Interview scheduled/completed."
+        },
+        {
+          "status": "Final Interview",
+          "date": "2026-03-02T16:38:00.000Z",
+          "note": "Final round completed."
+        },
+        {
+          "status": "Offer",
+          "date": "2026-03-08T16:22:00.000Z",
+          "note": "Offer received."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000056,
+      "applicationId": "test-057-diligent-techn",
+      "dateSubmitted": "2026-01-14T09:43:00.000Z",
+      "company": "Diligent Technologies",
+      "jobTitle": "Robotics Machine Learning Engineer",
+      "platform": "Lever",
+      "status": "HR Reachout",
+      "notes": "Applied with general AI/ML resume. Source: Job board search. Location: Hybrid - Bay Area. $112k - $286k.",
+      "url": "https://jobs.lever.co/diligent-technologies/jobs/test-057-diligent-techn",
+      "lastUpdated": "2026-01-26T16:10:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-14T09:43:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-01-26T16:10:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000057,
+      "applicationId": "test-058-plaud",
+      "dateSubmitted": "2026-01-31T09:20:00.000Z",
+      "company": "Plaud",
+      "jobTitle": "Software Engineer, Applied ML",
+      "platform": "Lever",
+      "status": "Submitted",
+      "notes": "Role looks aligned with Python, model evaluation, and production ML. Source: Google Jobs. Location: New York, NY.",
+      "url": "https://jobs.lever.co/plaud/jobs/test-058-plaud",
+      "lastUpdated": "2026-01-31T09:20:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-31T09:20:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000058,
+      "applicationId": "test-059-runway",
+      "dateSubmitted": "2026-04-18T09:18:00.000Z",
+      "company": "Runway",
+      "jobTitle": "MLOps Engineer",
+      "platform": "Indeed",
+      "status": "Submitted",
+      "notes": "Strong match on job description; company research needed. Source: LinkedIn Easy Apply. Location: Hybrid - Bay Area.",
+      "url": "https://runway.example.com/runway/jobs/test-059-runway",
+      "lastUpdated": "2026-04-18T09:18:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-18T09:18:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000059,
+      "applicationId": "test-060-rippling",
+      "dateSubmitted": "2026-01-20T09:11:00.000Z",
+      "company": "Rippling",
+      "jobTitle": "Machine Learning Infrastructure Engineer",
+      "platform": "Ashby",
+      "status": "Offer",
+      "notes": "Applied with general AI/ML resume. Source: Job board search. Location: San Jose, CA. $219k - $201k.",
+      "url": "https://rippling.example.com/rippling/jobs/test-060-rippling",
+      "lastUpdated": "2026-02-21T12:24:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-20T09:11:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-01-28T11:51:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-02-01T13:48:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-02-04T16:48:00.000Z",
+          "note": "Interview scheduled/completed."
+        },
+        {
+          "status": "Final Interview",
+          "date": "2026-02-13T16:22:00.000Z",
+          "note": "Final round completed."
+        },
+        {
+          "status": "Offer",
+          "date": "2026-02-21T12:24:00.000Z",
+          "note": "Offer received."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000060,
+      "applicationId": "test-061-notion",
+      "dateSubmitted": "2026-04-03T09:16:00.000Z",
+      "company": "Notion",
+      "jobTitle": "ML Compiler Engineer",
+      "platform": "Greenhouse",
+      "status": "Phone Screen",
+      "notes": "Applied with general AI/ML resume. Source: Google Jobs. Location: San Francisco, CA. $173k - $233k.",
+      "url": "https://job-boards.greenhouse.io/notion/jobs/test-061-notion",
+      "lastUpdated": "2026-04-16T10:57:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-03T09:16:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-04-09T10:48:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-04-16T10:57:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000061,
+      "applicationId": "test-062-snowflake",
+      "dateSubmitted": "2026-04-13T09:20:00.000Z",
+      "company": "Snowflake",
+      "jobTitle": "Staff Machine Learning Engineer",
+      "platform": "Indeed",
+      "status": "Phone Screen",
+      "notes": "Strong match on job description; company research needed. Source: LinkedIn Easy Apply. Location: Foster City, CA. $139k - $283k. Contact: Daniel Park.",
+      "url": "https://snowflake.example.com/snowflake/jobs/test-062-snowflake",
+      "lastUpdated": "2026-04-16T12:37:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-13T09:20:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-04-16T12:37:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000062,
+      "applicationId": "test-063-krafton-ai",
+      "dateSubmitted": "2025-12-02T09:04:00.000Z",
+      "company": "KRAFTON AI",
+      "jobTitle": "Software Engineer, Applied ML",
+      "platform": "Indeed",
+      "status": "Interview",
+      "notes": "Role looks aligned with Python, model evaluation, and production ML. Source: Job board search. Location: San Mateo, CA.",
+      "url": "https://krafton-ai.example.com/krafton-ai/jobs/test-063-krafton-ai",
+      "lastUpdated": "2025-12-21T14:44:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-02T09:04:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2025-12-09T14:37:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2025-12-21T14:44:00.000Z",
+          "note": "Interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000063,
+      "applicationId": "test-064-palantir",
+      "dateSubmitted": "2025-12-20T09:53:00.000Z",
+      "company": "Palantir",
+      "jobTitle": "Simulation Scenario Generation Engineer",
+      "platform": "Greenhouse",
+      "status": "Interview",
+      "notes": "Salary/location details need manual review. Source: LinkedIn Easy Apply. Location: San Jose, CA.",
+      "url": "https://job-boards.greenhouse.io/palantir/jobs/test-064-palantir",
+      "lastUpdated": "2026-01-06T10:14:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-20T09:53:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-12-30T14:51:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2025-12-31T10:48:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-01-06T10:14:00.000Z",
+          "note": "Interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000064,
+      "applicationId": "test-065-plaud",
+      "dateSubmitted": "2026-01-05T09:48:00.000Z",
+      "company": "Plaud",
+      "jobTitle": "Machine Learning Applied Researcher",
+      "platform": "LinkedIn",
+      "status": "Interview",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Job board search. Location: Cupertino, CA. $81k - $222k.",
+      "url": "https://www.linkedin.com/jobs/view/4360000064",
+      "lastUpdated": "2026-01-24T09:45:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-05T09:48:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-01-11T10:12:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-01-16T15:42:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-01-24T09:45:00.000Z",
+          "note": "Interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000065,
+      "applicationId": "test-066-glean",
+      "dateSubmitted": "2026-03-02T09:31:00.000Z",
+      "company": "Glean",
+      "jobTitle": "Robotics Machine Learning Engineer",
+      "platform": "LinkedIn",
+      "status": "Submitted",
+      "notes": "Strong match on job description; company research needed. Source: Google Jobs. Location: San Francisco, CA. $84k - $165k. Contact: Emily Zhao.",
+      "url": "https://www.linkedin.com/jobs/view/4360000065",
+      "lastUpdated": "2026-03-02T09:31:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-02T09:31:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000066,
+      "applicationId": "test-067-coinbase",
+      "dateSubmitted": "2026-03-20T09:42:00.000Z",
+      "company": "Coinbase",
+      "jobTitle": "MLOps Engineer",
+      "platform": "Greenhouse",
+      "status": "HR Reachout",
+      "notes": "Found via LinkedIn recommendations. Source: LinkedIn Easy Apply. Location: Mountain View, CA.",
+      "url": "https://job-boards.greenhouse.io/coinbase/jobs/test-067-coinbase",
+      "lastUpdated": "2026-03-24T09:48:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-20T09:42:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-03-24T09:48:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000067,
+      "applicationId": "test-068-rippling",
+      "dateSubmitted": "2026-05-04T09:06:00.000Z",
+      "company": "Rippling",
+      "jobTitle": "Data Engineer, ML Platform",
+      "platform": "Lever",
+      "status": "Offer",
+      "notes": "Need to follow up if no response after two weeks. Source: LinkedIn external apply. Location: New York, NY. $95k - $153k.",
+      "url": "https://jobs.lever.co/rippling/jobs/test-068-rippling",
+      "lastUpdated": "2026-06-05T13:53:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-05-04T09:06:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-05-12T09:02:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-05-13T16:42:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-05-21T14:40:00.000Z",
+          "note": "Interview scheduled/completed."
+        },
+        {
+          "status": "Final Interview",
+          "date": "2026-05-30T14:38:00.000Z",
+          "note": "Final round completed."
+        },
+        {
+          "status": "Offer",
+          "date": "2026-06-05T13:53:00.000Z",
+          "note": "Offer received."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000068,
+      "applicationId": "test-069-glean",
+      "dateSubmitted": "2025-12-16T09:31:00.000Z",
+      "company": "Glean",
+      "jobTitle": "Staff Machine Learning Engineer",
+      "platform": "Ashby",
+      "status": "Submitted",
+      "notes": "Strong match on job description; company research needed. Source: Recruiter message. Location: San Mateo, CA. $155k - $174k. Contact: Priya Shah.",
+      "url": "https://glean.example.com/glean/jobs/test-069-glean",
+      "lastUpdated": "2025-12-16T09:31:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-16T09:31:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000069,
+      "applicationId": "test-070-google-deepmin",
+      "dateSubmitted": "2026-01-03T09:40:00.000Z",
+      "company": "Google DeepMind",
+      "jobTitle": "Machine Learning Infrastructure Engineer",
+      "platform": "Company Website",
+      "status": "HR Reachout",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Job board search. Location: San Francisco, CA.",
+      "url": "https://google-deepmind.example.com/google-deepmind/jobs/test-070-google-deepmin",
+      "lastUpdated": "2026-01-15T14:51:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-03T09:40:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-01-15T14:51:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000070,
+      "applicationId": "test-071-adobe",
+      "dateSubmitted": "2026-01-26T09:28:00.000Z",
+      "company": "Adobe",
+      "jobTitle": "Generative AI Engineer",
+      "platform": "Workday",
+      "status": "Submitted",
+      "notes": "Salary/location details need manual review. Source: Company careers page. Location: Mountain View, CA.",
+      "url": "https://adobe.example.com/adobe/jobs/test-071-adobe",
+      "lastUpdated": "2026-01-26T09:28:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-26T09:28:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000071,
+      "applicationId": "test-072-uber",
+      "dateSubmitted": "2025-11-24T09:02:00.000Z",
+      "company": "Uber",
+      "jobTitle": "Robotics Machine Learning Engineer",
+      "platform": "Lever",
+      "status": "Submitted",
+      "notes": "Role looks aligned with Python, model evaluation, and production ML. Source: Referral. Location: Remote, United States.",
+      "url": "https://jobs.lever.co/uber/jobs/test-072-uber",
+      "lastUpdated": "2025-11-24T09:02:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-11-24T09:02:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000072,
+      "applicationId": "test-073-openai",
+      "dateSubmitted": "2026-03-06T09:14:00.000Z",
+      "company": "OpenAI",
+      "jobTitle": "MLOps Engineer",
+      "platform": "Company Website",
+      "status": "Offer",
+      "notes": "Strong match on job description; company research needed. Source: Google Jobs. Location: Foster City, CA. $181k - $254k.",
+      "url": "https://openai.example.com/openai/jobs/test-073-openai",
+      "lastUpdated": "2026-03-29T10:32:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-06T09:14:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-03-14T13:25:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-03-17T13:50:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-03-21T10:16:00.000Z",
+          "note": "Interview scheduled/completed."
+        },
+        {
+          "status": "Offer",
+          "date": "2026-03-29T10:32:00.000Z",
+          "note": "Offer received."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000073,
+      "applicationId": "test-074-anthropic",
+      "dateSubmitted": "2025-12-15T09:29:00.000Z",
+      "company": "Anthropic",
+      "jobTitle": "Machine Learning Applied Researcher",
+      "platform": "Ashby",
+      "status": "Interview",
+      "notes": "Applied with general AI/ML resume. Source: Company careers page. Location: Palo Alto, CA.",
+      "url": "https://anthropic.example.com/anthropic/jobs/test-074-anthropic",
+      "lastUpdated": "2025-12-31T13:44:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-15T09:29:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-12-18T12:59:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2025-12-24T12:15:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2025-12-31T13:44:00.000Z",
+          "note": "Interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000074,
+      "applicationId": "test-075-guild-mortgage",
+      "dateSubmitted": "2025-11-11T09:54:00.000Z",
+      "company": "Guild Mortgage",
+      "jobTitle": "Applied Scientist",
+      "platform": "LinkedIn",
+      "status": "Withdrawn",
+      "notes": "External application form completed. Source: Google Jobs. Location: Los Angeles, CA.",
+      "url": "https://www.linkedin.com/jobs/view/4360000074",
+      "lastUpdated": "2025-11-22T09:09:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-11-11T09:54:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-11-18T16:28:00.000Z",
+          "note": "Some contact before withdrawal."
+        },
+        {
+          "status": "Withdrawn",
+          "date": "2025-11-22T09:09:00.000Z",
+          "note": "Withdrew from process."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000075,
+      "applicationId": "test-076-kickmaker",
+      "dateSubmitted": "2026-05-02T09:37:00.000Z",
+      "company": "Kickmaker",
+      "jobTitle": "Computer Vision Engineer",
+      "platform": "Ashby",
+      "status": "HR Reachout",
+      "notes": "Salary/location details need manual review. Source: Google Jobs. Location: Redwood City, CA.",
+      "url": "https://kickmaker.example.com/kickmaker/jobs/test-076-kickmaker",
+      "lastUpdated": "2026-05-05T10:45:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-05-02T09:37:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-05-05T10:45:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000076,
+      "applicationId": "test-077-dynamism",
+      "dateSubmitted": "2026-04-27T09:51:00.000Z",
+      "company": "Dynamism",
+      "jobTitle": "LLM Evaluation Engineer",
+      "platform": "Greenhouse",
+      "status": "Submitted",
+      "notes": "Found via LinkedIn recommendations. Source: Saved job follow-up. Location: San Jose, CA. Contact: Emily Zhao.",
+      "url": "https://job-boards.greenhouse.io/dynamism/jobs/test-077-dynamism",
+      "lastUpdated": "2026-04-27T09:51:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-27T09:51:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000077,
+      "applicationId": "test-078-databricks",
+      "dateSubmitted": "2026-02-03T09:22:00.000Z",
+      "company": "Databricks",
+      "jobTitle": "Research Scientist, Machine Learning",
+      "platform": "Ashby",
+      "status": "Withdrawn",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Saved job follow-up. Location: San Mateo, CA. $153k - $208k. Contact: Taylor Brown.",
+      "url": "https://databricks.example.com/databricks/jobs/test-078-databricks",
+      "lastUpdated": "2026-02-08T11:55:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-03T09:22:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Withdrawn",
+          "date": "2026-02-08T11:55:00.000Z",
+          "note": "Withdrew from process."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000078,
+      "applicationId": "test-079-acceler8-talen",
+      "dateSubmitted": "2026-03-11T09:28:00.000Z",
+      "company": "Acceler8 Talent",
+      "jobTitle": "Applied Scientist",
+      "platform": "Ashby",
+      "status": "Submitted",
+      "notes": "Salary/location details need manual review. Source: Company careers page. Location: San Mateo, CA. $159k - $231k.",
+      "url": "https://acceler8-talent.example.com/acceler8-talent/jobs/test-079-acceler8-talen",
+      "lastUpdated": "2026-03-11T09:28:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-11T09:28:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000079,
+      "applicationId": "test-080-company-ai",
+      "dateSubmitted": "2026-02-26T09:07:00.000Z",
+      "company": "Company.ai",
+      "jobTitle": "Research Engineer, AI",
+      "platform": "Company Website",
+      "status": "Phone Screen",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: LinkedIn Easy Apply. Location: Hybrid - Bay Area. $124k - $301k.",
+      "url": "https://company-ai.example.com/company-ai/jobs/test-080-company-ai",
+      "lastUpdated": "2026-03-03T13:55:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-26T09:07:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-03-01T09:01:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-03-03T13:55:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000080,
+      "applicationId": "test-081-airbnb",
+      "dateSubmitted": "2026-04-07T09:50:00.000Z",
+      "company": "Airbnb",
+      "jobTitle": "Machine Learning Engineer",
+      "platform": "Lever",
+      "status": "Submitted",
+      "notes": "External application form completed. Source: Job board search. Location: Hybrid - Bay Area. $122k - $264k.",
+      "url": "https://jobs.lever.co/airbnb/jobs/test-081-airbnb",
+      "lastUpdated": "2026-04-07T09:50:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-07T09:50:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000081,
+      "applicationId": "test-082-skydio",
+      "dateSubmitted": "2025-12-19T09:16:00.000Z",
+      "company": "Skydio",
+      "jobTitle": "Senior Data Analyst",
+      "platform": "Greenhouse",
+      "status": "Final Interview",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Saved job follow-up. Location: San Jose, CA. $180k - $182k. Contact: Alex Morgan.",
+      "url": "https://job-boards.greenhouse.io/skydio/jobs/test-082-skydio",
+      "lastUpdated": "2026-01-02T15:59:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-19T09:16:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-12-21T09:52:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Interview",
+          "date": "2025-12-24T16:08:00.000Z",
+          "note": "Technical interview completed."
+        },
+        {
+          "status": "Final Interview",
+          "date": "2026-01-02T15:59:00.000Z",
+          "note": "Final interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000082,
+      "applicationId": "test-083-crossing-hurdl",
+      "dateSubmitted": "2026-01-29T09:35:00.000Z",
+      "company": "Crossing Hurdles",
+      "jobTitle": "ML Compiler Engineer",
+      "platform": "Lever",
+      "status": "Rejected",
+      "notes": "Need to follow up if no response after two weeks. Source: Referral. Location: Boston, MA. Contact: Chris Nguyen.",
+      "url": "https://jobs.lever.co/crossing-hurdles/jobs/test-083-crossing-hurdl",
+      "lastUpdated": "2026-02-02T13:57:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-29T09:35:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-02-02T13:57:00.000Z",
+          "note": "Rejection email received."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000083,
+      "applicationId": "test-084-mistral-ai",
+      "dateSubmitted": "2025-11-25T09:09:00.000Z",
+      "company": "Mistral AI",
+      "jobTitle": "Simulation Scenario Generation Engineer",
+      "platform": "Indeed",
+      "status": "Interview",
+      "notes": "Found via LinkedIn recommendations. Source: LinkedIn external apply. Location: Palo Alto, CA. $84k - $284k.",
+      "url": "https://mistral-ai.example.com/mistral-ai/jobs/test-084-mistral-ai",
+      "lastUpdated": "2025-12-01T10:42:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-11-25T09:09:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Interview",
+          "date": "2025-12-01T10:42:00.000Z",
+          "note": "Interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000084,
+      "applicationId": "test-085-afterquery-exp",
+      "dateSubmitted": "2026-04-23T09:05:00.000Z",
+      "company": "AfterQuery Experts",
+      "jobTitle": "AI Engineer",
+      "platform": "LinkedIn",
+      "status": "HR Reachout",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Saved job follow-up. Location: Remote, United States.",
+      "url": "https://www.linkedin.com/jobs/view/4360000084",
+      "lastUpdated": "2026-05-04T12:24:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-23T09:05:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-05-04T12:24:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000085,
+      "applicationId": "test-086-applied-intuit",
+      "dateSubmitted": "2026-02-21T09:54:00.000Z",
+      "company": "Applied Intuition",
+      "jobTitle": "Software Engineer, Applied ML",
+      "platform": "Lever",
+      "status": "Submitted",
+      "notes": "Strong match on job description; company research needed. Source: LinkedIn Easy Apply. Location: Foster City, CA. $98k - $159k.",
+      "url": "https://jobs.lever.co/applied-intuition/jobs/test-086-applied-intuit",
+      "lastUpdated": "2026-02-21T09:54:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-21T09:54:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000086,
+      "applicationId": "test-087-databricks",
+      "dateSubmitted": "2026-01-28T09:37:00.000Z",
+      "company": "Databricks",
+      "jobTitle": "Simulation Scenario Generation Engineer",
+      "platform": "Indeed",
+      "status": "Submitted",
+      "notes": "Applied with general AI/ML resume. Source: Recruiter message. Location: Palo Alto, CA. $96k - $219k.",
+      "url": "https://databricks.example.com/databricks/jobs/test-087-databricks",
+      "lastUpdated": "2026-01-28T09:37:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-28T09:37:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000087,
+      "applicationId": "test-088-linkedin",
+      "dateSubmitted": "2025-11-20T09:37:00.000Z",
+      "company": "LinkedIn",
+      "jobTitle": "Applied Scientist",
+      "platform": "Indeed",
+      "status": "Submitted",
+      "notes": "External application form completed. Source: Google Jobs. Location: Austin, TX. $216k - $291k.",
+      "url": "https://linkedin.example.com/linkedin/jobs/test-088-linkedin",
+      "lastUpdated": "2025-11-20T09:37:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-11-20T09:37:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000088,
+      "applicationId": "test-089-diligent-techn",
+      "dateSubmitted": "2026-04-05T09:48:00.000Z",
+      "company": "Diligent Technologies",
+      "jobTitle": "AI Safety & Evaluation Engineer",
+      "platform": "Company Website",
+      "status": "Submitted",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Job board search. Location: Hybrid - Bay Area. $91k - $159k. Contact: Alex Morgan.",
+      "url": "https://diligent-technologies.example.com/diligent-technologies/jobs/test-089-diligent-techn",
+      "lastUpdated": "2026-04-05T09:48:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-05T09:48:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000089,
+      "applicationId": "test-090-lyft",
+      "dateSubmitted": "2026-03-19T09:27:00.000Z",
+      "company": "Lyft",
+      "jobTitle": "Data Scientist | Modeling",
+      "platform": "Workday",
+      "status": "HR Reachout",
+      "notes": "Found via LinkedIn recommendations. Source: Company careers page. Location: Los Angeles, CA. $114k - $306k. Contact: Chris Nguyen.",
+      "url": "https://lyft.example.com/lyft/jobs/test-090-lyft",
+      "lastUpdated": "2026-03-21T12:05:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-19T09:27:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-03-21T12:05:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000090,
+      "applicationId": "test-091-instacart",
+      "dateSubmitted": "2026-05-01T09:49:00.000Z",
+      "company": "Instacart",
+      "jobTitle": "Simulation Scenario Generation Engineer",
+      "platform": "LinkedIn",
+      "status": "Rejected",
+      "notes": "Need to follow up if no response after two weeks. Source: Job board search. Location: New York, NY. $117k - $294k.",
+      "url": "https://www.linkedin.com/jobs/view/4360000090",
+      "lastUpdated": "2026-05-22T11:11:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-05-01T09:49:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-05-22T11:11:00.000Z",
+          "note": "Rejection email received."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000091,
+      "applicationId": "test-092-palantir",
+      "dateSubmitted": "2026-03-20T09:34:00.000Z",
+      "company": "Palantir",
+      "jobTitle": "Data Scientist | Modeling",
+      "platform": "Indeed",
+      "status": "Rejected",
+      "notes": "Role looks aligned with Python, model evaluation, and production ML. Source: Recruiter message. Location: Austin, TX.",
+      "url": "https://palantir.example.com/palantir/jobs/test-092-palantir",
+      "lastUpdated": "2026-04-17T10:11:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-20T09:34:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-04-17T10:11:00.000Z",
+          "note": "Rejection email received."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000092,
+      "applicationId": "test-093-groq",
+      "dateSubmitted": "2026-04-16T09:57:00.000Z",
+      "company": "Groq",
+      "jobTitle": "Simulation Scenario Generation Engineer",
+      "platform": "Ashby",
+      "status": "HR Reachout",
+      "notes": "Strong match on job description; company research needed. Source: LinkedIn external apply. Location: San Jose, CA. $96k - $312k.",
+      "url": "https://groq.example.com/groq/jobs/test-093-groq",
+      "lastUpdated": "2026-04-23T16:50:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-16T09:57:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-04-23T16:50:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000093,
+      "applicationId": "test-094-krafton-ai",
+      "dateSubmitted": "2026-04-08T09:25:00.000Z",
+      "company": "KRAFTON AI",
+      "jobTitle": "Machine Learning Applied Researcher",
+      "platform": "Indeed",
+      "status": "Final Interview",
+      "notes": "Need to follow up if no response after two weeks. Source: Company careers page. Location: Foster City, CA. $192k - $142k.",
+      "url": "https://krafton-ai.example.com/krafton-ai/jobs/test-094-krafton-ai",
+      "lastUpdated": "2026-05-06T16:07:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-08T09:25:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-04-14T14:52:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-04-20T10:49:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-04-27T09:00:00.000Z",
+          "note": "Technical interview completed."
+        },
+        {
+          "status": "Final Interview",
+          "date": "2026-05-06T16:07:00.000Z",
+          "note": "Final interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000094,
+      "applicationId": "test-095-company-ai",
+      "dateSubmitted": "2026-01-24T09:39:00.000Z",
+      "company": "Company.ai",
+      "jobTitle": "MLOps Engineer",
+      "platform": "Lever",
+      "status": "HR Reachout",
+      "notes": "Found via LinkedIn recommendations. Source: Referral. Location: Seattle, WA.",
+      "url": "https://jobs.lever.co/company-ai/jobs/test-095-company-ai",
+      "lastUpdated": "2026-01-27T14:57:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-24T09:39:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-01-27T14:57:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000095,
+      "applicationId": "test-096-healthedge",
+      "dateSubmitted": "2026-02-07T09:42:00.000Z",
+      "company": "HealthEdge",
+      "jobTitle": "Staff Machine Learning Engineer",
+      "platform": "LinkedIn",
+      "status": "Submitted",
+      "notes": "Found via LinkedIn recommendations. Source: LinkedIn external apply. Location: Mountain View, CA. $206k - $280k.",
+      "url": "https://www.linkedin.com/jobs/view/4360000095",
+      "lastUpdated": "2026-02-07T09:42:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-07T09:42:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000096,
+      "applicationId": "test-097-canva",
+      "dateSubmitted": "2026-03-09T09:54:00.000Z",
+      "company": "Canva",
+      "jobTitle": "Data Engineer, ML Platform",
+      "platform": "Workday",
+      "status": "Submitted",
+      "notes": "Salary/location details need manual review. Source: Job board search. Location: Mountain View, CA. $167k - $192k.",
+      "url": "https://canva.example.com/canva/jobs/test-097-canva",
+      "lastUpdated": "2026-03-09T09:54:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-09T09:54:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000097,
+      "applicationId": "test-098-waymo",
+      "dateSubmitted": "2026-03-22T09:46:00.000Z",
+      "company": "Waymo",
+      "jobTitle": "Data Scientist",
+      "platform": "Ashby",
+      "status": "Submitted",
+      "notes": "Applied with general AI/ML resume. Source: Referral. Location: Mountain View, CA.",
+      "url": "https://waymo.example.com/waymo/jobs/test-098-waymo",
+      "lastUpdated": "2026-03-22T09:46:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-22T09:46:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000098,
+      "applicationId": "test-099-figma",
+      "dateSubmitted": "2026-02-12T09:09:00.000Z",
+      "company": "Figma",
+      "jobTitle": "AI Engineer",
+      "platform": "Greenhouse",
+      "status": "Phone Screen",
+      "notes": "Strong match on job description; company research needed. Source: Google Jobs. Location: San Mateo, CA.",
+      "url": "https://job-boards.greenhouse.io/figma/jobs/test-099-figma",
+      "lastUpdated": "2026-02-21T10:24:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-12T09:09:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-02-16T13:35:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-02-21T10:24:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000099,
+      "applicationId": "test-100-ludo-robotics",
+      "dateSubmitted": "2026-04-05T09:45:00.000Z",
+      "company": "Ludo Robotics",
+      "jobTitle": "Machine Learning Infrastructure Engineer",
+      "platform": "Ashby",
+      "status": "Submitted",
+      "notes": "Strong match on job description; company research needed. Source: Job board search. Location: San Mateo, CA. $206k - $306k.",
+      "url": "https://ludo-robotics.example.com/ludo-robotics/jobs/test-100-ludo-robotics",
+      "lastUpdated": "2026-04-05T09:45:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-05T09:45:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000100,
+      "applicationId": "test-101-anduril",
+      "dateSubmitted": "2026-05-03T09:22:00.000Z",
+      "company": "Anduril",
+      "jobTitle": "Data Engineer, ML Platform",
+      "platform": "Workday",
+      "status": "Rejected",
+      "notes": "Salary/location details need manual review. Source: Referral. Location: Mountain View, CA.",
+      "url": "https://anduril.example.com/anduril/jobs/test-101-anduril",
+      "lastUpdated": "2026-05-17T16:13:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-05-03T09:22:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-05-05T16:36:00.000Z",
+          "note": "Recruiter or HR contact received."
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-05-17T16:13:00.000Z",
+          "note": "Rejected after initial contact."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000101,
+      "applicationId": "test-102-sierra",
+      "dateSubmitted": "2026-02-19T09:09:00.000Z",
+      "company": "Sierra",
+      "jobTitle": "Machine Learning Infrastructure Engineer",
+      "platform": "LinkedIn",
+      "status": "HR Reachout",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Saved job follow-up. Location: Boston, MA.",
+      "url": "https://www.linkedin.com/jobs/view/4360000101",
+      "lastUpdated": "2026-02-21T11:14:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-19T09:09:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-02-21T11:14:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000102,
+      "applicationId": "test-103-notion",
+      "dateSubmitted": "2025-12-15T09:38:00.000Z",
+      "company": "Notion",
+      "jobTitle": "MLOps Engineer",
+      "platform": "Lever",
+      "status": "Final Interview",
+      "notes": "Applied with general AI/ML resume. Source: LinkedIn external apply. Location: Cupertino, CA. Contact: Ryan Kim.",
+      "url": "https://jobs.lever.co/notion/jobs/test-103-notion",
+      "lastUpdated": "2025-12-31T12:32:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-15T09:38:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-12-17T09:57:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Interview",
+          "date": "2025-12-23T15:21:00.000Z",
+          "note": "Technical interview completed."
+        },
+        {
+          "status": "Final Interview",
+          "date": "2025-12-31T12:32:00.000Z",
+          "note": "Final interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000103,
+      "applicationId": "test-104-stealth-startu",
+      "dateSubmitted": "2026-03-26T09:11:00.000Z",
+      "company": "Stealth Startup",
+      "jobTitle": "AI Platform Engineer",
+      "platform": "Ashby",
+      "status": "Submitted",
+      "notes": "Salary/location details need manual review. Source: Job board search. Location: New York, NY.",
+      "url": "https://stealth-startup.example.com/stealth-startup/jobs/test-104-stealth-startu",
+      "lastUpdated": "2026-03-26T09:11:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-26T09:11:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000104,
+      "applicationId": "test-105-onemagnify",
+      "dateSubmitted": "2025-12-15T09:05:00.000Z",
+      "company": "OneMagnify",
+      "jobTitle": "NLP Engineer",
+      "platform": "Lever",
+      "status": "HR Reachout",
+      "notes": "Salary/location details need manual review. Source: Job board search. Location: Austin, TX. $213k - $150k.",
+      "url": "https://jobs.lever.co/onemagnify/jobs/test-105-onemagnify",
+      "lastUpdated": "2025-12-27T14:22:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-15T09:05:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-12-27T14:22:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000105,
+      "applicationId": "test-106-nvidia",
+      "dateSubmitted": "2026-04-23T09:33:00.000Z",
+      "company": "NVIDIA",
+      "jobTitle": "AI Engineer",
+      "platform": "Greenhouse",
+      "status": "Rejected",
+      "notes": "Role looks aligned with Python, model evaluation, and production ML. Source: Company careers page. Location: Hybrid - Bay Area. $169k - $166k. Contact: Alex Morgan.",
+      "url": "https://job-boards.greenhouse.io/nvidia/jobs/test-106-nvidia",
+      "lastUpdated": "2026-05-12T12:05:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-23T09:33:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-05-12T12:05:00.000Z",
+          "note": "Rejection email received."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000106,
+      "applicationId": "test-107-kickmaker",
+      "dateSubmitted": "2026-01-23T09:49:00.000Z",
+      "company": "Kickmaker",
+      "jobTitle": "Machine Learning Engineer",
+      "platform": "Company Website",
+      "status": "Phone Screen",
+      "notes": "Strong match on job description; company research needed. Source: Recruiter message. Location: Austin, TX. $135k - $222k.",
+      "url": "https://kickmaker.example.com/kickmaker/jobs/test-107-kickmaker",
+      "lastUpdated": "2026-01-31T14:17:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-23T09:49:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-01-28T10:35:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-01-31T14:17:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000107,
+      "applicationId": "test-108-canva",
+      "dateSubmitted": "2025-11-15T09:14:00.000Z",
+      "company": "Canva",
+      "jobTitle": "Generative AI Engineer",
+      "platform": "Indeed",
+      "status": "Submitted",
+      "notes": "Found via LinkedIn recommendations. Source: Google Jobs. Location: Redwood City, CA. $193k - $151k.",
+      "url": "https://canva.example.com/canva/jobs/test-108-canva",
+      "lastUpdated": "2025-11-15T09:14:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-11-15T09:14:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000108,
+      "applicationId": "test-109-diligent-techn",
+      "dateSubmitted": "2026-01-07T09:02:00.000Z",
+      "company": "Diligent Technologies",
+      "jobTitle": "NLP Engineer",
+      "platform": "Ashby",
+      "status": "Rejected",
+      "notes": "Need to follow up if no response after two weeks. Source: Saved job follow-up. Location: Boston, MA. Contact: Alex Morgan.",
+      "url": "https://diligent-technologies.example.com/diligent-technologies/jobs/test-109-diligent-techn",
+      "lastUpdated": "2026-01-26T15:12:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-07T09:02:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-01-26T15:12:00.000Z",
+          "note": "Rejection email received."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000109,
+      "applicationId": "test-110-tesla",
+      "dateSubmitted": "2026-03-25T09:31:00.000Z",
+      "company": "Tesla",
+      "jobTitle": "AI Product Engineer",
+      "platform": "Ashby",
+      "status": "Phone Screen",
+      "notes": "Role looks aligned with Python, model evaluation, and production ML. Source: Referral. Location: Redwood City, CA.",
+      "url": "https://tesla.example.com/tesla/jobs/test-110-tesla",
+      "lastUpdated": "2026-03-26T15:54:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-25T09:31:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-03-26T15:54:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000110,
+      "applicationId": "test-111-diligent-techn",
+      "dateSubmitted": "2025-12-18T09:44:00.000Z",
+      "company": "Diligent Technologies",
+      "jobTitle": "Data Scientist",
+      "platform": "Workday",
+      "status": "Offer",
+      "notes": "Applied with general AI/ML resume. Source: Google Jobs. Location: San Mateo, CA. $215k - $270k. Contact: Chris Nguyen.",
+      "url": "https://diligent-technologies.example.com/diligent-technologies/jobs/test-111-diligent-techn",
+      "lastUpdated": "2026-01-13T12:34:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-18T09:44:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-12-23T16:01:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2025-12-25T10:51:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2025-12-30T14:26:00.000Z",
+          "note": "Interview scheduled/completed."
+        },
+        {
+          "status": "Final Interview",
+          "date": "2026-01-08T14:45:00.000Z",
+          "note": "Final round completed."
+        },
+        {
+          "status": "Offer",
+          "date": "2026-01-13T12:34:00.000Z",
+          "note": "Offer received."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000111,
+      "applicationId": "test-112-uber",
+      "dateSubmitted": "2026-02-14T09:24:00.000Z",
+      "company": "Uber",
+      "jobTitle": "Data Scientist",
+      "platform": "Indeed",
+      "status": "Rejected",
+      "notes": "External application form completed. Source: Recruiter message. Location: Cupertino, CA. $216k - $188k. Contact: Taylor Brown.",
+      "url": "https://uber.example.com/uber/jobs/test-112-uber",
+      "lastUpdated": "2026-02-26T13:13:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-14T09:24:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-02-26T13:13:00.000Z",
+          "note": "Rejection email received."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000112,
+      "applicationId": "test-113-ramp",
+      "dateSubmitted": "2026-01-11T09:32:00.000Z",
+      "company": "Ramp",
+      "jobTitle": "Machine Learning Infrastructure Engineer",
+      "platform": "Workday",
+      "status": "Phone Screen",
+      "notes": "Applied with general AI/ML resume. Source: Google Jobs. Location: Mountain View, CA. $80k - $157k.",
+      "url": "https://ramp.example.com/ramp/jobs/test-113-ramp",
+      "lastUpdated": "2026-01-18T11:29:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-11T09:32:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-01-16T15:35:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-01-18T11:29:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000113,
+      "applicationId": "test-114-observe-ai",
+      "dateSubmitted": "2026-02-11T09:42:00.000Z",
+      "company": "Observe.AI",
+      "jobTitle": "AI Product Engineer",
+      "platform": "Workday",
+      "status": "Submitted",
+      "notes": "Salary/location details need manual review. Source: Google Jobs. Location: San Francisco, CA. $115k - $296k. Contact: Emily Zhao.",
+      "url": "https://observe-ai.example.com/observe-ai/jobs/test-114-observe-ai",
+      "lastUpdated": "2026-02-11T09:42:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-11T09:42:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000114,
+      "applicationId": "test-115-waymo",
+      "dateSubmitted": "2026-03-07T09:41:00.000Z",
+      "company": "Waymo",
+      "jobTitle": "Research Scientist, Machine Learning",
+      "platform": "Greenhouse",
+      "status": "Phone Screen",
+      "notes": "External application form completed. Source: Referral. Location: San Francisco, CA. $90k - $202k.",
+      "url": "https://job-boards.greenhouse.io/waymo/jobs/test-115-waymo",
+      "lastUpdated": "2026-03-22T09:44:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-07T09:41:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-03-14T15:40:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-03-22T09:44:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000115,
+      "applicationId": "test-116-mistral-ai",
+      "dateSubmitted": "2026-03-11T09:04:00.000Z",
+      "company": "Mistral AI",
+      "jobTitle": "Data Scientist",
+      "platform": "LinkedIn",
+      "status": "Rejected",
+      "notes": "External application form completed. Source: Google Jobs. Location: Cupertino, CA. Contact: Chris Nguyen.",
+      "url": "https://www.linkedin.com/jobs/view/4360000115",
+      "lastUpdated": "2026-04-01T14:29:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-11T09:04:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-03-19T12:32:00.000Z",
+          "note": "Recruiter reached out to schedule screen."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-03-22T10:41:00.000Z",
+          "note": "Technical interview scheduled."
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-04-01T14:29:00.000Z",
+          "note": "Rejected after interview process."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000116,
+      "applicationId": "test-117-onemagnify",
+      "dateSubmitted": "2026-04-16T09:01:00.000Z",
+      "company": "OneMagnify",
+      "jobTitle": "AI Engineer",
+      "platform": "Lever",
+      "status": "Submitted",
+      "notes": "Strong match on job description; company research needed. Source: LinkedIn external apply. Location: Foster City, CA.",
+      "url": "https://jobs.lever.co/onemagnify/jobs/test-117-onemagnify",
+      "lastUpdated": "2026-04-16T09:01:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-16T09:01:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000117,
+      "applicationId": "test-118-acceler8-talen",
+      "dateSubmitted": "2026-03-17T09:36:00.000Z",
+      "company": "Acceler8 Talent",
+      "jobTitle": "Machine Learning Engineer",
+      "platform": "Indeed",
+      "status": "Submitted",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Recruiter message. Location: Los Angeles, CA.",
+      "url": "https://acceler8-talent.example.com/acceler8-talent/jobs/test-118-acceler8-talen",
+      "lastUpdated": "2026-03-17T09:36:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-17T09:36:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000118,
+      "applicationId": "test-119-observe-ai",
+      "dateSubmitted": "2026-04-01T09:07:00.000Z",
+      "company": "Observe.AI",
+      "jobTitle": "ML Compiler Engineer",
+      "platform": "Greenhouse",
+      "status": "HR Reachout",
+      "notes": "Applied with general AI/ML resume. Source: Saved job follow-up. Location: San Jose, CA. $197k - $246k.",
+      "url": "https://job-boards.greenhouse.io/observe-ai/jobs/test-119-observe-ai",
+      "lastUpdated": "2026-04-15T15:48:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-01T09:07:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-04-15T15:48:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000119,
+      "applicationId": "test-120-plaud",
+      "dateSubmitted": "2025-11-12T09:13:00.000Z",
+      "company": "Plaud",
+      "jobTitle": "Robotics Machine Learning Engineer",
+      "platform": "Lever",
+      "status": "HR Reachout",
+      "notes": "External application form completed. Source: Google Jobs. Location: Hybrid - Bay Area. $215k - $257k. Contact: Alex Morgan.",
+      "url": "https://jobs.lever.co/plaud/jobs/test-120-plaud",
+      "lastUpdated": "2025-11-14T16:07:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-11-12T09:13:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-11-14T16:07:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000120,
+      "applicationId": "test-121-afterquery-exp",
+      "dateSubmitted": "2025-11-28T09:40:00.000Z",
+      "company": "AfterQuery Experts",
+      "jobTitle": "AI Product Engineer",
+      "platform": "Workday",
+      "status": "Interview",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Google Jobs. Location: New York, NY. $131k - $269k. Contact: Ethan Wright.",
+      "url": "https://afterquery-experts.example.com/afterquery-experts/jobs/test-121-afterquery-exp",
+      "lastUpdated": "2025-12-13T11:02:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-11-28T09:40:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-12-02T16:14:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Interview",
+          "date": "2025-12-13T11:02:00.000Z",
+          "note": "Interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000121,
+      "applicationId": "test-122-palantir",
+      "dateSubmitted": "2025-11-20T09:30:00.000Z",
+      "company": "Palantir",
+      "jobTitle": "Machine Learning Engineer",
+      "platform": "Greenhouse",
+      "status": "Phone Screen",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Referral. Location: San Mateo, CA. Contact: Ryan Kim.",
+      "url": "https://job-boards.greenhouse.io/palantir/jobs/test-122-palantir",
+      "lastUpdated": "2025-11-25T11:16:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-11-20T09:30:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2025-11-25T11:16:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000122,
+      "applicationId": "test-123-google-deepmin",
+      "dateSubmitted": "2026-03-25T09:15:00.000Z",
+      "company": "Google DeepMind",
+      "jobTitle": "AI Engineer",
+      "platform": "Ashby",
+      "status": "Rejected",
+      "notes": "Strong match on job description; company research needed. Source: Job board search. Location: New York, NY. Contact: Priya Shah.",
+      "url": "https://google-deepmind.example.com/google-deepmind/jobs/test-123-google-deepmin",
+      "lastUpdated": "2026-04-14T14:59:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-25T09:15:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-04-14T14:59:00.000Z",
+          "note": "Rejection email received."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000123,
+      "applicationId": "test-124-hugging-face",
+      "dateSubmitted": "2025-12-22T09:11:00.000Z",
+      "company": "Hugging Face",
+      "jobTitle": "Data Scientist | Modeling",
+      "platform": "Ashby",
+      "status": "Rejected",
+      "notes": "Role looks aligned with Python, model evaluation, and production ML. Source: Referral. Location: Cupertino, CA.",
+      "url": "https://hugging-face.example.com/hugging-face/jobs/test-124-hugging-face",
+      "lastUpdated": "2026-01-16T10:38:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-22T09:11:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-12-30T15:20:00.000Z",
+          "note": "Recruiter reached out to schedule screen."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-01-01T11:40:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-01-11T13:30:00.000Z",
+          "note": "Technical interview scheduled."
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-01-16T10:38:00.000Z",
+          "note": "Rejected after interview process."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000124,
+      "applicationId": "test-125-amazon-robotic",
+      "dateSubmitted": "2026-02-28T09:56:00.000Z",
+      "company": "Amazon Robotics",
+      "jobTitle": "Robotics Machine Learning Engineer",
+      "platform": "Company Website",
+      "status": "Submitted",
+      "notes": "External application form completed. Source: LinkedIn Easy Apply. Location: San Mateo, CA. Contact: Ethan Wright.",
+      "url": "https://amazon-robotics.example.com/amazon-robotics/jobs/test-125-amazon-robotic",
+      "lastUpdated": "2026-02-28T09:56:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-28T09:56:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000125,
+      "applicationId": "test-126-company-ai",
+      "dateSubmitted": "2026-04-02T09:45:00.000Z",
+      "company": "Company.ai",
+      "jobTitle": "Simulation Scenario Generation Engineer",
+      "platform": "Ashby",
+      "status": "Submitted",
+      "notes": "Role looks aligned with Python, model evaluation, and production ML. Source: Saved job follow-up. Location: Remote, United States. $161k - $257k.",
+      "url": "https://company-ai.example.com/company-ai/jobs/test-126-company-ai",
+      "lastUpdated": "2026-04-02T09:45:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-02T09:45:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000126,
+      "applicationId": "test-127-amazon-robotic",
+      "dateSubmitted": "2026-01-23T09:23:00.000Z",
+      "company": "Amazon Robotics",
+      "jobTitle": "Software Engineer, Applied ML",
+      "platform": "Ashby",
+      "status": "HR Reachout",
+      "notes": "Need to follow up if no response after two weeks. Source: Company careers page. Location: Palo Alto, CA. $197k - $243k.",
+      "url": "https://amazon-robotics.example.com/amazon-robotics/jobs/test-127-amazon-robotic",
+      "lastUpdated": "2026-02-04T14:57:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-23T09:23:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-02-04T14:57:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000127,
+      "applicationId": "test-128-weights-biases",
+      "dateSubmitted": "2025-12-23T09:12:00.000Z",
+      "company": "Weights & Biases",
+      "jobTitle": "AI Engineer",
+      "platform": "Greenhouse",
+      "status": "Rejected",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Company careers page. Location: Palo Alto, CA. $207k - $174k.",
+      "url": "https://job-boards.greenhouse.io/weights-biases/jobs/test-128-weights-biases",
+      "lastUpdated": "2026-01-11T15:47:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-23T09:12:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-01-11T15:47:00.000Z",
+          "note": "Rejection email received."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000128,
+      "applicationId": "test-129-meta",
+      "dateSubmitted": "2026-02-05T09:38:00.000Z",
+      "company": "Meta",
+      "jobTitle": "Machine Learning Applied Researcher",
+      "platform": "Company Website",
+      "status": "Submitted",
+      "notes": "Found via LinkedIn recommendations. Source: LinkedIn Easy Apply. Location: Mountain View, CA. $161k - $201k.",
+      "url": "https://meta.example.com/meta/jobs/test-129-meta",
+      "lastUpdated": "2026-02-05T09:38:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-05T09:38:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000129,
+      "applicationId": "test-130-uber",
+      "dateSubmitted": "2025-12-29T09:12:00.000Z",
+      "company": "Uber",
+      "jobTitle": "Machine Learning Infrastructure Engineer",
+      "platform": "LinkedIn",
+      "status": "Withdrawn",
+      "notes": "Need to follow up if no response after two weeks. Source: Referral. Location: Cupertino, CA. $82k - $149k.",
+      "url": "https://www.linkedin.com/jobs/view/4360000129",
+      "lastUpdated": "2026-01-18T12:45:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-29T09:12:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-01-06T09:13:00.000Z",
+          "note": "Some contact before withdrawal."
+        },
+        {
+          "status": "Withdrawn",
+          "date": "2026-01-18T12:45:00.000Z",
+          "note": "Withdrew from process."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000130,
+      "applicationId": "test-131-sierra",
+      "dateSubmitted": "2025-12-07T09:14:00.000Z",
+      "company": "Sierra",
+      "jobTitle": "AI Platform Engineer",
+      "platform": "Indeed",
+      "status": "Phone Screen",
+      "notes": "Applied with general AI/ML resume. Source: Referral. Location: Redwood City, CA. $212k - $209k.",
+      "url": "https://sierra.example.com/sierra/jobs/test-131-sierra",
+      "lastUpdated": "2025-12-17T12:33:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-07T09:14:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-12-16T15:05:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2025-12-17T12:33:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000131,
+      "applicationId": "test-132-twelve-labs",
+      "dateSubmitted": "2026-02-25T09:48:00.000Z",
+      "company": "Twelve Labs",
+      "jobTitle": "Simulation Scenario Generation Engineer",
+      "platform": "Indeed",
+      "status": "Phone Screen",
+      "notes": "Need to follow up if no response after two weeks. Source: Recruiter message. Location: Austin, TX. $142k - $161k. Contact: Priya Shah.",
+      "url": "https://twelve-labs.example.com/twelve-labs/jobs/test-132-twelve-labs",
+      "lastUpdated": "2026-03-06T12:47:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-25T09:48:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-03-04T09:04:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-03-06T12:47:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000132,
+      "applicationId": "test-133-databricks",
+      "dateSubmitted": "2026-03-18T09:09:00.000Z",
+      "company": "Databricks",
+      "jobTitle": "Research Scientist, Machine Learning",
+      "platform": "Company Website",
+      "status": "Submitted",
+      "notes": "Found via LinkedIn recommendations. Source: Recruiter message. Location: Palo Alto, CA. $136k - $140k. Contact: Daniel Park.",
+      "url": "https://databricks.example.com/databricks/jobs/test-133-databricks",
+      "lastUpdated": "2026-03-18T09:09:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-18T09:09:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000133,
+      "applicationId": "test-134-healthedge",
+      "dateSubmitted": "2026-04-20T09:29:00.000Z",
+      "company": "HealthEdge",
+      "jobTitle": "Research Scientist, Machine Learning",
+      "platform": "Ashby",
+      "status": "Rejected",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Company careers page. Location: Redwood City, CA.",
+      "url": "https://healthedge.example.com/healthedge/jobs/test-134-healthedge",
+      "lastUpdated": "2026-05-06T13:05:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-20T09:29:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-05-02T10:43:00.000Z",
+          "note": "Recruiter or HR contact received."
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-05-06T13:05:00.000Z",
+          "note": "Rejected after initial contact."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000134,
+      "applicationId": "test-135-afterquery-exp",
+      "dateSubmitted": "2026-01-17T09:49:00.000Z",
+      "company": "AfterQuery Experts",
+      "jobTitle": "Staff Machine Learning Engineer",
+      "platform": "Indeed",
+      "status": "Final Interview",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Referral. Location: Remote, United States. $118k - $238k.",
+      "url": "https://afterquery-experts.example.com/afterquery-experts/jobs/test-135-afterquery-exp",
+      "lastUpdated": "2026-02-04T14:42:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-17T09:49:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-01-23T13:14:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-01-25T15:06:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-01-31T15:48:00.000Z",
+          "note": "Technical interview completed."
+        },
+        {
+          "status": "Final Interview",
+          "date": "2026-02-04T14:42:00.000Z",
+          "note": "Final interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000135,
+      "applicationId": "test-136-ramp",
+      "dateSubmitted": "2026-01-26T09:31:00.000Z",
+      "company": "Ramp",
+      "jobTitle": "Machine Learning Engineer",
+      "platform": "Greenhouse",
+      "status": "Interview",
+      "notes": "Salary/location details need manual review. Source: Google Jobs. Location: Palo Alto, CA. $88k - $171k.",
+      "url": "https://job-boards.greenhouse.io/ramp/jobs/test-136-ramp",
+      "lastUpdated": "2026-02-16T10:23:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-26T09:31:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-02-03T15:34:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-02-08T10:42:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-02-16T10:23:00.000Z",
+          "note": "Interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000136,
+      "applicationId": "test-137-canva",
+      "dateSubmitted": "2026-04-04T09:48:00.000Z",
+      "company": "Canva",
+      "jobTitle": "Data Scientist",
+      "platform": "Indeed",
+      "status": "Submitted",
+      "notes": "Role looks aligned with Python, model evaluation, and production ML. Source: Company careers page. Location: Mountain View, CA. $109k - $227k.",
+      "url": "https://canva.example.com/canva/jobs/test-137-canva",
+      "lastUpdated": "2026-04-04T09:48:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-04T09:48:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000137,
+      "applicationId": "test-138-databricks",
+      "dateSubmitted": "2026-02-14T09:56:00.000Z",
+      "company": "Databricks",
+      "jobTitle": "AI Product Engineer",
+      "platform": "LinkedIn",
+      "status": "Interview",
+      "notes": "External application form completed. Source: LinkedIn external apply. Location: San Francisco, CA.",
+      "url": "https://www.linkedin.com/jobs/view/4360000137",
+      "lastUpdated": "2026-03-12T10:11:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-14T09:56:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-02-23T13:44:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-03-02T09:30:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-03-12T10:11:00.000Z",
+          "note": "Interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000138,
+      "applicationId": "test-139-kickmaker",
+      "dateSubmitted": "2025-11-24T09:57:00.000Z",
+      "company": "Kickmaker",
+      "jobTitle": "MLOps Engineer",
+      "platform": "Company Website",
+      "status": "Final Interview",
+      "notes": "External application form completed. Source: Saved job follow-up. Location: Boston, MA. $194k - $149k.",
+      "url": "https://kickmaker.example.com/kickmaker/jobs/test-139-kickmaker",
+      "lastUpdated": "2025-12-18T15:04:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-11-24T09:57:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-12-02T11:59:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2025-12-08T15:33:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2025-12-14T14:07:00.000Z",
+          "note": "Technical interview completed."
+        },
+        {
+          "status": "Final Interview",
+          "date": "2025-12-18T15:04:00.000Z",
+          "note": "Final interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000139,
+      "applicationId": "test-140-mistral-ai",
+      "dateSubmitted": "2026-01-04T09:54:00.000Z",
+      "company": "Mistral AI",
+      "jobTitle": "Senior Data Analyst",
+      "platform": "Indeed",
+      "status": "HR Reachout",
+      "notes": "Salary/location details need manual review. Source: Google Jobs. Location: Austin, TX. $91k - $152k. Contact: Jessica Lee.",
+      "url": "https://mistral-ai.example.com/mistral-ai/jobs/test-140-mistral-ai",
+      "lastUpdated": "2026-01-18T16:58:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-04T09:54:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-01-18T16:58:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000140,
+      "applicationId": "test-141-uber",
+      "dateSubmitted": "2026-04-25T09:45:00.000Z",
+      "company": "Uber",
+      "jobTitle": "Research Scientist, Machine Learning",
+      "platform": "Workday",
+      "status": "Submitted",
+      "notes": "Strong match on job description; company research needed. Source: Referral. Location: Remote, United States. $219k - $326k.",
+      "url": "https://uber.example.com/uber/jobs/test-141-uber",
+      "lastUpdated": "2026-04-25T09:45:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-25T09:45:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000141,
+      "applicationId": "test-142-scale-ai",
+      "dateSubmitted": "2026-02-11T09:44:00.000Z",
+      "company": "Scale AI",
+      "jobTitle": "Machine Learning Infrastructure Engineer",
+      "platform": "Indeed",
+      "status": "Submitted",
+      "notes": "External application form completed. Source: LinkedIn Easy Apply. Location: San Mateo, CA. $205k - $290k.",
+      "url": "https://scale-ai.example.com/scale-ai/jobs/test-142-scale-ai",
+      "lastUpdated": "2026-02-11T09:44:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-11T09:44:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000142,
+      "applicationId": "test-143-airbnb",
+      "dateSubmitted": "2026-03-17T09:34:00.000Z",
+      "company": "Airbnb",
+      "jobTitle": "Machine Learning Applied Researcher",
+      "platform": "Ashby",
+      "status": "Submitted",
+      "notes": "Need to follow up if no response after two weeks. Source: LinkedIn Easy Apply. Location: Palo Alto, CA. $112k - $193k.",
+      "url": "https://airbnb.example.com/airbnb/jobs/test-143-airbnb",
+      "lastUpdated": "2026-03-17T09:34:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-17T09:34:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000143,
+      "applicationId": "test-144-appzen",
+      "dateSubmitted": "2025-12-18T09:17:00.000Z",
+      "company": "AppZen",
+      "jobTitle": "Data Scientist | Modeling",
+      "platform": "Greenhouse",
+      "status": "Submitted",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Job board search. Location: Foster City, CA. $141k - $155k.",
+      "url": "https://job-boards.greenhouse.io/appzen/jobs/test-144-appzen",
+      "lastUpdated": "2025-12-18T09:17:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-18T09:17:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000144,
+      "applicationId": "test-145-applied-intuit",
+      "dateSubmitted": "2026-04-25T09:39:00.000Z",
+      "company": "Applied Intuition",
+      "jobTitle": "AI Engineer",
+      "platform": "Company Website",
+      "status": "Submitted",
+      "notes": "Applied with general AI/ML resume. Source: LinkedIn external apply. Location: Los Angeles, CA. $210k - $250k.",
+      "url": "https://applied-intuition.example.com/applied-intuition/jobs/test-145-applied-intuit",
+      "lastUpdated": "2026-04-25T09:39:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-25T09:39:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000145,
+      "applicationId": "test-146-mistral-ai",
+      "dateSubmitted": "2025-11-08T09:14:00.000Z",
+      "company": "Mistral AI",
+      "jobTitle": "Search Ranking Engineer",
+      "platform": "Workday",
+      "status": "HR Reachout",
+      "notes": "Salary/location details need manual review. Source: Job board search. Location: Los Angeles, CA. $150k - $209k.",
+      "url": "https://mistral-ai.example.com/mistral-ai/jobs/test-146-mistral-ai",
+      "lastUpdated": "2025-11-17T15:03:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-11-08T09:14:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-11-17T15:03:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000146,
+      "applicationId": "test-147-tesla",
+      "dateSubmitted": "2026-04-03T09:13:00.000Z",
+      "company": "Tesla",
+      "jobTitle": "ML Compiler Engineer",
+      "platform": "Greenhouse",
+      "status": "Submitted",
+      "notes": "Need to follow up if no response after two weeks. Source: Google Jobs. Location: Hybrid - Bay Area. $180k - $250k. Contact: Jessica Lee.",
+      "url": "https://job-boards.greenhouse.io/tesla/jobs/test-147-tesla",
+      "lastUpdated": "2026-04-03T09:13:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-03T09:13:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000147,
+      "applicationId": "test-148-appzen",
+      "dateSubmitted": "2025-12-20T09:01:00.000Z",
+      "company": "AppZen",
+      "jobTitle": "Recommendation Systems Engineer",
+      "platform": "Greenhouse",
+      "status": "Submitted",
+      "notes": "Found via LinkedIn recommendations. Source: Google Jobs. Location: Mountain View, CA. $211k - $266k.",
+      "url": "https://job-boards.greenhouse.io/appzen/jobs/test-148-appzen",
+      "lastUpdated": "2025-12-20T09:01:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-20T09:01:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000148,
+      "applicationId": "test-149-amazon-robotic",
+      "dateSubmitted": "2026-01-29T09:37:00.000Z",
+      "company": "Amazon Robotics",
+      "jobTitle": "AI Safety & Evaluation Engineer",
+      "platform": "LinkedIn",
+      "status": "HR Reachout",
+      "notes": "Strong match on job description; company research needed. Source: Recruiter message. Location: New York, NY.",
+      "url": "https://www.linkedin.com/jobs/view/4360000148",
+      "lastUpdated": "2026-02-11T10:30:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-29T09:37:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-02-11T10:30:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000149,
+      "applicationId": "test-150-applied-intuit",
+      "dateSubmitted": "2026-05-03T09:42:00.000Z",
+      "company": "Applied Intuition",
+      "jobTitle": "Data Scientist",
+      "platform": "Lever",
+      "status": "Withdrawn",
+      "notes": "Salary/location details need manual review. Source: Recruiter message. Location: Mountain View, CA. $102k - $248k.",
+      "url": "https://jobs.lever.co/applied-intuition/jobs/test-150-applied-intuit",
+      "lastUpdated": "2026-05-14T09:54:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-05-03T09:42:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Withdrawn",
+          "date": "2026-05-14T09:54:00.000Z",
+          "note": "Withdrew from process."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000150,
+      "applicationId": "test-151-block",
+      "dateSubmitted": "2025-11-15T09:19:00.000Z",
+      "company": "Block",
+      "jobTitle": "Applied Scientist",
+      "platform": "Indeed",
+      "status": "Submitted",
+      "notes": "Applied with general AI/ML resume. Source: Saved job follow-up. Location: Boston, MA. $213k - $312k.",
+      "url": "https://block.example.com/block/jobs/test-151-block",
+      "lastUpdated": "2025-11-15T09:19:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-11-15T09:19:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000151,
+      "applicationId": "test-152-dewinter-group",
+      "dateSubmitted": "2026-04-11T09:31:00.000Z",
+      "company": "DeWinter Group",
+      "jobTitle": "AI Engineer",
+      "platform": "Lever",
+      "status": "Rejected",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: LinkedIn Easy Apply. Location: Redwood City, CA. Contact: Ethan Wright.",
+      "url": "https://jobs.lever.co/dewinter-group/jobs/test-152-dewinter-group",
+      "lastUpdated": "2026-04-16T09:14:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-11T09:31:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-04-16T09:14:00.000Z",
+          "note": "Rejection email received."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000152,
+      "applicationId": "test-153-runway",
+      "dateSubmitted": "2025-12-02T09:25:00.000Z",
+      "company": "Runway",
+      "jobTitle": "Machine Learning Engineer",
+      "platform": "Indeed",
+      "status": "Submitted",
+      "notes": "Strong match on job description; company research needed. Source: Google Jobs. Location: Seattle, WA.",
+      "url": "https://runway.example.com/runway/jobs/test-153-runway",
+      "lastUpdated": "2025-12-02T09:25:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-02T09:25:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000153,
+      "applicationId": "test-154-adobe",
+      "dateSubmitted": "2025-12-01T09:44:00.000Z",
+      "company": "Adobe",
+      "jobTitle": "Machine Learning Infrastructure Engineer",
+      "platform": "Ashby",
+      "status": "Phone Screen",
+      "notes": "Role looks aligned with Python, model evaluation, and production ML. Source: Company careers page. Location: San Jose, CA. $215k - $159k.",
+      "url": "https://adobe.example.com/adobe/jobs/test-154-adobe",
+      "lastUpdated": "2025-12-18T14:49:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-01T09:44:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-12-11T16:20:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2025-12-18T14:49:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000154,
+      "applicationId": "test-155-archetype-ai",
+      "dateSubmitted": "2026-03-29T09:45:00.000Z",
+      "company": "Archetype AI",
+      "jobTitle": "ML Compiler Engineer",
+      "platform": "Workday",
+      "status": "Phone Screen",
+      "notes": "Need to follow up if no response after two weeks. Source: Recruiter message. Location: Seattle, WA. $195k - $328k.",
+      "url": "https://archetype-ai.example.com/archetype-ai/jobs/test-155-archetype-ai",
+      "lastUpdated": "2026-04-03T11:44:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-29T09:45:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-04-03T11:44:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000155,
+      "applicationId": "test-156-runway",
+      "dateSubmitted": "2026-02-01T09:10:00.000Z",
+      "company": "Runway",
+      "jobTitle": "Data Scientist",
+      "platform": "LinkedIn",
+      "status": "Submitted",
+      "notes": "Strong match on job description; company research needed. Source: Job board search. Location: San Mateo, CA. $208k - $244k. Contact: Ryan Kim.",
+      "url": "https://www.linkedin.com/jobs/view/4360000155",
+      "lastUpdated": "2026-02-01T09:10:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-01T09:10:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000156,
+      "applicationId": "test-157-apple",
+      "dateSubmitted": "2025-12-17T09:34:00.000Z",
+      "company": "Apple",
+      "jobTitle": "Data Scientist",
+      "platform": "Indeed",
+      "status": "Submitted",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Google Jobs. Location: San Francisco, CA. $173k - $240k.",
+      "url": "https://apple.example.com/apple/jobs/test-157-apple",
+      "lastUpdated": "2025-12-17T09:34:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-17T09:34:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000157,
+      "applicationId": "test-158-doordash",
+      "dateSubmitted": "2026-01-30T09:32:00.000Z",
+      "company": "DoorDash",
+      "jobTitle": "Robotics Machine Learning Engineer",
+      "platform": "Company Website",
+      "status": "HR Reachout",
+      "notes": "Applied with general AI/ML resume. Source: Google Jobs. Location: Los Angeles, CA.",
+      "url": "https://doordash.example.com/doordash/jobs/test-158-doordash",
+      "lastUpdated": "2026-02-02T13:20:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-30T09:32:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-02-02T13:20:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000158,
+      "applicationId": "test-159-figma",
+      "dateSubmitted": "2026-03-02T09:28:00.000Z",
+      "company": "Figma",
+      "jobTitle": "Search Ranking Engineer",
+      "platform": "Greenhouse",
+      "status": "Submitted",
+      "notes": "Need to follow up if no response after two weeks. Source: Google Jobs. Location: Mountain View, CA. Contact: Jordan Smith.",
+      "url": "https://job-boards.greenhouse.io/figma/jobs/test-159-figma",
+      "lastUpdated": "2026-03-02T09:28:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-02T09:28:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000159,
+      "applicationId": "test-160-canva",
+      "dateSubmitted": "2025-12-03T09:08:00.000Z",
+      "company": "Canva",
+      "jobTitle": "Research Engineer, AI",
+      "platform": "Greenhouse",
+      "status": "Interview",
+      "notes": "Role looks aligned with Python, model evaluation, and production ML. Source: Referral. Location: Foster City, CA.",
+      "url": "https://job-boards.greenhouse.io/canva/jobs/test-160-canva",
+      "lastUpdated": "2025-12-22T15:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-03T09:08:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-12-08T10:10:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2025-12-14T14:24:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2025-12-22T15:00:00.000Z",
+          "note": "Interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000160,
+      "applicationId": "test-161-uber",
+      "dateSubmitted": "2026-05-01T09:27:00.000Z",
+      "company": "Uber",
+      "jobTitle": "LLM Evaluation Engineer",
+      "platform": "Ashby",
+      "status": "Interview",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Saved job follow-up. Location: San Mateo, CA.",
+      "url": "https://uber.example.com/uber/jobs/test-161-uber",
+      "lastUpdated": "2026-05-21T11:42:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-05-01T09:27:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-05-08T09:44:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-05-11T14:06:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-05-21T11:42:00.000Z",
+          "note": "Interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000161,
+      "applicationId": "test-162-databricks",
+      "dateSubmitted": "2026-02-10T09:17:00.000Z",
+      "company": "Databricks",
+      "jobTitle": "AI Platform Engineer",
+      "platform": "Lever",
+      "status": "Rejected",
+      "notes": "Found via LinkedIn recommendations. Source: LinkedIn Easy Apply. Location: Redwood City, CA. $123k - $309k.",
+      "url": "https://jobs.lever.co/databricks/jobs/test-162-databricks",
+      "lastUpdated": "2026-03-02T15:02:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-10T09:17:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-02-16T11:56:00.000Z",
+          "note": "Recruiter or HR contact received."
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-03-02T15:02:00.000Z",
+          "note": "Rejected after initial contact."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000162,
+      "applicationId": "test-163-microsoft",
+      "dateSubmitted": "2026-03-24T09:51:00.000Z",
+      "company": "Microsoft",
+      "jobTitle": "Machine Learning Engineer",
+      "platform": "Lever",
+      "status": "Submitted",
+      "notes": "Role looks aligned with Python, model evaluation, and production ML. Source: Referral. Location: Foster City, CA. $131k - $144k.",
+      "url": "https://jobs.lever.co/microsoft/jobs/test-163-microsoft",
+      "lastUpdated": "2026-03-24T09:51:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-24T09:51:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000163,
+      "applicationId": "test-164-plaud",
+      "dateSubmitted": "2026-05-04T09:38:00.000Z",
+      "company": "Plaud",
+      "jobTitle": "AI Product Engineer",
+      "platform": "LinkedIn",
+      "status": "Submitted",
+      "notes": "Applied with general AI/ML resume. Source: Company careers page. Location: Foster City, CA.",
+      "url": "https://www.linkedin.com/jobs/view/4360000163",
+      "lastUpdated": "2026-05-04T09:38:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-05-04T09:38:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000164,
+      "applicationId": "test-165-samsara",
+      "dateSubmitted": "2026-03-20T09:09:00.000Z",
+      "company": "Samsara",
+      "jobTitle": "Software Engineer, Applied ML",
+      "platform": "Company Website",
+      "status": "Rejected",
+      "notes": "Need to follow up if no response after two weeks. Source: Job board search. Location: Redwood City, CA. $187k - $154k.",
+      "url": "https://samsara.example.com/samsara/jobs/test-165-samsara",
+      "lastUpdated": "2026-03-29T11:19:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-20T09:09:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-03-29T11:19:00.000Z",
+          "note": "Rejection email received."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000165,
+      "applicationId": "test-166-guild-mortgage",
+      "dateSubmitted": "2026-01-15T09:45:00.000Z",
+      "company": "Guild Mortgage",
+      "jobTitle": "Machine Learning Engineer",
+      "platform": "Company Website",
+      "status": "Rejected",
+      "notes": "Salary/location details need manual review. Source: LinkedIn external apply. Location: Cupertino, CA. $114k - $318k.",
+      "url": "https://guild-mortgage.example.com/guild-mortgage/jobs/test-166-guild-mortgage",
+      "lastUpdated": "2026-02-06T16:21:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-15T09:45:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-01-20T09:12:00.000Z",
+          "note": "Recruiter reached out to schedule screen."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-01-29T09:18:00.000Z",
+          "note": "Technical interview scheduled."
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-02-06T16:21:00.000Z",
+          "note": "Rejected after interview process."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000166,
+      "applicationId": "test-167-discord",
+      "dateSubmitted": "2026-01-30T09:47:00.000Z",
+      "company": "Discord",
+      "jobTitle": "Machine Learning Applied Researcher",
+      "platform": "Workday",
+      "status": "Submitted",
+      "notes": "Strong match on job description; company research needed. Source: Company careers page. Location: Seattle, WA. $149k - $259k.",
+      "url": "https://discord.example.com/discord/jobs/test-167-discord",
+      "lastUpdated": "2026-01-30T09:47:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-30T09:47:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000167,
+      "applicationId": "test-168-sierra",
+      "dateSubmitted": "2025-11-26T09:13:00.000Z",
+      "company": "Sierra",
+      "jobTitle": "Applied Scientist",
+      "platform": "Greenhouse",
+      "status": "Submitted",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Referral. Location: Austin, TX. Contact: Jordan Smith.",
+      "url": "https://job-boards.greenhouse.io/sierra/jobs/test-168-sierra",
+      "lastUpdated": "2025-11-26T09:13:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-11-26T09:13:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000168,
+      "applicationId": "test-169-plaud",
+      "dateSubmitted": "2026-04-23T09:38:00.000Z",
+      "company": "Plaud",
+      "jobTitle": "Software Engineer, Applied ML",
+      "platform": "Indeed",
+      "status": "Submitted",
+      "notes": "External application form completed. Source: LinkedIn Easy Apply. Location: San Francisco, CA. $182k - $150k.",
+      "url": "https://plaud.example.com/plaud/jobs/test-169-plaud",
+      "lastUpdated": "2026-04-23T09:38:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-23T09:38:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000169,
+      "applicationId": "test-170-anduril",
+      "dateSubmitted": "2026-04-21T09:32:00.000Z",
+      "company": "Anduril",
+      "jobTitle": "Staff Machine Learning Engineer",
+      "platform": "Indeed",
+      "status": "Submitted",
+      "notes": "Salary/location details need manual review. Source: LinkedIn Easy Apply. Location: Austin, TX.",
+      "url": "https://anduril.example.com/anduril/jobs/test-170-anduril",
+      "lastUpdated": "2026-04-21T09:32:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-21T09:32:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000170,
+      "applicationId": "test-171-discord",
+      "dateSubmitted": "2026-02-04T09:55:00.000Z",
+      "company": "Discord",
+      "jobTitle": "AI Platform Engineer",
+      "platform": "Ashby",
+      "status": "Final Interview",
+      "notes": "Need to follow up if no response after two weeks. Source: Google Jobs. Location: San Francisco, CA. $201k - $211k.",
+      "url": "https://discord.example.com/discord/jobs/test-171-discord",
+      "lastUpdated": "2026-02-18T14:57:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-04T09:55:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-02-06T15:43:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-02-13T10:26:00.000Z",
+          "note": "Technical interview completed."
+        },
+        {
+          "status": "Final Interview",
+          "date": "2026-02-18T14:57:00.000Z",
+          "note": "Final interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000171,
+      "applicationId": "test-172-adobe",
+      "dateSubmitted": "2025-12-13T09:54:00.000Z",
+      "company": "Adobe",
+      "jobTitle": "AI Product Engineer",
+      "platform": "Ashby",
+      "status": "Submitted",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: LinkedIn external apply. Location: Palo Alto, CA. $163k - $200k. Contact: Emily Zhao.",
+      "url": "https://adobe.example.com/adobe/jobs/test-172-adobe",
+      "lastUpdated": "2025-12-13T09:54:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-13T09:54:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000172,
+      "applicationId": "test-173-runway",
+      "dateSubmitted": "2026-03-05T09:40:00.000Z",
+      "company": "Runway",
+      "jobTitle": "Machine Learning Infrastructure Engineer",
+      "platform": "Lever",
+      "status": "Phone Screen",
+      "notes": "Role looks aligned with Python, model evaluation, and production ML. Source: Saved job follow-up. Location: San Mateo, CA. $169k - $175k. Contact: Ethan Wright.",
+      "url": "https://jobs.lever.co/runway/jobs/test-173-runway",
+      "lastUpdated": "2026-03-22T12:33:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-05T09:40:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-03-14T09:40:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-03-22T12:33:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000173,
+      "applicationId": "test-174-skydio",
+      "dateSubmitted": "2026-04-01T09:15:00.000Z",
+      "company": "Skydio",
+      "jobTitle": "Staff Machine Learning Engineer",
+      "platform": "Ashby",
+      "status": "Final Interview",
+      "notes": "Need to follow up if no response after two weeks. Source: Recruiter message. Location: Foster City, CA.",
+      "url": "https://skydio.example.com/skydio/jobs/test-174-skydio",
+      "lastUpdated": "2026-04-22T10:07:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-01T09:15:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-04-04T16:10:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-04-13T09:18:00.000Z",
+          "note": "Technical interview completed."
+        },
+        {
+          "status": "Final Interview",
+          "date": "2026-04-22T10:07:00.000Z",
+          "note": "Final interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000174,
+      "applicationId": "test-175-afterquery-exp",
+      "dateSubmitted": "2026-03-06T09:17:00.000Z",
+      "company": "AfterQuery Experts",
+      "jobTitle": "Machine Learning Infrastructure Engineer",
+      "platform": "Workday",
+      "status": "Rejected",
+      "notes": "Need to follow up if no response after two weeks. Source: Recruiter message. Location: San Francisco, CA.",
+      "url": "https://afterquery-experts.example.com/afterquery-experts/jobs/test-175-afterquery-exp",
+      "lastUpdated": "2026-04-05T14:32:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-06T09:17:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-03-13T13:45:00.000Z",
+          "note": "Recruiter reached out to schedule screen."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-03-17T15:14:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-03-25T12:23:00.000Z",
+          "note": "Technical interview scheduled."
+        },
+        {
+          "status": "Final Interview",
+          "date": "2026-04-01T15:35:00.000Z",
+          "note": "Final round completed."
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-04-05T14:32:00.000Z",
+          "note": "Rejected after interview process."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000175,
+      "applicationId": "test-176-twelve-labs",
+      "dateSubmitted": "2025-12-07T09:28:00.000Z",
+      "company": "Twelve Labs",
+      "jobTitle": "AI Platform Engineer",
+      "platform": "Greenhouse",
+      "status": "HR Reachout",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Job board search. Location: Redwood City, CA. Contact: Sofia Patel.",
+      "url": "https://job-boards.greenhouse.io/twelve-labs/jobs/test-176-twelve-labs",
+      "lastUpdated": "2025-12-17T13:53:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-07T09:28:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-12-17T13:53:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000176,
+      "applicationId": "test-177-notion",
+      "dateSubmitted": "2026-02-06T09:38:00.000Z",
+      "company": "Notion",
+      "jobTitle": "Research Scientist, Machine Learning",
+      "platform": "Indeed",
+      "status": "Interview",
+      "notes": "Strong match on job description; company research needed. Source: Referral. Location: Boston, MA.",
+      "url": "https://notion.example.com/notion/jobs/test-177-notion",
+      "lastUpdated": "2026-02-15T10:59:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-06T09:38:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-02-07T09:45:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-02-15T10:59:00.000Z",
+          "note": "Interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000177,
+      "applicationId": "test-178-groq",
+      "dateSubmitted": "2025-12-25T09:59:00.000Z",
+      "company": "Groq",
+      "jobTitle": "LLM Evaluation Engineer",
+      "platform": "Workday",
+      "status": "Submitted",
+      "notes": "Need to follow up if no response after two weeks. Source: Company careers page. Location: Foster City, CA. $103k - $237k.",
+      "url": "https://groq.example.com/groq/jobs/test-178-groq",
+      "lastUpdated": "2025-12-25T09:59:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-25T09:59:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000178,
+      "applicationId": "test-179-doordash",
+      "dateSubmitted": "2025-12-30T09:48:00.000Z",
+      "company": "DoorDash",
+      "jobTitle": "Data Engineer, ML Platform",
+      "platform": "Lever",
+      "status": "Rejected",
+      "notes": "Role looks aligned with Python, model evaluation, and production ML. Source: Recruiter message. Location: Remote, United States. Contact: Jessica Lee.",
+      "url": "https://jobs.lever.co/doordash/jobs/test-179-doordash",
+      "lastUpdated": "2026-01-07T14:40:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-30T09:48:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-01-07T14:40:00.000Z",
+          "note": "Rejection email received."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000179,
+      "applicationId": "test-180-hugging-face",
+      "dateSubmitted": "2026-02-14T09:25:00.000Z",
+      "company": "Hugging Face",
+      "jobTitle": "Generative AI Engineer",
+      "platform": "Company Website",
+      "status": "Final Interview",
+      "notes": "Applied with general AI/ML resume. Source: Saved job follow-up. Location: San Francisco, CA. $218k - $246k.",
+      "url": "https://hugging-face.example.com/hugging-face/jobs/test-180-hugging-face",
+      "lastUpdated": "2026-03-14T13:40:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-14T09:25:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-02-23T09:45:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-03-05T09:49:00.000Z",
+          "note": "Technical interview completed."
+        },
+        {
+          "status": "Final Interview",
+          "date": "2026-03-14T13:40:00.000Z",
+          "note": "Final interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000180,
+      "applicationId": "test-181-crossing-hurdl",
+      "dateSubmitted": "2026-01-05T09:49:00.000Z",
+      "company": "Crossing Hurdles",
+      "jobTitle": "AI Platform Engineer",
+      "platform": "Lever",
+      "status": "Submitted",
+      "notes": "Found via LinkedIn recommendations. Source: LinkedIn external apply. Location: Boston, MA. $169k - $253k. Contact: Daniel Park.",
+      "url": "https://jobs.lever.co/crossing-hurdles/jobs/test-181-crossing-hurdl",
+      "lastUpdated": "2026-01-05T09:49:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-05T09:49:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000181,
+      "applicationId": "test-182-observe-ai",
+      "dateSubmitted": "2026-04-01T09:38:00.000Z",
+      "company": "Observe.AI",
+      "jobTitle": "Search Ranking Engineer",
+      "platform": "Lever",
+      "status": "Submitted",
+      "notes": "Strong match on job description; company research needed. Source: Google Jobs. Location: Foster City, CA. $140k - $280k.",
+      "url": "https://jobs.lever.co/observe-ai/jobs/test-182-observe-ai",
+      "lastUpdated": "2026-04-01T09:38:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-01T09:38:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000182,
+      "applicationId": "test-183-hugging-face",
+      "dateSubmitted": "2026-02-05T09:31:00.000Z",
+      "company": "Hugging Face",
+      "jobTitle": "AI Platform Engineer",
+      "platform": "Lever",
+      "status": "Submitted",
+      "notes": "Applied with general AI/ML resume. Source: LinkedIn Easy Apply. Location: Redwood City, CA. $115k - $329k.",
+      "url": "https://jobs.lever.co/hugging-face/jobs/test-183-hugging-face",
+      "lastUpdated": "2026-02-05T09:31:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-05T09:31:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000183,
+      "applicationId": "test-184-guild-mortgage",
+      "dateSubmitted": "2026-05-04T09:03:00.000Z",
+      "company": "Guild Mortgage",
+      "jobTitle": "Search Ranking Engineer",
+      "platform": "LinkedIn",
+      "status": "Submitted",
+      "notes": "Strong match on job description; company research needed. Source: Job board search. Location: Mountain View, CA. $85k - $212k. Contact: Chris Nguyen.",
+      "url": "https://www.linkedin.com/jobs/view/4360000183",
+      "lastUpdated": "2026-05-04T09:03:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-05-04T09:03:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000184,
+      "applicationId": "test-185-guild-mortgage",
+      "dateSubmitted": "2026-04-28T09:47:00.000Z",
+      "company": "Guild Mortgage",
+      "jobTitle": "Applied Scientist",
+      "platform": "Company Website",
+      "status": "Submitted",
+      "notes": "Salary/location details need manual review. Source: LinkedIn external apply. Location: Los Angeles, CA. $118k - $150k.",
+      "url": "https://guild-mortgage.example.com/guild-mortgage/jobs/test-185-guild-mortgage",
+      "lastUpdated": "2026-04-28T09:47:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-28T09:47:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000185,
+      "applicationId": "test-186-kickmaker",
+      "dateSubmitted": "2025-12-04T09:27:00.000Z",
+      "company": "Kickmaker",
+      "jobTitle": "AI Platform Engineer",
+      "platform": "Greenhouse",
+      "status": "Offer",
+      "notes": "External application form completed. Source: Saved job follow-up. Location: Seattle, WA. $141k - $229k. Contact: Emily Zhao.",
+      "url": "https://job-boards.greenhouse.io/kickmaker/jobs/test-186-kickmaker",
+      "lastUpdated": "2026-01-02T11:09:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-04T09:27:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-12-12T09:15:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2025-12-15T09:08:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2025-12-19T16:59:00.000Z",
+          "note": "Interview scheduled/completed."
+        },
+        {
+          "status": "Final Interview",
+          "date": "2025-12-28T10:22:00.000Z",
+          "note": "Final round completed."
+        },
+        {
+          "status": "Offer",
+          "date": "2026-01-02T11:09:00.000Z",
+          "note": "Offer received."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000186,
+      "applicationId": "test-187-onemagnify",
+      "dateSubmitted": "2026-02-17T09:12:00.000Z",
+      "company": "OneMagnify",
+      "jobTitle": "NLP Engineer",
+      "platform": "Lever",
+      "status": "Final Interview",
+      "notes": "Applied with general AI/ML resume. Source: Recruiter message. Location: Cupertino, CA. $85k - $183k.",
+      "url": "https://jobs.lever.co/onemagnify/jobs/test-187-onemagnify",
+      "lastUpdated": "2026-03-11T15:56:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-17T09:12:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-02-25T11:10:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-02-26T11:34:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2026-03-03T15:17:00.000Z",
+          "note": "Technical interview completed."
+        },
+        {
+          "status": "Final Interview",
+          "date": "2026-03-11T15:56:00.000Z",
+          "note": "Final interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000187,
+      "applicationId": "test-188-zoox",
+      "dateSubmitted": "2026-01-31T09:52:00.000Z",
+      "company": "Zoox",
+      "jobTitle": "Research Engineer, AI",
+      "platform": "Lever",
+      "status": "Phone Screen",
+      "notes": "Need to follow up if no response after two weeks. Source: LinkedIn external apply. Location: San Francisco, CA. Contact: Alex Morgan.",
+      "url": "https://jobs.lever.co/zoox/jobs/test-188-zoox",
+      "lastUpdated": "2026-02-02T09:46:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-31T09:52:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-02-02T09:46:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000188,
+      "applicationId": "test-189-replit",
+      "dateSubmitted": "2026-04-02T09:55:00.000Z",
+      "company": "Replit",
+      "jobTitle": "Machine Learning Applied Researcher",
+      "platform": "Greenhouse",
+      "status": "Phone Screen",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Company careers page. Location: Foster City, CA. Contact: Alex Morgan.",
+      "url": "https://job-boards.greenhouse.io/replit/jobs/test-189-replit",
+      "lastUpdated": "2026-04-12T15:54:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-02T09:55:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-04-09T10:38:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-04-12T15:54:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000189,
+      "applicationId": "test-190-coinbase",
+      "dateSubmitted": "2026-02-23T09:08:00.000Z",
+      "company": "Coinbase",
+      "jobTitle": "Applied Scientist",
+      "platform": "Indeed",
+      "status": "Submitted",
+      "notes": "Need to follow up if no response after two weeks. Source: Google Jobs. Location: Hybrid - Bay Area.",
+      "url": "https://coinbase.example.com/coinbase/jobs/test-190-coinbase",
+      "lastUpdated": "2026-02-23T09:08:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-23T09:08:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000190,
+      "applicationId": "test-191-linkedin",
+      "dateSubmitted": "2025-11-22T09:56:00.000Z",
+      "company": "LinkedIn",
+      "jobTitle": "Data Engineer, ML Platform",
+      "platform": "Workday",
+      "status": "Phone Screen",
+      "notes": "Applied with general AI/ML resume. Source: LinkedIn Easy Apply. Location: Redwood City, CA.",
+      "url": "https://linkedin.example.com/linkedin/jobs/test-191-linkedin",
+      "lastUpdated": "2025-12-01T10:58:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-11-22T09:56:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-11-29T14:33:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2025-12-01T10:58:00.000Z",
+          "note": "Phone screen scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000191,
+      "applicationId": "test-192-lyft",
+      "dateSubmitted": "2026-02-13T09:51:00.000Z",
+      "company": "Lyft",
+      "jobTitle": "Simulation Scenario Generation Engineer",
+      "platform": "Company Website",
+      "status": "Rejected",
+      "notes": "Applied with general AI/ML resume. Source: Referral. Location: Redwood City, CA. $195k - $321k.",
+      "url": "https://lyft.example.com/lyft/jobs/test-192-lyft",
+      "lastUpdated": "2026-02-27T09:26:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-13T09:51:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2026-02-21T16:50:00.000Z",
+          "note": "Recruiter or HR contact received."
+        },
+        {
+          "status": "Rejected",
+          "date": "2026-02-27T09:26:00.000Z",
+          "note": "Rejected after initial contact."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000192,
+      "applicationId": "test-193-perplexity-ai",
+      "dateSubmitted": "2026-02-06T09:58:00.000Z",
+      "company": "Perplexity AI",
+      "jobTitle": "Machine Learning Applied Researcher",
+      "platform": "Lever",
+      "status": "Submitted",
+      "notes": "External application form completed. Source: Recruiter message. Location: Mountain View, CA. Contact: Ryan Kim.",
+      "url": "https://jobs.lever.co/perplexity-ai/jobs/test-193-perplexity-ai",
+      "lastUpdated": "2026-02-06T09:58:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-06T09:58:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000193,
+      "applicationId": "test-194-cerebras",
+      "dateSubmitted": "2026-03-26T09:19:00.000Z",
+      "company": "Cerebras",
+      "jobTitle": "AI Safety & Evaluation Engineer",
+      "platform": "Lever",
+      "status": "Submitted",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: LinkedIn Easy Apply. Location: Mountain View, CA.",
+      "url": "https://jobs.lever.co/cerebras/jobs/test-194-cerebras",
+      "lastUpdated": "2026-03-26T09:19:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-03-26T09:19:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000194,
+      "applicationId": "test-195-appzen",
+      "dateSubmitted": "2025-11-13T09:14:00.000Z",
+      "company": "AppZen",
+      "jobTitle": "Data Scientist",
+      "platform": "Workday",
+      "status": "Submitted",
+      "notes": "Strong match on job description; company research needed. Source: LinkedIn external apply. Location: Redwood City, CA. $108k - $236k.",
+      "url": "https://appzen.example.com/appzen/jobs/test-195-appzen",
+      "lastUpdated": "2025-11-13T09:14:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-11-13T09:14:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000195,
+      "applicationId": "test-196-uber",
+      "dateSubmitted": "2026-02-22T09:38:00.000Z",
+      "company": "Uber",
+      "jobTitle": "Data Scientist",
+      "platform": "Ashby",
+      "status": "Submitted",
+      "notes": "External application form completed. Source: Saved job follow-up. Location: Hybrid - Bay Area. $180k - $305k. Contact: Emily Zhao.",
+      "url": "https://uber.example.com/uber/jobs/test-196-uber",
+      "lastUpdated": "2026-02-22T09:38:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-02-22T09:38:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000196,
+      "applicationId": "test-197-google-deepmin",
+      "dateSubmitted": "2026-01-25T09:02:00.000Z",
+      "company": "Google DeepMind",
+      "jobTitle": "Data Engineer, ML Platform",
+      "platform": "Workday",
+      "status": "HR Reachout",
+      "notes": "External application form completed. Source: Referral. Location: Boston, MA. $122k - $156k.",
+      "url": "https://google-deepmind.example.com/google-deepmind/jobs/test-197-google-deepmin",
+      "lastUpdated": "2026-02-07T12:36:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-01-25T09:02:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2026-02-07T12:36:00.000Z",
+          "note": "Recruiter reached out by email."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000197,
+      "applicationId": "test-198-cerebras",
+      "dateSubmitted": "2025-11-12T09:51:00.000Z",
+      "company": "Cerebras",
+      "jobTitle": "Research Scientist, Machine Learning",
+      "platform": "Company Website",
+      "status": "Submitted",
+      "notes": "Applied with general AI/ML resume. Source: LinkedIn Easy Apply. Location: Los Angeles, CA. $85k - $320k. Contact: Alex Morgan.",
+      "url": "https://cerebras.example.com/cerebras/jobs/test-198-cerebras",
+      "lastUpdated": "2025-11-12T09:51:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-11-12T09:51:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000198,
+      "applicationId": "test-199-dynamism",
+      "dateSubmitted": "2025-12-13T09:08:00.000Z",
+      "company": "Dynamism",
+      "jobTitle": "Data Scientist",
+      "platform": "Lever",
+      "status": "Interview",
+      "notes": "Found via LinkedIn recommendations. Source: Recruiter message. Location: Austin, TX. $106k - $213k.",
+      "url": "https://jobs.lever.co/dynamism/jobs/test-199-dynamism",
+      "lastUpdated": "2025-12-31T12:46:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2025-12-13T09:08:00.000Z",
+          "note": "Initial save"
+        },
+        {
+          "status": "HR Reachout",
+          "date": "2025-12-20T12:12:00.000Z",
+          "note": "Recruiter reached out."
+        },
+        {
+          "status": "Phone Screen",
+          "date": "2025-12-24T11:02:00.000Z",
+          "note": "Phone screen completed."
+        },
+        {
+          "status": "Interview",
+          "date": "2025-12-31T12:46:00.000Z",
+          "note": "Interview scheduled."
+        }
+      ],
+      "schemaVersion": 4
+    },
+    {
+      "id": 1760000000199,
+      "applicationId": "test-200-dynamism",
+      "dateSubmitted": "2026-04-03T09:19:00.000Z",
+      "company": "Dynamism",
+      "jobTitle": "Machine Learning Applied Researcher",
+      "platform": "Lever",
+      "status": "Submitted",
+      "notes": "Saved from search results; resume tailored for ML systems work. Source: Saved job follow-up. Location: San Francisco, CA.",
+      "url": "https://jobs.lever.co/dynamism/jobs/test-200-dynamism",
+      "lastUpdated": "2026-04-03T09:19:00.000Z",
+      "statusHistory": [
+        {
+          "status": "Submitted",
+          "date": "2026-04-03T09:19:00.000Z",
+          "note": "Initial save"
+        }
+      ],
+      "schemaVersion": 4
+    }
+  ]
+}

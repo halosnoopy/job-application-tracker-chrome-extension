@@ -1,12 +1,12 @@
 {
   "manifest_version": 3,
   "name": "Job Application Tracker",
-  "version": "3.0",
+  "version": "4.0",
   "description": "Track and visualize submitted job applications.",
   "permissions": ["storage", "tabs", "activeTab", "scripting", "identity", "contextMenus"],
   "host_permissions": ["https://www.googleapis.com/*"],
   "oauth2": {
-    "client_id": "replace wih your client id from google cloud console",
+    "client_id": "980565833575-c2bbhdf253p10sq1jndsmlm6pgnpqq5g.apps.googleusercontent.com",
     "scopes": [
       "https://www.googleapis.com/auth/drive.file"
     ]

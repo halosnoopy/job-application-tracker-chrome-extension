@@ -36,13 +36,26 @@
     </div>
   </div>
 
-  <label>Status</label>
-  <select id="status">
-    <option value="Submitted">Submitted</option>
-    <option value="Interview">Interview</option>
-    <option value="Rejected">Rejected</option>
-    <option value="Offer">Offer</option>
-  </select>
+  <div class="popup-row two-col">
+    <div>
+      <label>Status</label>
+      <select id="status">
+        <option value="Submitted">Submitted</option>
+        <option value="HR Reachout">HR Reachout</option>
+        <option value="Phone Screen">Phone Screen</option>
+        <option value="Interview">Interview</option>
+        <option value="Final Interview">Final Interview</option>
+        <option value="Offer">Offer</option>
+        <option value="Rejected">Rejected</option>
+        <option value="Withdrawn">Withdrawn</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Application Date</label>
+      <input type="date" id="applicationDate">
+    </div>
+  </div>
 
   <label>Notes</label>
   <textarea id="notes" placeholder="Optional notes"></textarea>
@@ -64,6 +77,43 @@
   <button id="dashboardBtn" class="secondary-btn">Open Dashboard</button>
 
   <p id="message"></p>
+
+  <section id="emailUpdatePanel" class="email-update-panel" style="display: none;">
+    <h3>Email Status Update</h3>
+    <div id="emailUpdateSummary" class="email-update-summary"></div>
+
+    <label for="emailMatchSelect">Match saved application</label>
+    <select id="emailMatchSelect"></select>
+
+    <div class="popup-row two-col">
+      <div>
+        <label for="emailStatusSelect">Detected status</label>
+        <select id="emailStatusSelect">
+          <option value="HR Reachout">HR Reachout</option>
+          <option value="Phone Screen">Phone Screen</option>
+          <option value="Interview">Interview</option>
+          <option value="Final Interview">Final Interview</option>
+          <option value="Offer">Offer</option>
+          <option value="Rejected">Rejected</option>
+          <option value="Withdrawn">Withdrawn</option>
+          <option value="No status change">No status change</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="emailStatusDate">Status date</label>
+        <input id="emailStatusDate" type="date">
+      </div>
+    </div>
+
+    <label for="emailStatusNote">Timeline note</label>
+    <textarea id="emailStatusNote" placeholder="Email update note"></textarea>
+
+    <div class="extract-actions">
+      <button id="applyEmailUpdateBtn">Update Timeline</button>
+      <button id="cancelEmailUpdateBtn">Cancel</button>
+    </div>
+  </section>
 
   <script src="popup.js"></script>
 </body>

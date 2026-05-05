@@ -54,9 +54,9 @@
                 <div class="action-group">
                     <div class="action-group-title">Local</div>
                     <div class="action-group-buttons">
-                        <button id="exportBtn">Export CSV</button>
-                        <button id="importBtn">Import CSV</button>
-                        <input type="file" id="importFile" accept=".csv" style="display: none;">
+                        <button id="exportBtn">Export History</button>
+                        <button id="importBtn">Import History</button>
+                        <input type="file" id="importFile" accept=".json,.csv" style="display: none;">
                         <button id="batchDeleteBtn" disabled>Delete Selected</button>
                         <button id="resetBtn">Reset All Data</button>
                     </div>
@@ -65,8 +65,8 @@
                 <div class="action-group">
                     <div class="action-group-title">Cloud</div>
                     <div class="action-group-buttons">
-                        <button id="driveBackupBtn">Backup to Drive</button>
-                        <button id="driveRestoreBtn">Restore from Drive</button>
+                        <button id="driveBackupBtn">Backup History</button>
+                        <button id="driveRestoreBtn">Restore History</button>
                         <button id="driveDeleteBtn">Remove Cloud Backup</button>
                     </div>
                 </div>
@@ -93,9 +93,13 @@
                 <select id="statusFilter">
                     <option value="All">All Statuses</option>
                     <option value="Submitted">Submitted</option>
+                    <option value="HR Reachout">HR Reachout</option>
+                    <option value="Phone Screen">Phone Screen</option>
                     <option value="Interview">Interview</option>
+                    <option value="Final Interview">Final Interview</option>
                     <option value="Rejected">Rejected</option>
                     <option value="Offer">Offer</option>
+                    <option value="Withdrawn">Withdrawn</option>
                 </select>
 
                 <select id="sortFilter">
@@ -134,9 +138,12 @@
                     <th>Company</th>
                     <th>Job Title</th>
                     <th>Platform</th>
+                    <th>Pipeline</th>
                     <th>Status</th>
+                    <th>Updated</th>
                     <th>Notes</th>
                     <th>Link</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
 
@@ -184,9 +191,13 @@
                 <select id="statsStatusFilter">
                     <option value="All">All statuses</option>
                     <option value="Submitted">Submitted</option>
+                    <option value="HR Reachout">HR Reachout</option>
+                    <option value="Phone Screen">Phone Screen</option>
                     <option value="Interview">Interview</option>
+                    <option value="Final Interview">Final Interview</option>
                     <option value="Rejected">Rejected</option>
                     <option value="Offer">Offer</option>
+                    <option value="Withdrawn">Withdrawn</option>
                 </select>
             </div>
 
@@ -195,6 +206,8 @@
             </div>
         </div>
 
+        <div id="statsKpiGrid" class="stats-kpi-grid"></div>
+
         <div class="stats-top-grid">
             <div class="stats-card stats-card-wide">
                 <h2>Application Trend</h2>
@@ -202,14 +215,14 @@
             </div>
 
             <div class="stats-card stats-card-narrow">
-                <h2>Status Trend</h2>
+                <h2>Pipeline Funnel</h2>
                 <canvas id="statusTrendChart"></canvas>
             </div>
         </div>
 
         <div class="stats-bottom-grid">
             <div class="stats-card position-status-card">
-                <h2>Position Status</h2>
+                <h2>Status Trend</h2>
                 <canvas id="positionStatusChart"></canvas>
             </div>
 
@@ -228,7 +241,43 @@
                 <canvas id="companyChart"></canvas>
             </div>
         </div>
+
+        <div class="stats-card attention-card">
+            <h2>Needs Attention</h2>
+            <div id="needsAttentionList" class="attention-list"></div>
+        </div>
     </section>
+
+    <div id="statusModal" class="modal-backdrop" style="display: none;">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2>Update Status</h2>
+                <button id="closeStatusModalBtn" type="button">Close</button>
+            </div>
+            <div id="statusModalCurrent" class="modal-subtitle"></div>
+            <label for="statusUpdateSelect">New status</label>
+            <select id="statusUpdateSelect"></select>
+            <label for="statusUpdateDate">Status date</label>
+            <input id="statusUpdateDate" type="date">
+            <label for="statusUpdateNote">Note</label>
+            <textarea id="statusUpdateNote" placeholder="Optional status note"></textarea>
+            <div class="modal-actions">
+                <button id="cancelStatusUpdateBtn" type="button">Cancel</button>
+                <button id="saveStatusUpdateBtn" class="primary-btn" type="button">Save Update</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="timelineModal" class="modal-backdrop" style="display: none;">
+        <div class="modal-card modal-card-wide">
+            <div class="modal-header">
+                <h2>Status Timeline</h2>
+                <button id="closeTimelineModalBtn" type="button">Close</button>
+            </div>
+            <div id="timelineModalTitle" class="modal-subtitle"></div>
+            <div id="timelineList" class="timeline-list"></div>
+        </div>
+    </div>
 
     <script src="chart.umd.min.js"></script>
     <script src="dashboard.js"></script>

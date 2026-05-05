@@ -44,12 +44,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     const statsPlatformFilter = document.getElementById("statsPlatformFilter");
     const statsStatusFilter = document.getElementById("statsStatusFilter");
     const statsShowingLabel = document.getElementById("statsShowingLabel");
+    const statsKpiGrid = document.getElementById("statsKpiGrid");
+    const needsAttentionList = document.getElementById("needsAttentionList");
 
     const defaultViewSelect = document.getElementById("defaultViewSelect");
     const geminiApiKeyInput = document.getElementById("geminiApiKeyInput");
     const saveGeminiKeyBtn = document.getElementById("saveGeminiKeyBtn");
     const clearGeminiKeyBtn = document.getElementById("clearGeminiKeyBtn");
     const googleClientIdInput = document.getElementById("googleClientIdInput");
+
+    const statusModal = document.getElementById("statusModal");
+    const statusModalCurrent = document.getElementById("statusModalCurrent");
+    const statusUpdateSelect = document.getElementById("statusUpdateSelect");
+    const statusUpdateDate = document.getElementById("statusUpdateDate");
+    const statusUpdateNote = document.getElementById("statusUpdateNote");
+    const closeStatusModalBtn = document.getElementById("closeStatusModalBtn");
+    const cancelStatusUpdateBtn = document.getElementById("cancelStatusUpdateBtn");
+    const saveStatusUpdateBtn = document.getElementById("saveStatusUpdateBtn");
+    const timelineModal = document.getElementById("timelineModal");
+    const timelineModalTitle = document.getElementById("timelineModalTitle");
+    const timelineList = document.getElementById("timelineList");
+    const closeTimelineModalBtn = document.getElementById("closeTimelineModalBtn");
 
     const topPageInfo = document.getElementById("topPageInfo");
 
@@ -63,11 +78,35 @@ document.addEventListener("DOMContentLoaded", async () => {
     let statusChart = null;
     let companyChart = null;
 
+    const STATUSES = [
+        "Submitted",
+        "HR Reachout",
+        "Phone Screen",
+        "Interview",
+        "Final Interview",
+        "Offer",
+        "Rejected",
+        "Withdrawn"
+    ];
+
+    const PIPELINE_STAGES = ["Applied", "Contact", "Interview", "Decision"];
+
     const statusColors = {
         Submitted: "#0a84ff",
-        Interview: "#ff9f0a",
+        "HR Reachout": "#ff9f0a",
+        "Phone Screen": "#ff9f0a",
+        Interview: "#bf5af2",
+        "Final Interview": "#bf5af2",
+        Offer: "#30d158",
         Rejected: "#ff453a",
-        Offer: "#30d158"
+        Withdrawn: "#8e8e93"
+    };
+
+    const stageColors = {
+        Applied: "#0a84ff",
+        Contact: "#ff9f0a",
+        Interview: "#bf5af2",
+        Decision: "#30d158"
     };
 
     const chartColors = [
@@ -90,6 +129,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     let applications = result.applications || [];
     let defaultDashboardView = result.defaultDashboardView || "metadata";
+    let activeStatusAppId = null;
+    let activeTimelineAppId = null;
 
     if (defaultDashboardView !== "metadata" && defaultDashboardView !== "stats") {
         defaultDashboardView = "metadata";
@@ -98,6 +139,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     defaultViewSelect.value = defaultDashboardView;
     geminiApiKeyInput.value = result.geminiApiKey || "";
     googleClientIdInput.value = chrome.runtime.getManifest().oauth2?.client_id || "";
+    populateStatusSelect(statusUpdateSelect);
+
+    const migratedApplications = applications.map(normalizeApplication);
+    const didMigrateApplications =
+        JSON.stringify(migratedApplications) !== JSON.stringify(applications);
+    applications = migratedApplications;
+
+    if (didMigrateApplications) {
+        await chrome.storage.local.set({ applications });
+    }
 
     renderDashboard();
     populateStatsFilters();
@@ -106,6 +157,140 @@ document.addEventListener("DOMContentLoaded", async () => {
     function shortenLabel(label, maxLength = 18) {
         if (!label) return "Other";
         return label.length > maxLength ? label.slice(0, maxLength) + "..." : label;
+    }
+
+    function escapeHtml(value) {
+        return String(value || "")
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+    }
+
+    function populateStatusSelect(selectElement) {
+        selectElement.innerHTML = "";
+        STATUSES.forEach((status) => {
+            const option = document.createElement("option");
+            option.value = status;
+            option.textContent = status;
+            selectElement.appendChild(option);
+        });
+    }
+
+    function normalizeDate(value, fallback = new Date().toISOString()) {
+        const date = new Date(value);
+        return isNaN(date.getTime()) ? fallback : date.toISOString();
+    }
+
+    function getStageForStatus(status) {
+        if (status === "Submitted") return "Applied";
+        if (status === "HR Reachout" || status === "Phone Screen") return "Contact";
+        if (status === "Interview" || status === "Final Interview") return "Interview";
+        if (status === "Offer" || status === "Rejected" || status === "Withdrawn") return "Decision";
+        return "Applied";
+    }
+
+    function normalizeStatus(status) {
+        if (status === "Rejected" || status === "Offer" || status === "Submitted") return status;
+        if (status === "Interview") return status;
+        return STATUSES.includes(status) ? status : "Submitted";
+    }
+
+    function sortStatusHistory(history) {
+        return [...history].sort((a, b) => new Date(a.date) - new Date(b.date));
+    }
+
+    function getCurrentStatusFromHistory(history) {
+        const sorted = sortStatusHistory(history);
+        return sorted[sorted.length - 1]?.status || "Submitted";
+    }
+
+    function normalizeApplication(app) {
+        const dateSubmitted = normalizeDate(app.dateSubmitted || app.createdAt);
+        let history = Array.isArray(app.statusHistory) ? app.statusHistory : [];
+
+        history = history
+            .map((event) => ({
+                status: normalizeStatus(event.status || app.status),
+                date: normalizeDate(event.date || dateSubmitted, dateSubmitted),
+                note: event.note || ""
+            }))
+            .filter((event) => event.status && event.date);
+
+        if (history.length === 0) {
+            history = [
+                {
+                    status: normalizeStatus(app.status || "Submitted"),
+                    date: dateSubmitted,
+                    note: app.schemaVersion ? "" : "Migrated from previous version"
+                }
+            ];
+        }
+
+        history = sortStatusHistory(history);
+        const status = getCurrentStatusFromHistory(history);
+        const lastUpdated = history[history.length - 1]?.date || dateSubmitted;
+
+        return {
+            ...app,
+            id: app.id || Date.now() + Math.random(),
+            applicationId: app.applicationId || crypto.randomUUID(),
+            dateSubmitted,
+            status,
+            lastUpdated,
+            statusHistory: history,
+            schemaVersion: 4
+        };
+    }
+
+    async function saveApplications(nextApplications = applications) {
+        applications = nextApplications.map(normalizeApplication);
+        await chrome.storage.local.set({ applications });
+        renderDashboard();
+        populateStatsFilters();
+
+        if (statsView.style.display !== "none") {
+            renderStats();
+        }
+    }
+
+    function formatDate(value) {
+        const date = new Date(value);
+        return isNaN(date.getTime()) ? "" : date.toLocaleDateString();
+    }
+
+    function dateInputValue(value) {
+        const date = new Date(value);
+        return isNaN(date.getTime()) ? new Date().toISOString().slice(0, 10) : date.toISOString().slice(0, 10);
+    }
+
+    function statusClass(status) {
+        return `status-${String(status || "Submitted").toLowerCase().replace(/\s+/g, "-")}`;
+    }
+
+    function renderPipeline(app) {
+        const currentStage = getStageForStatus(app.status);
+        const currentStageIndex = PIPELINE_STAGES.indexOf(currentStage);
+        const reachedStages = new Set(
+            (app.statusHistory || [])
+                .filter((event) => PIPELINE_STAGES.indexOf(getStageForStatus(event.status)) <= currentStageIndex)
+                .map((event) => getStageForStatus(event.status))
+        );
+
+        return `
+            <div class="pipeline-bar" title="${escapeHtml(app.status || currentStage)}">
+                ${PIPELINE_STAGES.map((stage, index) => {
+                    const isReached = reachedStages.has(stage) || stage === currentStage;
+                    const isCurrent = stage === currentStage;
+                    const color = isCurrent
+                        ? statusColors[app.status] || stageColors[stage]
+                        : stageColors[stage];
+
+                    return `<span class="pipeline-step ${isReached ? "reached" : ""} ${isCurrent ? "current" : ""}" style="--stage-color: ${color}"></span>`;
+                }).join("")}
+            </div>
+        `;
     }
 
     function switchView(view) {
@@ -139,7 +324,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     function renderStatusStats() {
         const submitted = applications.filter((app) => app.status === "Submitted").length;
-        const interview = applications.filter((app) => app.status === "Interview").length;
+        const interview = applications.filter((app) =>
+            app.status === "Interview" || app.status === "Final Interview"
+        ).length;
         const rejected = applications.filter((app) => app.status === "Rejected").length;
         const offer = applications.filter((app) => app.status === "Offer").length;
 
@@ -220,40 +407,36 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <input type="checkbox" class="row-checkbox" data-id="${app.id}">
                 </td>
                 <td>${date}</td>
-                <td>${app.company || ""}</td>
-                <td>${app.jobTitle || ""}</td>
-                <td>${app.platform || "Other"}</td>
+                <td>${escapeHtml(app.company || "")}</td>
+                <td>${escapeHtml(app.jobTitle || "")}</td>
+                <td>${escapeHtml(app.platform || "Other")}</td>
+                <td>${renderPipeline(app)}</td>
                 <td>
-                    <select class="status-select status-${String(app.status || "Submitted").toLowerCase()}" data-id="${app.id}">
-                        <option value="Submitted" ${app.status === "Submitted" ? "selected" : ""}>Submitted</option>
-                        <option value="Interview" ${app.status === "Interview" ? "selected" : ""}>Interview</option>
-                        <option value="Rejected" ${app.status === "Rejected" ? "selected" : ""}>Rejected</option>
-                        <option value="Offer" ${app.status === "Offer" ? "selected" : ""}>Offer</option>
-                    </select>
+                    <span class="status-badge ${statusClass(app.status)}">${escapeHtml(app.status || "Submitted")}</span>
                 </td>
-                <td>${app.notes || ""}</td>
-                <td><a href="${app.url || "#"}" target="_blank">Open</a></td>
+                <td>${formatDate(app.lastUpdated || app.dateSubmitted)}</td>
+                <td>${escapeHtml(app.notes || "")}</td>
+                <td><a href="${escapeHtml(app.url || "#")}" target="_blank">Open</a></td>
+                <td>
+                    <div class="row-actions">
+                        <button class="update-status-btn" data-id="${app.id}">Update</button>
+                        <button class="timeline-btn" data-id="${app.id}">Timeline</button>
+                    </div>
+                </td>
             `;
 
             table.appendChild(row);
         });
 
-        document.querySelectorAll(".status-select").forEach((select) => {
-            select.addEventListener("change", async (event) => {
-                const id = Number(event.target.dataset.id);
-                const newStatus = event.target.value;
+        document.querySelectorAll(".update-status-btn").forEach((button) => {
+            button.addEventListener("click", () => {
+                openStatusModal(Number(button.dataset.id));
+            });
+        });
 
-                applications = applications.map((app) =>
-                    app.id === id ? { ...app, status: newStatus } : app
-                );
-
-                await chrome.storage.local.set({ applications });
-                renderDashboard();
-                populateStatsFilters();
-
-                if (statsView.style.display !== "none") {
-                    renderStats();
-                }
+        document.querySelectorAll(".timeline-btn").forEach((button) => {
+            button.addEventListener("click", () => {
+                openTimelineModal(Number(button.dataset.id));
             });
         });
 
@@ -263,6 +446,128 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         selectAllCheckbox.checked = false;
         updateSelectedCount();
+    }
+
+    function openStatusModal(appId) {
+        const app = applications.find((item) => item.id === appId);
+        if (!app) return;
+
+        activeStatusAppId = appId;
+        statusModalCurrent.textContent = `${app.company || "Unknown company"} - ${app.jobTitle || "Unknown role"} | Current: ${app.status}`;
+        statusUpdateSelect.value = app.status || "Submitted";
+        statusUpdateDate.value = new Date().toISOString().slice(0, 10);
+        statusUpdateNote.value = "";
+        statusModal.style.display = "flex";
+    }
+
+    function closeStatusModal() {
+        activeStatusAppId = null;
+        statusModal.style.display = "none";
+    }
+
+    async function saveStatusUpdate() {
+        const app = applications.find((item) => item.id === activeStatusAppId);
+        if (!app) return;
+
+        const status = statusUpdateSelect.value;
+        const date = normalizeDate(`${statusUpdateDate.value || new Date().toISOString().slice(0, 10)}T12:00:00`);
+        const note = statusUpdateNote.value.trim();
+        const nextApp = normalizeApplication({
+            ...app,
+            statusHistory: [
+                ...(app.statusHistory || []),
+                {
+                    status,
+                    date,
+                    note
+                }
+            ]
+        });
+
+        await saveApplications(applications.map((item) => item.id === app.id ? nextApp : item));
+        closeStatusModal();
+    }
+
+    function openTimelineModal(appId) {
+        const app = applications.find((item) => item.id === appId);
+        if (!app) return;
+
+        activeTimelineAppId = appId;
+        timelineModalTitle.textContent = `${app.company || "Unknown company"} - ${app.jobTitle || "Unknown role"}`;
+        renderTimelineList(app);
+        timelineModal.style.display = "flex";
+    }
+
+    function closeTimelineModal() {
+        activeTimelineAppId = null;
+        timelineModal.style.display = "none";
+    }
+
+    function renderTimelineList(app) {
+        const history = sortStatusHistory(app.statusHistory || []);
+
+        timelineList.innerHTML = history.map((event, index) => `
+            <div class="timeline-item" data-index="${index}">
+                <div class="timeline-dot ${statusClass(event.status)}"></div>
+                <div class="timeline-fields">
+                    <select class="timeline-status" data-index="${index}">
+                        ${STATUSES.map((status) =>
+                            `<option value="${status}" ${status === event.status ? "selected" : ""}>${status}</option>`
+                        ).join("")}
+                    </select>
+                    <input class="timeline-date" data-index="${index}" type="date" value="${dateInputValue(event.date)}">
+                    <input class="timeline-note" data-index="${index}" type="text" value="${escapeHtml(event.note || "")}" placeholder="Optional note">
+                </div>
+                <div class="timeline-actions">
+                    <button class="save-timeline-event-btn" data-index="${index}">Save</button>
+                    <button class="delete-timeline-event-btn" data-index="${index}" ${history.length <= 1 ? "disabled" : ""}>Delete</button>
+                </div>
+            </div>
+        `).join("");
+
+        document.querySelectorAll(".save-timeline-event-btn").forEach((button) => {
+            button.addEventListener("click", async () => {
+                await saveTimelineEvent(Number(button.dataset.index));
+            });
+        });
+
+        document.querySelectorAll(".delete-timeline-event-btn").forEach((button) => {
+            button.addEventListener("click", async () => {
+                await deleteTimelineEvent(Number(button.dataset.index));
+            });
+        });
+    }
+
+    async function saveTimelineEvent(index) {
+        const app = applications.find((item) => item.id === activeTimelineAppId);
+        if (!app) return;
+
+        const history = sortStatusHistory(app.statusHistory || []);
+        history[index] = {
+            status: document.querySelector(`.timeline-status[data-index="${index}"]`).value,
+            date: normalizeDate(`${document.querySelector(`.timeline-date[data-index="${index}"]`).value}T12:00:00`),
+            note: document.querySelector(`.timeline-note[data-index="${index}"]`).value.trim()
+        };
+
+        const nextApp = normalizeApplication({ ...app, statusHistory: history });
+        await saveApplications(applications.map((item) => item.id === app.id ? nextApp : item));
+        openTimelineModal(app.id);
+    }
+
+    async function deleteTimelineEvent(index) {
+        const app = applications.find((item) => item.id === activeTimelineAppId);
+        if (!app) return;
+
+        const history = sortStatusHistory(app.statusHistory || []);
+        if (history.length <= 1) {
+            alert("At least one status event is required.");
+            return;
+        }
+
+        history.splice(index, 1);
+        const nextApp = normalizeApplication({ ...app, statusHistory: history });
+        await saveApplications(applications.map((item) => item.id === app.id ? nextApp : item));
+        openTimelineModal(app.id);
     }
 
     function populateStatsFilters() {
@@ -422,11 +727,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             `Showing: ${getTimeRangeLabel()} | Group by ${groupBy} (${filteredApps.length} applications)`;
 
         renderApplicationTrendChart(filteredApps, groupBy);
+        renderFunnelChart(filteredApps);
         renderStatusTrendChart(filteredApps, groupBy);
-        renderPositionStatusChart(filteredApps);
         renderStatusChart(filteredApps);
         renderJobTitleChart(filteredApps);
         renderCompanyChart(filteredApps);
+        renderKpiCards(filteredApps);
+        renderNeedsAttention(filteredApps);
     }
 
     function getTimeRangeLabel() {
@@ -477,42 +784,46 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    function renderStatusTrendChart(filteredApps, groupBy) {
-        const statuses = ["Submitted", "Interview", "Rejected", "Offer"];
-        const labels = [...new Set(filteredApps.map((app) => getDateKey(app.dateSubmitted, groupBy)))].sort();
+    function getStatusEvents(filteredApps) {
+        return filteredApps.flatMap((app) =>
+            (app.statusHistory || []).map((event) => ({
+                ...event,
+                app
+            }))
+        );
+    }
 
-        const datasets = statuses.map((status) => ({
-            label: status,
-            data: labels.map((label) =>
-                filteredApps.filter((app) =>
-                    getDateKey(app.dateSubmitted, groupBy) === label && app.status === status
-                ).length
-            ),
-            backgroundColor: statusColors[status]
-        }));
+    function renderFunnelChart(filteredApps) {
+        const counts = PIPELINE_STAGES.map((stage) =>
+            filteredApps.filter((app) =>
+                (app.statusHistory || []).some((event) => getStageForStatus(event.status) === stage)
+            ).length
+        );
 
         destroyChart(statusTrendChart);
 
         statusTrendChart = new Chart(document.getElementById("statusTrendChart"), {
             type: "bar",
             data: {
-                labels,
-                datasets
+                labels: PIPELINE_STAGES,
+                datasets: [
+                    {
+                        label: "Reached stage",
+                        data: counts,
+                        backgroundColor: PIPELINE_STAGES.map((stage) => stageColors[stage])
+                    }
+                ]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        position: "bottom"
+                        display: false
                     }
                 },
                 scales: {
-                    x: {
-                        stacked: true
-                    },
                     y: {
-                        stacked: true,
                         beginAtZero: true,
                         ticks: {
                             precision: 0
@@ -523,25 +834,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    function renderPositionStatusChart(filteredApps) {
-        const statuses = ["Submitted", "Interview", "Rejected", "Offer"];
-        const titleCounts = countBy(filteredApps, (app) => app.jobTitle || "Other");
-        const topTitles = Object.keys(getTopNWithOther(titleCounts, 5));
+    function renderStatusTrendChart(filteredApps, groupBy) {
+        const events = getStatusEvents(filteredApps);
+        const labels = [...new Set(events.map((event) => getDateKey(event.date, groupBy)))].sort();
 
-        const datasets = statuses.map((status) => ({
+        const datasets = STATUSES.map((status) => ({
             label: status,
-            data: topTitles.map((title) => {
-                if (title === "Other") {
-                    return filteredApps.filter((app) => {
-                        const appTitle = app.jobTitle || "Other";
-                        return !topTitles.includes(appTitle) && app.status === status;
-                    }).length;
-                }
-
-                return filteredApps.filter((app) =>
-                    (app.jobTitle || "Other") === title && app.status === status
-                ).length;
-            }),
+            data: labels.map((label) =>
+                events.filter((event) =>
+                    getDateKey(event.date, groupBy) === label && event.status === status
+                ).length
+            ),
             backgroundColor: statusColors[status]
         }));
 
@@ -550,7 +853,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         positionStatusChart = new Chart(document.getElementById("positionStatusChart"), {
             type: "bar",
             data: {
-                labels: topTitles.map((title) => shortenLabel(title, 14)),
+                labels,
                 datasets
             },
             options: {
@@ -679,43 +982,124 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    function exportCSV() {
+    function percent(numerator, denominator) {
+        if (!denominator) return "0%";
+        return `${Math.round((numerator / denominator) * 100)}%`;
+    }
+
+    function reachedStage(app, stage) {
+        return (app.statusHistory || []).some((event) => getStageForStatus(event.status) === stage);
+    }
+
+    function daysBetween(start, end) {
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+        if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) return null;
+        return Math.max(0, Math.round((endDate - startDate) / 86400000));
+    }
+
+    function averageDaysToStage(filteredApps, stage) {
+        const values = filteredApps
+            .map((app) => {
+                const event = sortStatusHistory(app.statusHistory || [])
+                    .find((item) => getStageForStatus(item.status) === stage);
+                return event ? daysBetween(app.dateSubmitted, event.date) : null;
+            })
+            .filter((value) => Number.isFinite(value));
+
+        if (values.length === 0) return "n/a";
+        return `${Math.round(values.reduce((sum, value) => sum + value, 0) / values.length)}d`;
+    }
+
+    function renderKpiCards(filteredApps) {
+        const total = filteredApps.length;
+        const active = filteredApps.filter((app) =>
+            !["Offer", "Rejected", "Withdrawn"].includes(app.status)
+        ).length;
+        const contacted = filteredApps.filter((app) => reachedStage(app, "Contact")).length;
+        const interviewed = filteredApps.filter((app) => reachedStage(app, "Interview")).length;
+        const offers = filteredApps.filter((app) => app.status === "Offer").length;
+        const now = new Date();
+        const weekAgo = new Date();
+        weekAgo.setDate(now.getDate() - 7);
+        const thisWeek = filteredApps.filter((app) => new Date(app.dateSubmitted) >= weekAgo).length;
+
+        const cards = [
+            ["Total", total],
+            ["Active Pipeline", active],
+            ["This Week", thisWeek],
+            ["Contact Rate", percent(contacted, total)],
+            ["Interview Rate", percent(interviewed, total)],
+            ["Offer Rate", percent(offers, total)],
+            ["Avg Days to Contact", averageDaysToStage(filteredApps, "Contact")]
+        ];
+
+        statsKpiGrid.innerHTML = cards.map(([label, value]) => `
+            <div class="kpi-card">
+                <div class="kpi-value">${escapeHtml(value)}</div>
+                <div class="kpi-label">${escapeHtml(label)}</div>
+            </div>
+        `).join("");
+    }
+
+    function renderNeedsAttention(filteredApps) {
+        const now = new Date();
+        const items = filteredApps
+            .filter((app) => !["Offer", "Rejected", "Withdrawn"].includes(app.status))
+            .map((app) => {
+                const daysSinceUpdate = daysBetween(app.lastUpdated || app.dateSubmitted, now);
+                let reason = "";
+
+                if (app.status === "Submitted" && daysSinceUpdate >= 14) {
+                    reason = `${daysSinceUpdate} days since submission`;
+                } else if (getStageForStatus(app.status) === "Contact" && daysSinceUpdate >= 7) {
+                    reason = `${daysSinceUpdate} days since contact`;
+                } else if (getStageForStatus(app.status) === "Interview" && daysSinceUpdate >= 14) {
+                    reason = `${daysSinceUpdate} days since interview update`;
+                } else if (!app.notes) {
+                    reason = "No notes";
+                }
+
+                return reason ? { app, reason } : null;
+            })
+            .filter(Boolean)
+            .slice(0, 8);
+
+        if (items.length === 0) {
+            needsAttentionList.innerHTML = `<div class="empty-attention">No stale active records right now.</div>`;
+            return;
+        }
+
+        needsAttentionList.innerHTML = items.map(({ app, reason }) => `
+            <div class="attention-item">
+                <div>
+                    <strong>${escapeHtml(app.company || "Unknown company")}</strong>
+                    <span>${escapeHtml(app.jobTitle || "Unknown role")}</span>
+                </div>
+                <span class="attention-reason">${escapeHtml(reason)}</span>
+            </div>
+        `).join("");
+    }
+
+    function createBackupPayload() {
+        return {
+            app: "Job Application Tracker",
+            schemaVersion: 4,
+            exportedAt: new Date().toISOString(),
+            applications
+        };
+    }
+
+    function exportHistory() {
         if (applications.length === 0) {
             alert("No data to export.");
             return;
         }
 
-        const headers = [
-            "Application ID",
-            "Date",
-            "Company",
-            "Job Title",
-            "Platform",
-            "Status",
-            "Notes",
-            "URL"
-        ];
-
-        const rows = applications.map((app) => [
-            app.applicationId || app.id || crypto.randomUUID(),
-            new Date(app.dateSubmitted).toLocaleDateString(),
-            app.company || "",
-            app.jobTitle || "",
-            app.platform || "Other",
-            app.status || "Submitted",
-            app.notes || "",
-            app.url || ""
-        ]);
-
-        const csvContent = [headers, ...rows]
-            .map((row) =>
-                row.map((value) => `"${String(value).replaceAll('"', '""')}"`).join(",")
-            )
-            .join("\n");
-
-        const blob = new Blob([csvContent], { type: "text/csv" });
+        const blob = new Blob([JSON.stringify(createBackupPayload(), null, 2)], {
+            type: "application/json"
+        });
         const url = URL.createObjectURL(blob);
-
         const a = document.createElement("a");
         a.href = url;
 
@@ -723,7 +1107,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             .toISOString()
             .replace(/[:.]/g, "-");
 
-        a.download = `job_application_record_at_${timestamp}.csv`;
+        a.download = `job_application_history_at_${timestamp}.json`;
         a.click();
 
         URL.revokeObjectURL(url);
@@ -795,6 +1179,27 @@ document.addEventListener("DOMContentLoaded", async () => {
             .filter((app) => app.company && app.jobTitle);
     }
 
+    function parseHistoryFile(text, fileName = "") {
+        const trimmed = text.trim();
+
+        if (!trimmed) {
+            return [];
+        }
+
+        if (fileName.toLowerCase().endsWith(".csv")) {
+            return parseCSV(text).map(normalizeApplication);
+        }
+
+        try {
+            const payload = JSON.parse(text);
+            return normalizeBackupApplications(payload)
+                .filter((app) => app.company && app.jobTitle)
+                .map(normalizeApplication);
+        } catch (error) {
+            return parseCSV(text).map(normalizeApplication);
+        }
+    }
+
     function getGoogleAuthToken(interactive = true) {
         return new Promise((resolve, reject) => {
             chrome.identity.getAuthToken({ interactive }, (token) => {
@@ -837,15 +1242,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         const data = await response.json();
 
         return data.files?.[0] || null;
-    }
-
-    function createBackupPayload() {
-        return {
-            app: "Job Application Tracker",
-            schemaVersion: 1,
-            exportedAt: new Date().toISOString(),
-            applications
-        };
     }
 
     function createMultipartBody(metadata, payload) {
@@ -1022,6 +1418,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         alert("Gemini API key cleared.");
     });
 
+    closeStatusModalBtn.addEventListener("click", closeStatusModal);
+    cancelStatusUpdateBtn.addEventListener("click", closeStatusModal);
+    saveStatusUpdateBtn.addEventListener("click", saveStatusUpdate);
+    closeTimelineModalBtn.addEventListener("click", closeTimelineModal);
+
+    statusModal.addEventListener("click", (event) => {
+        if (event.target === statusModal) {
+            closeStatusModal();
+        }
+    });
+
+    timelineModal.addEventListener("click", (event) => {
+        if (event.target === timelineModal) {
+            closeTimelineModal();
+        }
+    });
+
     [
         statsTimeRange,
         statsGroupBy,
@@ -1035,7 +1448,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     });
 
-    exportBtn.addEventListener("click", exportCSV);
+    exportBtn.addEventListener("click", exportHistory);
 
     driveBackupBtn.addEventListener("click", async () => {
         if (applications.length === 0) {
@@ -1059,7 +1472,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             alert(error.message || "Google Drive backup failed.");
         } finally {
             driveBackupBtn.disabled = false;
-            driveBackupBtn.textContent = "Backup to Drive";
+            driveBackupBtn.textContent = "Backup History";
         }
     });
 
@@ -1087,17 +1500,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const payload = await downloadDriveBackup(token, file.id);
             const importedApplications = normalizeBackupApplications(payload)
                 .filter((app) => app.company && app.jobTitle)
-                .map((app) => ({
-                    id: app.id || Date.now() + Math.random(),
-                    applicationId: app.applicationId || crypto.randomUUID(),
-                    dateSubmitted: app.dateSubmitted || new Date().toISOString(),
-                    company: app.company || "",
-                    jobTitle: app.jobTitle || "",
-                    platform: app.platform || "Other",
-                    status: app.status || "Submitted",
-                    notes: app.notes || "",
-                    url: app.url || ""
-                }));
+                .map(normalizeApplication);
 
             if (importedApplications.length === 0) {
                 alert("The Google Drive backup file does not contain valid records.");
@@ -1106,14 +1509,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             const result = mergeApplications(importedApplications);
 
-            await chrome.storage.local.set({ applications });
             currentPage = 1;
-            renderDashboard();
-            populateStatsFilters();
-
-            if (statsView.style.display !== "none") {
-                renderStats();
-            }
+            await saveApplications(applications);
 
             alert(
                 `Restore complete. Added ${result.added} records. Skipped ${result.skipped} duplicates.`
@@ -1123,7 +1520,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             alert(error.message || "Google Drive restore failed.");
         } finally {
             driveRestoreBtn.disabled = false;
-            driveRestoreBtn.textContent = "Restore from Drive";
+            driveRestoreBtn.textContent = "Restore History";
         }
     });
 
@@ -1179,13 +1576,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         applications = applications.filter((app) => !selectedIds.includes(app.id));
 
-        await chrome.storage.local.set({ applications });
-        renderDashboard();
-        populateStatsFilters();
-
-        if (statsView.style.display !== "none") {
-            renderStats();
-        }
+        await saveApplications(applications);
 
         alert("Selected application(s) deleted.");
     });
@@ -1202,16 +1593,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         const text = await file.text();
-        const importedApplications = parseCSV(text);
+        const importedApplications = parseHistoryFile(text, file.name);
 
         if (importedApplications.length === 0) {
-            alert("No valid records found in the CSV file.");
+            alert("No valid records found in the history file.");
             importFile.value = "";
             return;
         }
 
         const confirmImport = confirm(
-            `Import ${importedApplications.length} records? Duplicates will be skipped.`
+            `Import ${importedApplications.length} history records? Duplicates will be skipped.`
         );
 
         if (!confirmImport) {
@@ -1239,14 +1630,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         applications = [...applications, ...uniqueImportedApplications];
 
-        await chrome.storage.local.set({ applications });
         currentPage = 1;
-        renderDashboard();
-        populateStatsFilters();
-
-        if (statsView.style.display !== "none") {
-            renderStats();
-        }
+        await saveApplications(applications);
 
         alert(
             `Import complete. Added ${uniqueImportedApplications.length} new records. Skipped ${duplicateCount} duplicates.`
@@ -1262,11 +1647,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         const exportFirst = confirm(
-            "Do you want to export your data to CSV before resetting?"
+            "Do you want to export your history before resetting?"
         );
 
         if (exportFirst) {
-            exportCSV();
+            exportHistory();
         }
 
         const confirmReset = confirm(
@@ -1278,14 +1663,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         applications = [];
-        await chrome.storage.local.set({ applications });
         currentPage = 1;
-        renderDashboard();
-        populateStatsFilters();
-
-        if (statsView.style.display !== "none") {
-            renderStats();
-        }
+        await saveApplications(applications);
 
         alert("All records have been reset.");
     });

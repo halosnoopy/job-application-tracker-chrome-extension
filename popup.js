@@ -11,9 +11,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     const debugExtractBtn = document.getElementById("debugExtractBtn");
     const dashboardBtn = document.getElementById("dashboardBtn");
     const message = document.getElementById("message");
+    const applicationDateInput = document.getElementById("applicationDate");
+    const emailUpdatePanel = document.getElementById("emailUpdatePanel");
+    const emailUpdateSummary = document.getElementById("emailUpdateSummary");
+    const emailMatchSelect = document.getElementById("emailMatchSelect");
+    const emailStatusSelect = document.getElementById("emailStatusSelect");
+    const emailStatusDate = document.getElementById("emailStatusDate");
+    const emailStatusNote = document.getElementById("emailStatusNote");
+    const applyEmailUpdateBtn = document.getElementById("applyEmailUpdateBtn");
+    const cancelEmailUpdateBtn = document.getElementById("cancelEmailUpdateBtn");
     const popupParams = new URLSearchParams(window.location.search);
     const sourceTabId = Number(popupParams.get("tabId"));
     const shouldAutoExtract = popupParams.get("autoExtract") === "1";
+    const shouldAutoAiExtract = popupParams.get("autoAiExtract") === "1";
+    let pendingEmailUpdate = null;
+
+    applicationDateInput.value = new Date().toISOString().slice(0, 10);
+    emailStatusDate.value = new Date().toISOString().slice(0, 10);
 
     function getTextLength(value) {
         return JSON.stringify(value || "").length;
@@ -70,6 +84,175 @@ document.addEventListener("DOMContentLoaded", async () => {
         return result;
     }
 
+    function cleanComparable(value) {
+        return String(value || "")
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, " ")
+            .replace(/\b(inc|llc|ltd|corp|corporation|company|the|and|role|job|position|opening)\b/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
+    }
+
+    function escapeHtml(value) {
+        return String(value || "")
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+    }
+
+    function dateInputValue(value) {
+        const date = new Date(value);
+        return isNaN(date.getTime()) ? new Date().toISOString().slice(0, 10) : date.toISOString().slice(0, 10);
+    }
+
+    function tokenOverlapScore(a, b) {
+        const aTokens = new Set(cleanComparable(a).split(" ").filter((token) => token.length > 2));
+        const bTokens = new Set(cleanComparable(b).split(" ").filter((token) => token.length > 2));
+
+        if (aTokens.size === 0 || bTokens.size === 0) return 0;
+
+        const overlap = [...aTokens].filter((token) => bTokens.has(token)).length;
+        return overlap / Math.max(aTokens.size, bTokens.size);
+    }
+
+    function getStageForStatus(status) {
+        if (status === "Submitted") return "Applied";
+        if (status === "HR Reachout" || status === "Phone Screen") return "Contact";
+        if (status === "Interview" || status === "Final Interview") return "Interview";
+        if (status === "Offer" || status === "Rejected" || status === "Withdrawn") return "Decision";
+        return "Applied";
+    }
+
+    function normalizeDate(value, fallback = new Date().toISOString()) {
+        const date = new Date(value);
+        return isNaN(date.getTime()) ? fallback : date.toISOString();
+    }
+
+    function sortStatusHistory(history) {
+        return [...(history || [])].sort((a, b) => new Date(a.date) - new Date(b.date));
+    }
+
+    function normalizeApplication(app) {
+        const dateSubmitted = normalizeDate(app.dateSubmitted || app.createdAt);
+        let history = Array.isArray(app.statusHistory) ? app.statusHistory : [];
+
+        if (history.length === 0) {
+            history = [
+                {
+                    status: app.status || "Submitted",
+                    date: dateSubmitted,
+                    note: app.schemaVersion ? "" : "Migrated from previous version"
+                }
+            ];
+        }
+
+        history = sortStatusHistory(history.map((event) => ({
+            status: event.status || app.status || "Submitted",
+            date: normalizeDate(event.date || dateSubmitted, dateSubmitted),
+            note: event.note || ""
+        })));
+
+        return {
+            ...app,
+            id: app.id || Date.now() + Math.random(),
+            applicationId: app.applicationId || crypto.randomUUID(),
+            dateSubmitted,
+            statusHistory: history,
+            status: history[history.length - 1]?.status || app.status || "Submitted",
+            lastUpdated: history[history.length - 1]?.date || dateSubmitted,
+            schemaVersion: 4
+        };
+    }
+
+    function scoreApplicationMatch(app, update) {
+        let score = 0;
+        const appCompany = cleanComparable(app.company);
+        const updateCompany = cleanComparable(update.company);
+        const appTitle = cleanComparable(app.jobTitle);
+        const updateTitle = cleanComparable(update.jobTitle);
+
+        if (appCompany && updateCompany && appCompany === updateCompany) score += 50;
+        else if (appCompany && updateCompany && (appCompany.includes(updateCompany) || updateCompany.includes(appCompany))) score += 30;
+
+        const titleOverlap = tokenOverlapScore(appTitle, updateTitle);
+        if (titleOverlap >= 0.8) score += 45;
+        else if (titleOverlap >= 0.5) score += 30;
+        else if (titleOverlap >= 0.25) score += 15;
+
+        if (!["Offer", "Rejected", "Withdrawn"].includes(app.status)) score += 15;
+        else score -= 25;
+
+        const appliedDate = new Date(app.dateSubmitted);
+        const statusDate = new Date(update.statusDate || new Date());
+
+        if (!isNaN(appliedDate.getTime()) && !isNaN(statusDate.getTime())) {
+            const ageDays = Math.round((Date.now() - appliedDate.getTime()) / 86400000);
+            if (statusDate < appliedDate) score -= 50;
+            if (ageDays <= 30) score += 10;
+            else if (ageDays <= 90) score += 5;
+            else score -= 5;
+        }
+
+        return score;
+    }
+
+    function matchApplications(applications, update) {
+        return applications
+            .map((app) => ({
+                app: normalizeApplication(app),
+                score: scoreApplicationMatch(normalizeApplication(app), update)
+            }))
+            .sort((a, b) => b.score - a.score);
+    }
+
+    function hideEmailUpdatePanel() {
+        pendingEmailUpdate = null;
+        emailUpdatePanel.style.display = "none";
+    }
+
+    function closePopupSoon(delay = 900) {
+        setTimeout(() => {
+            window.close();
+        }, delay);
+    }
+
+    async function showEmailUpdatePanel(update) {
+        const result = await chrome.storage.local.get(["applications"]);
+        const applications = (result.applications || []).map(normalizeApplication);
+        const matches = matchApplications(applications, update);
+
+        pendingEmailUpdate = {
+            ...update,
+            applications
+        };
+
+        emailUpdateSummary.innerHTML = `
+            <div><strong>Status:</strong> ${escapeHtml(update.status || "No status change")}</div>
+            <div><strong>Company:</strong> ${escapeHtml(update.company || "Unknown")}</div>
+            <div><strong>Job:</strong> ${escapeHtml(update.jobTitle || "Unknown")}</div>
+            <div><strong>Contact:</strong> ${escapeHtml(update.contactName || "")} ${escapeHtml(update.contactEmail || "")}</div>
+            <div><strong>Confidence:</strong> ${escapeHtml(update.confidence || "unknown")}</div>
+        `;
+
+        emailMatchSelect.innerHTML = `<option value="">Choose application...</option>` +
+            matches.map(({ app, score }) => `
+                <option value="${escapeHtml(app.applicationId || app.id)}">
+                    ${escapeHtml(app.company || "Unknown")} - ${escapeHtml(app.jobTitle || "Unknown")} - ${escapeHtml(app.status || "Submitted")} (${score})
+                </option>
+            `).join("");
+
+        if (matches[0]?.score >= 50) {
+            emailMatchSelect.value = matches[0].app.applicationId || matches[0].app.id;
+        }
+
+        emailStatusSelect.value = update.status || "No status change";
+        emailStatusDate.value = dateInputValue(update.statusDate || new Date().toISOString());
+        emailStatusNote.value = update.note || "";
+        emailUpdatePanel.style.display = "block";
+    }
+
     async function getTargetTab() {
         if (Number.isInteger(sourceTabId) && sourceTabId > 0) {
             try {
@@ -114,7 +297,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         await runLocalExtraction();
     });
 
-    aiExtractBtn.addEventListener("click", async () => {
+    async function runAiExtraction() {
         message.textContent = "Extracting job details with AI...";
         message.style.color = "#333";
 
@@ -157,6 +340,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             const aiResult = await extractJobInfoWithGemini(pageInfo, geminiApiKey);
             console.log("AI extraction final result:", aiResult);
 
+            if (aiResult.pageType === "email_message") {
+                await showEmailUpdatePanel(aiResult);
+                message.textContent = "AI detected an email update. Please review before applying.";
+                message.style.color = "green";
+                return;
+            }
+
             fillPopupForm(aiResult, tab.url);
 
             message.textContent = "AI extraction complete. Please review before saving.";
@@ -171,7 +361,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             extractBtn.disabled = false;
             saveBtn.disabled = false;
         }
-    });
+    }
+
+    aiExtractBtn.addEventListener("click", runAiExtraction);
 
     /*
      * Debug Extract is intentionally inactive while the extension is in normal use.
@@ -245,6 +437,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         const platform = document.getElementById("platform").value;
         const status = document.getElementById("status").value;
         const notes = document.getElementById("notes").value.trim();
+        const applicationDate = applicationDateInput.value || new Date().toISOString().slice(0, 10);
+        const submittedAt = new Date(`${applicationDate}T12:00:00`).toISOString();
 
         if (!company || !jobTitle) {
             message.textContent = "Please enter company and job title.";
@@ -271,7 +465,16 @@ document.addEventListener("DOMContentLoaded", async () => {
             status,
             notes,
             url: currentUrl,
-            dateSubmitted: new Date().toISOString()
+            dateSubmitted: submittedAt,
+            lastUpdated: submittedAt,
+            schemaVersion: 4,
+            statusHistory: [
+                {
+                    status,
+                    date: submittedAt,
+                    note: notes ? "Initial save: " + notes : "Initial save"
+                }
+            ]
         };
 
         const result = await chrome.storage.local.get(["applications"]);
@@ -296,6 +499,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 document.getElementById("notes").value = "";
                 document.getElementById("platform").value = "LinkedIn";
                 document.getElementById("status").value = "Submitted";
+                applicationDateInput.value = new Date().toISOString().slice(0, 10);
 
                 if (extractedUrlInput) {
                     extractedUrlInput.value = "";
@@ -317,9 +521,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("notes").value = "";
         document.getElementById("platform").value = "LinkedIn";
         document.getElementById("status").value = "Submitted";
+        applicationDateInput.value = new Date().toISOString().slice(0, 10);
 
         if (extractedUrlInput) {
             extractedUrlInput.value = "";
+        }
+
+        if (shouldAutoExtract) {
+            closePopupSoon();
         }
     });
 
@@ -329,8 +538,64 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     });
 
+    cancelEmailUpdateBtn.addEventListener("click", hideEmailUpdatePanel);
+
+    applyEmailUpdateBtn.addEventListener("click", async () => {
+        if (!pendingEmailUpdate) {
+            return;
+        }
+
+        if (emailStatusSelect.value === "No status change") {
+            message.textContent = "No timeline update was applied.";
+            message.style.color = "#666";
+            hideEmailUpdatePanel();
+            closePopupSoon();
+            return;
+        }
+
+        const selectedId = emailMatchSelect.value;
+
+        if (!selectedId) {
+            message.textContent = "Choose the saved application to update.";
+            message.style.color = "red";
+            return;
+        }
+
+        const statusDate = normalizeDate(`${emailStatusDate.value || new Date().toISOString().slice(0, 10)}T12:00:00`);
+        const note = emailStatusNote.value.trim() || pendingEmailUpdate.note || "Status update detected from email.";
+        const applications = pendingEmailUpdate.applications.map((app) => {
+            const appKey = String(app.applicationId || app.id);
+
+            if (appKey !== String(selectedId)) {
+                return app;
+            }
+
+            return normalizeApplication({
+                ...app,
+                statusHistory: [
+                    ...(app.statusHistory || []),
+                    {
+                        status: emailStatusSelect.value,
+                        date: statusDate,
+                        note
+                    }
+                ]
+            });
+        });
+
+        await chrome.storage.local.set({ applications });
+        message.textContent = "Application timeline updated from email.";
+        message.style.color = "green";
+        hideEmailUpdatePanel();
+        closePopupSoon();
+    });
+
     if (shouldAutoExtract) {
         await runLocalExtraction();
+    }
+
+    if (shouldAutoAiExtract) {
+        await runAiExtraction();
     }
 });
 
@@ -410,24 +675,38 @@ async function extractJobInfoWithGemini(pageInfo, geminiApiKey) {
     }
 
     const aiPageInfo = buildAiPageInfo();
+    const maxOutputTokens = pageInfo.pageTypeHint === "email_message" ? 320 : 180;
 
     const prompt = `
-Extract the primary job posting from this structured page data.
+Extract either a job posting or a job-application email update from this structured page data.
 
 Rules:
 - Use only values that appear in the provided data.
-- Prefer selectedPanelText and candidates over pageTitle.
+- First classify pageType as "job_posting", "email_message", or "unknown".
+- Prefer selectedPanelText, emailMessage, and candidates over pageTitle.
 - For LinkedIn pages, use the selected job panel/card only. Ignore profile/header text.
 - Ignore recommended jobs, navigation, ads, and unrelated listings.
+- For email pages, classify the application status from the currently opened email only.
+- For email pages, ignore quoted old thread content when possible.
+- Status must be one of: HR Reachout, Phone Screen, Interview, Final Interview, Offer, Rejected, Withdrawn, No status change.
 - If a field is uncertain, return an empty string.
 - Return JSON only.
 
 JSON format:
 {
+  "pageType": "job_posting",
   "isJobPage": true,
+  "isJobApplicationEmail": false,
   "company": "",
   "jobTitle": "",
-  "platform": ""
+  "platform": "",
+  "status": "",
+  "statusDate": "",
+  "interviewDateTime": "",
+  "contactName": "",
+  "contactEmail": "",
+  "note": "",
+  "confidence": "low"
 }
 
 Page data:
@@ -454,7 +733,7 @@ ${JSON.stringify(aiPageInfo)}
                         ],
                         generationConfig: {
                             temperature: 0.1,
-                            maxOutputTokens: 180,
+                            maxOutputTokens,
                             responseMimeType: "application/json"
                         }
                     })
@@ -510,6 +789,23 @@ ${JSON.stringify(aiPageInfo)}
             console.error("Invalid JSON extracted from Gemini:", jsonMatch[0]);
             throw new Error("Failed to parse Gemini JSON response.");
         }
+    }
+
+    if (parsed.pageType === "email_message" || parsed.isJobApplicationEmail) {
+        return {
+            pageType: "email_message",
+            isJobApplicationEmail: Boolean(parsed.isJobApplicationEmail),
+            company: parsed.company || "",
+            jobTitle: parsed.jobTitle || "",
+            platform: pageInfo.platform || parsed.platform || "Email",
+            status: parsed.status || "No status change",
+            statusDate: parsed.statusDate || new Date().toISOString().slice(0, 10),
+            interviewDateTime: parsed.interviewDateTime || "",
+            contactName: parsed.contactName || "",
+            contactEmail: parsed.contactEmail || pageInfo.emailMessage?.senderEmail || "",
+            note: parsed.note || "",
+            confidence: parsed.confidence || "low"
+        };
     }
 
     function getAllowedEvidenceText() {
@@ -690,6 +986,8 @@ function collectCompactPageInfo() {
     }
 
     function detectPlatform() {
+        if (hostname.includes("mail.google.com")) return "Gmail";
+        if (hostname.includes("outlook.live.com") || hostname.includes("outlook.office.com")) return "Outlook";
         if (hostname.includes("linkedin.com")) return "LinkedIn";
         if (hostname.includes("myworkdayjobs.com")) return "Workday";
         if (hostname.includes("greenhouse.io")) return "Greenhouse";
@@ -698,6 +996,58 @@ function collectCompactPageInfo() {
         if (hostname.includes("ashbyhq.com")) return "Ashby";
         if (hostname.includes("jobs.gem.com")) return "Gem";
         return "Company Website";
+    }
+
+    function extractEmailMessageCandidate() {
+        const isGmail = hostname.includes("mail.google.com");
+        const isOutlook = hostname.includes("outlook.live.com") || hostname.includes("outlook.office.com");
+
+        if (!isGmail && !isOutlook) {
+            return null;
+        }
+
+        const selectionText = cleanText(window.getSelection?.().toString() || "");
+        const subject =
+            cleanText(deepQuerySelector("h2.hP")?.innerText) ||
+            cleanText(deepQuerySelector("[role='heading']")?.innerText) ||
+            cleanText(deepQuerySelector("[aria-label='Subject']")?.innerText) ||
+            title;
+        const senderElement =
+            deepQuerySelector(".gD[email]") ||
+            deepQuerySelector("span[email]") ||
+            deepQuerySelector("[data-hovercard-id]");
+        const senderEmail =
+            cleanText(senderElement?.getAttribute?.("email")) ||
+            cleanText(senderElement?.getAttribute?.("data-hovercard-id"));
+        const senderName = cleanText(senderElement?.innerText);
+        const receivedDateText =
+            cleanText(deepQuerySelector(".g3")?.getAttribute?.("title")) ||
+            cleanText(deepQuerySelector(".g3")?.innerText) ||
+            cleanText(deepQuerySelector("time")?.getAttribute?.("datetime")) ||
+            cleanText(deepQuerySelector("time")?.innerText);
+
+        const bodySelectors = isGmail
+            ? ["div.a3s.aiL", "div.a3s", "[role='main']"]
+            : ["[role='document']", "[aria-label='Message body']", "[role='main']"];
+
+        const bodyText = bodySelectors
+            .flatMap((selector) => deepQuerySelectorAll(selector))
+            .map((element) => element.innerText || "")
+            .filter(Boolean)
+            .join("\n")
+            .replace(/\nOn .* wrote:[\s\S]*/i, "")
+            .replace(/\nFrom:.*\nSent:.*\nTo:.*[\s\S]*/i, "");
+
+        return {
+            pageTypeHint: "email_message",
+            platform: isGmail ? "Gmail" : "Outlook",
+            subject,
+            senderName,
+            senderEmail,
+            receivedDateText,
+            selectedText: compactText(selectionText, 3000),
+            bodyText: compactText(selectionText || bodyText, 6000)
+        };
     }
 
     function getCleanLinkedInUrl() {
@@ -1035,6 +1385,22 @@ function collectCompactPageInfo() {
     }
 
     const platform = detectPlatform();
+    const emailMessage = extractEmailMessageCandidate();
+
+    if (emailMessage) {
+        return {
+            url,
+            cleanUrl: url,
+            hostname,
+            platform,
+            pageTitle: title,
+            pageTypeHint: "email_message",
+            emailMessage,
+            selectedPanelText: emailMessage.bodyText,
+            candidates: {}
+        };
+    }
+
     const cleanUrl = getCleanLinkedInUrl();
 
     const h1Text = Array.from(deepQuerySelectorAll("h1"))

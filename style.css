@@ -144,6 +144,13 @@ button:disabled {
     align-items: end;
 }
 
+.popup-row.two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    align-items: end;
+}
+
 .extract-actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -161,6 +168,27 @@ button:disabled {
     color: var(--offer-fg);
     font-size: 13px;
     font-weight: 600;
+}
+
+.email-update-panel {
+    margin-top: 14px;
+    padding: 12px;
+    background-color: rgba(255, 255, 255, 0.86);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+}
+
+.email-update-panel h3 {
+    margin: 0 0 10px;
+    font-size: 15px;
+}
+
+.email-update-summary {
+    display: grid;
+    gap: 4px;
+    margin-bottom: 10px;
+    color: var(--muted);
+    font-size: 12px;
 }
 
 body:not(.dashboard-page) > label,
@@ -547,33 +575,93 @@ body:not(.dashboard-page) > .secondary-btn {
     margin: 0;
 }
 
-.status-select {
-    width: 132px;
-    min-height: 32px;
-    padding: 6px 9px;
-    border-color: transparent;
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 5px 9px;
+    border-radius: 999px;
+    border: 1px solid transparent;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 750;
+    white-space: nowrap;
 }
 
-.status-select.status-submitted {
+.status-badge.status-submitted,
+.timeline-dot.status-submitted {
     color: var(--submitted-fg);
     background-color: var(--submitted-bg);
 }
 
-.status-select.status-interview {
+.status-badge.status-hr-reachout,
+.status-badge.status-phone-screen,
+.timeline-dot.status-hr-reachout,
+.timeline-dot.status-phone-screen {
     color: var(--interview-fg);
     background-color: var(--interview-bg);
 }
 
-.status-select.status-rejected {
+.status-badge.status-interview,
+.status-badge.status-final-interview,
+.timeline-dot.status-interview,
+.timeline-dot.status-final-interview {
+    color: #5b2596;
+    background-color: #f2e7ff;
+}
+
+.status-badge.status-rejected,
+.timeline-dot.status-rejected {
     color: var(--rejected-fg);
     background-color: var(--rejected-bg);
 }
 
-.status-select.status-offer {
+.status-badge.status-offer,
+.timeline-dot.status-offer {
     color: var(--offer-fg);
     background-color: var(--offer-bg);
+}
+
+.status-badge.status-withdrawn,
+.timeline-dot.status-withdrawn {
+    color: #5f6368;
+    background-color: #f0f0f2;
+}
+
+.pipeline-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 22px);
+    gap: 4px;
+    align-items: center;
+}
+
+.pipeline-step {
+    width: 22px;
+    height: 8px;
+    border-radius: 999px;
+    background-color: #e6e6ea;
+}
+
+.pipeline-step.reached {
+    background-color: var(--stage-color);
+    opacity: 0.55;
+}
+
+.pipeline-step.current {
+    opacity: 1;
+    box-shadow: 0 0 0 2px rgba(10, 132, 255, 0.14);
+}
+
+.row-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.row-actions button {
+    width: auto;
+    min-height: 30px;
+    margin: 0;
+    padding: 6px 10px;
+    font-size: 12px;
 }
 
 .pagination-bar {
@@ -584,6 +672,33 @@ body:not(.dashboard-page) > .secondary-btn {
 }
 
 /* Stats */
+.stats-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(120px, 1fr));
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.kpi-card {
+    padding: 14px;
+    background-color: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.kpi-value {
+    font-size: 22px;
+    font-weight: 780;
+}
+
+.kpi-label {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 700;
+}
+
 .stats-control-bar {
     display: flex;
     justify-content: space-between;
@@ -675,9 +790,157 @@ body:not(.dashboard-page) > .secondary-btn {
     margin: 0 auto;
 }
 
+.attention-card {
+    margin-top: 16px;
+    min-height: 0;
+}
+
+.attention-list {
+    display: grid;
+    gap: 8px;
+}
+
+.attention-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.attention-item:last-child {
+    border-bottom: none;
+}
+
+.attention-item span {
+    display: block;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.attention-reason {
+    white-space: nowrap;
+    color: var(--interview-fg) !important;
+    font-weight: 750;
+}
+
+.empty-attention {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(10px);
+}
+
+.modal-card {
+    width: min(520px, 100%);
+    max-height: 86vh;
+    overflow: auto;
+    padding: 18px;
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+}
+
+.modal-card-wide {
+    width: min(900px, 100%);
+}
+
+.modal-header,
+.modal-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.modal-header {
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.modal-actions {
+    justify-content: flex-end;
+    margin-top: 14px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.modal-header button,
+.modal-actions button {
+    width: auto;
+    margin: 0;
+}
+
+.modal-subtitle {
+    margin-bottom: 14px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.timeline-list {
+    display: grid;
+    gap: 10px;
+}
+
+.timeline-item {
+    display: grid;
+    grid-template-columns: 16px 1fr auto;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+}
+
+.timeline-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+}
+
+.timeline-fields {
+    display: grid;
+    grid-template-columns: 160px 140px 1fr;
+    gap: 8px;
+}
+
+.timeline-fields input,
+.timeline-fields select {
+    width: 100%;
+    min-height: 34px;
+}
+
+.timeline-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.timeline-actions button {
+    width: auto;
+    min-height: 32px;
+    margin: 0;
+    padding: 6px 10px;
+}
+
 @media (max-width: 1200px) {
     .stats-bottom-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stats-kpi-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
@@ -712,6 +975,12 @@ body:not(.dashboard-page) > .secondary-btn {
     }
 
     .settings-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-kpi-grid,
+    .timeline-fields,
+    .timeline-item {
         grid-template-columns: 1fr;
     }
 }
