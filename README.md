@@ -40,7 +40,8 @@ No custom backend server is required.
 ## Main Features
 
 ### Save Applications
-<img width="1030" height="723" alt="image" src="https://github.com/user-attachments/assets/cad82a26-b82e-42b1-a7e5-b7d8896106a0" />
+<img width="1022" height="759" alt="image" src="https://github.com/user-attachments/assets/23e55259-58e3-4ccc-8913-48032d526b22" />
+
 
 The popup saves:
 
@@ -124,7 +125,7 @@ The user chooses the correct saved application before the timeline is updated. T
 ---
 
 ### Dashboard
-<img width="3767" height="1364" alt="image" src="https://github.com/user-attachments/assets/6552f3dd-6bd5-47ed-bc44-8b330aa5fe0b" />
+<img width="3760" height="1411" alt="image" src="https://github.com/user-attachments/assets/33a17c83-af88-47fb-953d-029355cf2d5f" />
 
 The dashboard includes:
 
