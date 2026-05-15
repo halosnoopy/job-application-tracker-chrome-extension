@@ -260,7 +260,11 @@ Restore behavior:
 
 - Keeps existing local records
 - Imports valid records from Drive
-- Skips duplicate records
+- Adds records that do not exist locally
+- Merges matching records instead of skipping them
+- Combines status timeline events so newer cloud or local status changes are preserved
+
+Local **Import History** uses the same merge behavior as Google Drive restore.
 
 Remove Cloud Backup behavior:
 
@@ -517,6 +521,7 @@ README.md           Project documentation
 - Renamed local backup actions to Export History and Import History.
 - Switched primary local backup format to JSON history while keeping CSV import compatibility.
 - Updated Google Drive backup payload to schema version 4.
+- Updated local import and Google Drive restore to merge matching records and preserve new status timeline events.
 - Added synthetic 200-record JSON fixture and generator for dashboard testing.
 
 ### 3.0

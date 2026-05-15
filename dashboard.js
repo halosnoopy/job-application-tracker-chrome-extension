@@ -1191,16 +1191,57 @@ document.addEventListener("DOMContentLoaded", async () => {
         URL.revokeObjectURL(url);
     }
 
-    function getDuplicateKey(app) {
-        if (app.applicationId) {
-            return `id|${app.applicationId}`;
-        }
-
-        const date = new Date(app.dateSubmitted).toLocaleDateString();
-
-        return `fallback|${(app.company || "").toLowerCase().trim()}|${(app.jobTitle || "")
+    function normalizeComparable(value) {
+        return String(value || "")
             .toLowerCase()
-            .trim()}|${date}`;
+            .replace(/[^a-z0-9]+/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
+    }
+
+    function getDateKey(value) {
+        const date = new Date(value);
+        return isNaN(date.getTime()) ? "" : date.toISOString().slice(0, 10);
+    }
+
+    function getApplicationMatchKeys(app) {
+        const keys = [];
+        const normalizedUrl = normalizeUrlForMatch(app.url || "");
+        const company = normalizeComparable(app.company);
+        const jobTitle = normalizeComparable(app.jobTitle);
+        const date = getDateKey(app.dateSubmitted);
+
+        if (app.applicationId) keys.push(`id|${app.applicationId}`);
+        if (normalizedUrl) keys.push(`url|${normalizedUrl}`);
+        if (company && jobTitle && date) keys.push(`fallback|${company}|${jobTitle}|${date}`);
+
+        return keys;
+    }
+
+    function normalizeUrlForMatch(url) {
+        if (!url) return "";
+
+        try {
+            const parsedUrl = new URL(url);
+
+            if (parsedUrl.hostname.includes("linkedin.com")) {
+                const pathMatch = parsedUrl.pathname.match(/\/jobs\/view\/(\d+)/);
+                const jobId = pathMatch?.[1] || parsedUrl.searchParams.get("currentJobId");
+
+                if (jobId) {
+                    return `https://www.linkedin.com/jobs/view/${jobId}`;
+                }
+            }
+
+            parsedUrl.hash = "";
+            ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach((param) => {
+                parsedUrl.searchParams.delete(param);
+            });
+
+            return parsedUrl.toString().replace(/\/$/, "").toLowerCase();
+        } catch (error) {
+            return String(url).trim().replace(/\/$/, "").toLowerCase();
+        }
     }
 
     function parseCSV(text) {
@@ -1389,18 +1430,150 @@ document.addEventListener("DOMContentLoaded", async () => {
         return [];
     }
 
-    function mergeApplications(importedApplications) {
-        const existingKeys = new Set(applications.map(getDuplicateKey));
-        const uniqueApplications = importedApplications.filter((app) => {
-            const key = getDuplicateKey(app);
-            return !existingKeys.has(key);
+    function getStatusEventKey(event) {
+        return [
+            event.status || "",
+            normalizeDate(event.date || ""),
+            String(event.note || "").trim()
+        ].join("|");
+    }
+
+    function mergeStatusHistories(localHistory = [], importedHistory = []) {
+        const events = [];
+        const seen = new Set();
+
+        [...localHistory, ...importedHistory].forEach((event) => {
+            const normalizedEvent = {
+                status: normalizeStatus(event.status || "Submitted"),
+                date: normalizeDate(event.date || new Date().toISOString()),
+                note: event.note || ""
+            };
+            const key = getStatusEventKey(normalizedEvent);
+
+            if (!seen.has(key)) {
+                seen.add(key);
+                events.push(normalizedEvent);
+            }
         });
 
-        applications = [...applications, ...uniqueApplications];
+        return sortStatusHistory(events);
+    }
+
+    function pickFirstValue(...values) {
+        return values.find((value) => String(value || "").trim()) || "";
+    }
+
+    function pickEarlierDate(a, b) {
+        const first = new Date(a);
+        const second = new Date(b);
+
+        if (isNaN(first.getTime())) return b;
+        if (isNaN(second.getTime())) return a;
+
+        return first <= second ? a : b;
+    }
+
+    function mergeApplicationRecord(localApp, importedApp) {
+        const local = normalizeApplication(localApp);
+        const imported = normalizeApplication(importedApp);
+        const statusHistory = mergeStatusHistories(local.statusHistory, imported.statusHistory);
+        const latestEvent = sortStatusHistory(statusHistory).at(-1);
+        const currentStatus = latestEvent?.status || local.status || imported.status || "Submitted";
+        const localUpdated = new Date(local.lastUpdated || local.dateSubmitted);
+        const importedUpdated = new Date(imported.lastUpdated || imported.dateSubmitted);
+        const importedIsNewer =
+            !isNaN(importedUpdated.getTime()) &&
+            (isNaN(localUpdated.getTime()) || importedUpdated > localUpdated);
+        const terminalStatus = ["Offer", "Rejected", "Withdrawn"].includes(currentStatus);
+        const nextEventDate = terminalStatus
+            ? ""
+            : importedIsNewer
+                ? pickFirstValue(imported.nextEventDate, local.nextEventDate)
+                : pickFirstValue(local.nextEventDate, imported.nextEventDate);
+        const nextEventLabel = terminalStatus
+            ? ""
+            : importedIsNewer
+                ? pickFirstValue(imported.nextEventLabel, local.nextEventLabel)
+                : pickFirstValue(local.nextEventLabel, imported.nextEventLabel);
+
+        return normalizeApplication({
+            ...local,
+            applicationId: local.applicationId || imported.applicationId || crypto.randomUUID(),
+            dateSubmitted: pickEarlierDate(local.dateSubmitted, imported.dateSubmitted),
+            company: pickFirstValue(local.company, imported.company),
+            jobTitle: pickFirstValue(local.jobTitle, imported.jobTitle),
+            platform: pickFirstValue(local.platform, imported.platform, "Other"),
+            notes: pickFirstValue(local.notes, imported.notes),
+            url: pickFirstValue(local.url, imported.url),
+            nextEventDate,
+            nextEventLabel,
+            statusHistory
+        });
+    }
+
+    function buildApplicationIndex(sourceApplications) {
+        const index = new Map();
+
+        sourceApplications.forEach((app, appIndex) => {
+            getApplicationMatchKeys(app).forEach((key) => {
+                if (!index.has(key)) {
+                    index.set(key, appIndex);
+                }
+            });
+        });
+
+        return index;
+    }
+
+    function findMatchingApplicationIndex(app, index) {
+        for (const key of getApplicationMatchKeys(app)) {
+            if (index.has(key)) {
+                return index.get(key);
+            }
+        }
+
+        return -1;
+    }
+
+    function mergeApplications(importedApplications) {
+        const nextApplications = applications.map(normalizeApplication);
+        const index = buildApplicationIndex(nextApplications);
+        let added = 0;
+        let updated = 0;
+        let unchanged = 0;
+
+        importedApplications.map(normalizeApplication).forEach((importedApp) => {
+            const matchingIndex = findMatchingApplicationIndex(importedApp, index);
+
+            if (matchingIndex === -1) {
+                const normalizedImported = normalizeApplication(importedApp);
+                nextApplications.push(normalizedImported);
+                const newIndex = nextApplications.length - 1;
+                getApplicationMatchKeys(normalizedImported).forEach((key) => index.set(key, newIndex));
+                added += 1;
+                return;
+            }
+
+            const before = JSON.stringify(normalizeApplication(nextApplications[matchingIndex]));
+            const merged = mergeApplicationRecord(nextApplications[matchingIndex], importedApp);
+            const after = JSON.stringify(merged);
+            nextApplications[matchingIndex] = merged;
+            getApplicationMatchKeys(merged).forEach((key) => index.set(key, matchingIndex));
+
+            if (before === after) {
+                unchanged += 1;
+            } else {
+                updated += 1;
+            }
+        });
+
+        applications = nextApplications;
 
         return {
-            added: uniqueApplications.length,
-            skipped: importedApplications.length - uniqueApplications.length
+            added,
+            updated,
+            unchanged,
+            processed: importedApplications.length
         };
     }
 
@@ -1556,7 +1729,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     driveRestoreBtn.addEventListener("click", async () => {
         const confirmRestore = confirm(
-            "Restore from Google Drive? Existing local records will be kept and duplicate records will be skipped."
+            "Restore from Google Drive? Existing records will be merged so new timeline/status changes are preserved."
         );
 
         if (!confirmRestore) {
@@ -1591,7 +1764,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             await saveApplications(applications);
 
             alert(
-                `Restore complete. Added ${result.added} records. Skipped ${result.skipped} duplicates.`
+                `Restore complete.\n\nAdded: ${result.added}\nUpdated: ${result.updated}\nUnchanged: ${result.unchanged}`
             );
         } catch (error) {
             console.error("Google Drive restore failed:", error);
@@ -1680,7 +1853,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         const confirmImport = confirm(
-            `Import ${importedApplications.length} history records? Duplicates will be skipped.`
+            `Import ${importedApplications.length} history records? Matching records will be merged so timeline/status changes are preserved.`
         );
 
         if (!confirmImport) {
@@ -1688,31 +1861,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        const existingKeys = new Set(applications.map(getDuplicateKey));
-
-        const uniqueImportedApplications = importedApplications.filter((app) => {
-            const key = getDuplicateKey(app);
-            return !existingKeys.has(key);
-        });
-
-        const duplicateCount =
-            importedApplications.length - uniqueImportedApplications.length;
-
-        if (uniqueImportedApplications.length === 0) {
-            alert(
-                `All imported records already exist. Skipped ${duplicateCount} duplicates.`
-            );
-            importFile.value = "";
-            return;
-        }
-
-        applications = [...applications, ...uniqueImportedApplications];
+        const result = mergeApplications(importedApplications);
 
         currentPage = 1;
         await saveApplications(applications);
 
         alert(
-            `Import complete. Added ${uniqueImportedApplications.length} new records. Skipped ${duplicateCount} duplicates.`
+            `Import complete.\n\nAdded: ${result.added}\nUpdated: ${result.updated}\nUnchanged: ${result.unchanged}`
         );
 
         importFile.value = "";
